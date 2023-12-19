@@ -67,6 +67,38 @@ const CreateBlog = () => {
                 placeholder="როლი თანამდებობაზე და ზოგადი აღწერა"
                 hint="მინიმუმ 4 სიმბოლო, ქართული ასოები"
               />
+              <div className="flex gap-8">
+                <InputGroup
+                  label="გამოქვეყნების თარიღი *"
+                  type="date"
+                  //   name="firstname"
+                  //   hint="მინიმუმ 2 სიმბოლო, ქართული ასოები"
+                  //   value={info.firstname}
+                  //   changeHandler={handleTextInputChange}
+                  //   isValid={validationErrors.personal.firstname}
+                />
+                <InputGroup
+                  label="გვარი *"
+                  type="text"
+                  name="lastname"
+                  hint="მინიმუმ 2 სიმბოლო, ქართული ასოები"
+                  //   value={info.lastname}
+                  //   changeHandler={handleTextInputChange}
+                  //   isValid={validationErrors.personal.lastname}
+                />
+              </div>
+              <InputGroup
+                label="ელ-ფოსტა"
+                type="text"
+                name="lastname"
+                hint="მეილი უნდა მთავრდებოდეს @redberry.ge-ით"
+                //   value={info.lastname}
+                //   changeHandler={handleTextInputChange}
+                //   isValid={validationErrors.personal.lastname}
+              />
+              <div className='flex justify-end'>
+                <button className="bg-[#adadad] rounded-md text-white px-10 py-3">გამოქვეყნება</button>
+              </div>
             </form>
           </div>
         </div>
