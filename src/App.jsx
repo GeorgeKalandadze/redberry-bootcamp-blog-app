@@ -4,6 +4,8 @@ import axios from 'axios'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './pages/home/home';
 import Blog from './pages/Blog/Blog';
+import CreateBlog from './pages/blog/CreateBlog';
+
 
 function App() {
 
@@ -27,6 +29,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/create-blog" element={<CreateBlog />} />
         </Routes>
       </Router>
     </>
