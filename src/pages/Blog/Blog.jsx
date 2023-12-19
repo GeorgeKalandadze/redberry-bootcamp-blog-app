@@ -84,7 +84,6 @@ const Blog = () => {
       <div className="flex px-24 py-8">
         <button
           className={`bg-[#FFFFFF] h-[44px] w-[44px] rounded-full flex items-center justify-center`}
-          onClick={goToPrevSlide}
         >
           <img src={ArrowIcon2} />
         </button>
