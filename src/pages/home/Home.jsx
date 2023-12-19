@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../../components/Header';
 import HomeImg from '../../assets/Blog-1024x355 1.png'
 import CategoryButton from '../../components/CategoryButton';
+import BlogCart from '../../components/BlogCart';
 
 const Home = () => {
   return (
@@ -38,6 +39,9 @@ const Home = () => {
           bgColor={"#E9EFE9"}
           textColor={"#60BE16"}
         />
+      </div>
+      <div className="px-24 py-8">
+        <BlogCart/>
       </div>
     </div>
   );
