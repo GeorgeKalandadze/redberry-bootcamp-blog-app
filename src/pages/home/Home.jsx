@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../../components/Header';
 import HomeImg from '../../assets/Blog-1024x355 1.png'
 import CategoryButton from '../../components/CategoryButton';
@@ -6,9 +6,33 @@ import BlogCart from '../../components/BlogCart';
 import NatureImg from "../../assets/nature_img.jpg";
 import Modal from '../../components/Modal';
 import InputGroup from '../../components/InputGroup';
+import axios from 'axios';
+import { useSessionStorage } from '../../hooks/useSessionStorage';
 
 const Home = () => {
-  
+  const [email, setEmail] = useSessionStorage("email", '')
+  const loginUser = (email) => {
+    return axios
+      .post(
+        "https://api.blog.redberryinternship.ge/api/login",
+        {
+          email: email,
+        },
+        {
+          headers: {
+            Authorization: `Bearer${"b5e0db82076215b2884e6558888b370b48558754b602fa59a385177db3a8e3ab"}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log("Login successful:", response);
+        return response.data;
+      })
+      .catch((error) => {
+        console.error("Error during login:", error);
+      });
+  };
+
   return (
     <div className="min-w-[1920px] min-h-[1080px] bg-[#E4E3EB] flex flex-col gap-12">
       <Modal showModal={true}>
@@ -21,10 +45,16 @@ const Home = () => {
               </label>
               <input
                 placeholder="Example@redberry.ge"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className={`w-full border-[2px]  border-[#5D37F3] rounded-xl px-[15px] py-[12px] outline-none`}
               />
             </div>
-            <button className="bg-[#5D37F3] rounded-xl w-full text-white py-[12px]">
+            <button
+            type='button'
+              className="bg-[#5D37F3] rounded-xl w-full text-white py-[12px]"
+              onClick={() => loginUser(email)}
+            >
               შესვლა
             </button>
           </form>
