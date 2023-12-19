@@ -49,7 +49,6 @@ const MultiSelectDropdown = ({
     maxHeight: isOpen ? "200px" : "0",
     opacity: isOpen ? 1 : 0,
     transition: "max-height 0.3s ease-in-out, opacity 0.3s ease-in-out",
-    // overflow: "hidden",
   };
 
   const handleOptionClick = (value) => {

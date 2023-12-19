@@ -4,10 +4,15 @@ import HomeImg from '../../assets/Blog-1024x355 1.png'
 import CategoryButton from '../../components/CategoryButton';
 import BlogCart from '../../components/BlogCart';
 import NatureImg from "../../assets/nature_img.jpg";
+import Modal from '../../components/Modal';
 
 const Home = () => {
+  
   return (
     <div className="min-w-[1920px] min-h-[1080px] bg-[#E4E3EB] flex flex-col gap-12">
+      <Modal showModal={true}>
+        <h1>jjdjdjdjdjdjdjdj</h1>
+      </Modal>
       <Header />
       <div className="flex px-24 py-8 justify-between items-center">
         <h1 className="text-[64px] font-bold">ბლოგი</h1>
