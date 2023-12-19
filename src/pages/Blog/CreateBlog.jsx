@@ -2,6 +2,7 @@ import React from 'react'
 import RedberryLogo from "../../assets/redberry_logo.png";
 import ArrowIcon2 from "../../assets/Arrow-3.svg";
 import UploadImg from '../../assets/folder-add.png'
+import InputGroup from '../../components/InputGroup';
 
 const CreateBlog = () => {
   return (
@@ -20,10 +21,10 @@ const CreateBlog = () => {
             <h1 className="font-bold text-[30px] leading-[45px]">
               ბლოგის დამატება
             </h1>
-            <form>
+            <form className='flex flex-col gap-6'>
               <div className="flex flex-col gap-3">
                 <p className="font-medium leading-[20px]">ატვირთეთ ფოტო</p>
-                <div className="relative cursor-pointer w-full bg-[#F4F3FF] border-[2px] border-dashed border-[#85858D] rounded justify-center flex flex-col items-center gap-6 h-[180px]">
+                <div className="relative cursor-pointer w-full bg-[#F4F3FF] border-[2px] border-dashed border-[#85858D] rounded-xl justify-center flex flex-col items-center gap-6 h-[180px]">
                   <input
                     type="file"
                     name="image"
@@ -38,6 +39,26 @@ const CreateBlog = () => {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className='flex gap-8'>
+                <InputGroup
+                  label="სახელი"
+                  type="text"
+                  name="firstname"
+                  hint="მინიმუმ 2 სიმბოლო, ქართული ასოები"
+                //   value={info.firstname}
+                //   changeHandler={handleTextInputChange}
+                //   isValid={validationErrors.personal.firstname}
+                />
+                <InputGroup
+                  label="გვარი"
+                  type="text"
+                  name="lastname"
+                  hint="მინიმუმ 2 სიმბოლო, ქართული ასოები"
+                //   value={info.lastname}
+                //   changeHandler={handleTextInputChange}
+                //   isValid={validationErrors.personal.lastname}
+                />
               </div>
             </form>
           </div>
