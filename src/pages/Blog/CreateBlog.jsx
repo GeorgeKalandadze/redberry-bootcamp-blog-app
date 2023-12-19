@@ -5,8 +5,10 @@ import UploadImg from '../../assets/folder-add.png'
 import InputGroup from '../../components/InputGroup';
 import TextareaGroup from '../../components/TextareaGroup';
 import MultiSelectDropdown from '../../components/MultiSelectDropdown';
+import { useGlobalContext } from '../../context/Context';
 
 const CreateBlog = () => {
+    const {info} = useGlobalContext();
 
      const positions = [
       { label: "ჯუნიორ დეველოპერი", id: 1, team_id: 1 },
@@ -28,7 +30,7 @@ const CreateBlog = () => {
       }));
     };
 
-     
+     console.log(info);
 
   return (
     <div className="min-w-[1920px] min-h-[1080px] bg-[#E4E3EB] flex flex-col gap-12">
@@ -67,20 +69,22 @@ const CreateBlog = () => {
               </div>
               <div className="flex gap-8">
                 <InputGroup
-                  label="სახელი"
+                  label="ავტორი *"
                   type="text"
-                  name="firstname"
+                  name="author"
+                  placeholder="შეიყვნეთ ავტორი"
                   hint="მინიმუმ 2 სიმბოლო, ქართული ასოები"
-                  //   value={info.firstname}
+                  value={info.author}
                   //   changeHandler={handleTextInputChange}
                   //   isValid={validationErrors.personal.firstname}
                 />
                 <InputGroup
-                  label="გვარი *"
+                  label="სათური *"
                   type="text"
-                  name="lastname"
+                  name="title"
+                  placeholder="შეიყვნეთ სათაური"
                   hint="მინიმუმ 2 სიმბოლო, ქართული ასოები"
-                  //   value={info.lastname}
+                  value={info.title}
                   //   changeHandler={handleTextInputChange}
                   //   isValid={validationErrors.personal.lastname}
                 />
@@ -90,21 +94,19 @@ const CreateBlog = () => {
                 label="აღწერა"
                 placeholder="როლი თანამდებობაზე და ზოგადი აღწერა"
                 hint="მინიმუმ 4 სიმბოლო, ქართული ასოები"
+                value={info.description}
               />
               <div className="flex gap-8 items-center">
                 <InputGroup
                   label="გამოქვეყნების თარიღი *"
                   type="date"
-                  //   name="firstname"
-                  //   hint="მინიმუმ 2 სიმბოლო, ქართული ასოები"
-                  //   value={info.firstname}
-                  //   changeHandler={handleTextInputChange}
-                  //   isValid={validationErrors.personal.firstname}
+                  name="publish_date"
+                  value={info.publish_date}
+                  // changeHandler={handleTextInputChange}
+                  // isValid={validationErrors.personal.firstname}
                 />
                 <div className="flex flex-col gap-3 w-full pb-3">
-                  <p
-                    className={`font-bold text-[14px] text-[#1A1A1F] `}
-                  >
+                  <p className={`font-bold text-[14px] text-[#1A1A1F] `}>
                     კატეგორია
                   </p>
                   <MultiSelectDropdown
@@ -118,15 +120,18 @@ const CreateBlog = () => {
                   />
                 </div>
               </div>
-              <InputGroup
-                label="ელ-ფოსტა"
-                type="text"
-                name="lastname"
-                hint="მეილი უნდა მთავრდებოდეს @redberry.ge-ით"
-                //   value={info.lastname}
-                //   changeHandler={handleTextInputChange}
-                //   isValid={validationErrors.personal.lastname}
-              />
+              <div className="w-1/2 pr-4">
+                <InputGroup
+                  label="ელ-ფოსტა"
+                  type="text"
+                  name="email"
+                  placeholder="Example@redberry.ge"
+                  hint="მეილი უნდა მთავრდებოდეს @redberry.ge-ით"
+                  value={info.email}
+                  //   changeHandler={handleTextInputChange}
+                  //   isValid={validationErrors.personal.lastname}
+                />
+              </div>
               <div className="flex justify-end mt-10">
                 <button className="bg-[#adadad] rounded-md text-white px-10 py-3">
                   გამოქვეყნება

@@ -36,7 +36,6 @@ const MultiSelectDropdown = ({
     fetchData();
   }, []);
 
-  console.log(categories);
   const handleSelect = (option) => {
     setSelectedOption(option.label);
     if (handleChange) {
@@ -56,8 +55,6 @@ const MultiSelectDropdown = ({
       setSelectedOptions([...selectedOptions, value]);
     } 
   };
-
-  console.log(selectedOptions);
 
   //setSelectedOptions(selectedOptions.filter((option) => option !== value));
 
