@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import NatureImg from '../assets/nature_img.jpg'
 import CategoryButton from './CategoryButton';
 import ArrowIcon from '../assets/Arrow.svg'
 
 
 const BlogCart = ({name, date, announcement, description, img}) => {
+
   return (
     <div className="flex flex-col gap-4 w-[480px]">
       <img src={img} className="w-full h-[328px] rounded-xl" />
