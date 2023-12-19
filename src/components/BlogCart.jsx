@@ -4,14 +4,14 @@ import CategoryButton from './CategoryButton';
 import ArrowIcon from '../assets/Arrow.svg'
 
 
-const BlogCart = () => {
+const BlogCart = ({name, date, announcement, description}) => {
   return (
-    <div className="flex flex-col gap-4 w-[408px]">
+    <div className="flex flex-col gap-4 w-[480px]">
       <img src={NatureImg} className="w-full h-[328px] rounded-xl" />
-      <p className="text-[16px] font-medium">ლილე კვარაცხელია</p>
-      <p className="font-small text-[#85858D]">02.11.2023</p>
+      <p className="text-[16px] font-medium">{name}</p>
+      <p className="font-small text-[#85858D]">{date}</p>
       <h1 className="font-bold text-[20px] leading-[28px]">
-        EOMM-ის მრჩეველთა საბჭოს ნინო ეგაძე შეუერთდა
+        {announcement}
       </h1>
       <div className="flex gap-3">
         <CategoryButton
@@ -31,8 +31,7 @@ const BlogCart = () => {
         />
       </div>
       <p className="text-[#404049] text-[16px] leading-[28px]">
-        6 თვის შემდეგ ყველის ბრმა დეგუსტაციის დროც დადგა. მაქსიმალური
-        სიზუსტისთვის, ეს პროცესი...
+        {description}
       </p>
       <p className="text-[#5D37F3] flex items-center gap-2">
         სრულად ნახვა
