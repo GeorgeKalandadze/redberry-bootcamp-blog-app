@@ -1,5 +1,6 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import CloseIcon from '../assets/close.png'
 
 const Modal = ({ showModal, setShowModal, children }) => {
   const backdrop = {
@@ -51,7 +52,10 @@ const Modal = ({ showModal, setShowModal, children }) => {
             }}
             onClick={(e) => e.stopPropagation()} // Prevent modal close when clicking inside modal
           >
-            {children} {/* Render the passed content */}
+            <div className="flex justify-end">
+              <img src={CloseIcon} />
+            </div>
+            {children}
           </motion.div>
         </motion.div>
       )}
