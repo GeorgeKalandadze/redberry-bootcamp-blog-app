@@ -9,20 +9,20 @@ import CreateBlog from './pages/blog/CreateBlog';
 
 function App() {
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.blog.redberryinternship.ge/api/categories"
-        );
-        console.log(response);
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         "https://api.blog.redberryinternship.ge/api/categories"
+  //       );
+  //       console.log(response);
+  //     } catch (error) {
+  //       console.error("Error fetching data: ", error);
+  //     }
+  //   };
 
-    fetchData(); 
-  }, []); 
+  //   fetchData(); 
+  // }, []); 
   return (
     <>
       <Router>

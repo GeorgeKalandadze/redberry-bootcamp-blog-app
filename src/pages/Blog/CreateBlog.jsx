@@ -4,8 +4,32 @@ import ArrowIcon2 from "../../assets/Arrow-3.svg";
 import UploadImg from '../../assets/folder-add.png'
 import InputGroup from '../../components/InputGroup';
 import TextareaGroup from '../../components/TextareaGroup';
+import MultiSelectDropdown from '../../components/MultiSelectDropdown';
 
 const CreateBlog = () => {
+
+     const positions = [
+      { label: "ჯუნიორ დეველოპერი", id: 1, team_id: 1 },
+      { label: "მიდლ დეველოპერი", id: 2, team_id: 1 },
+      { label: "სენიორ დეველოპერი", id: 3, team_id: 1 },
+      { label: "ლიდდეველოპერი", id: 4, team_id: 1 },
+      { label: "ჯუნიორ დიზაინერი", id: 5, team_id: 2 },
+      { label: "მიდლ დიზაინერი", id: 6, team_id: 2 },
+      { label: "ჯუნიორ დიზაინერი", id: 7, team_id: 2 },
+      { label: "ჯუნიო HR", id: 8, team_id: 3 },
+      { label: "მიდლ HR", id: 9, team_id: 3 },
+      { label: "სენიორ HR", id: 10, team_id: 3 },
+    ];
+
+    const handleSelect = (selectedOption, field) => {
+      setStore((formData) => ({
+        ...formData,
+        [field]: selectedOption,
+      }));
+    };
+
+     
+
   return (
     <div className="min-w-[1920px] min-h-[1080px] bg-[#E4E3EB] flex flex-col gap-12">
       <div className="flex items-center justify-center bg-white px-24 py-8">
@@ -67,7 +91,7 @@ const CreateBlog = () => {
                 placeholder="როლი თანამდებობაზე და ზოგადი აღწერა"
                 hint="მინიმუმ 4 სიმბოლო, ქართული ასოები"
               />
-              <div className="flex gap-8">
+              <div className="flex gap-8 items-center">
                 <InputGroup
                   label="გამოქვეყნების თარიღი *"
                   type="date"
@@ -77,15 +101,22 @@ const CreateBlog = () => {
                   //   changeHandler={handleTextInputChange}
                   //   isValid={validationErrors.personal.firstname}
                 />
-                <InputGroup
-                  label="გვარი *"
-                  type="text"
-                  name="lastname"
-                  hint="მინიმუმ 2 სიმბოლო, ქართული ასოები"
-                  //   value={info.lastname}
-                  //   changeHandler={handleTextInputChange}
-                  //   isValid={validationErrors.personal.lastname}
-                />
+                <div className="flex flex-col gap-3 w-full pb-3">
+                  <p
+                    className={`font-bold text-[14px] text-[#1A1A1F] `}
+                  >
+                    კატეგორია
+                  </p>
+                  <MultiSelectDropdown
+                    options={positions}
+                    label="პოზიცია"
+                    //   value={info?.position?.label}
+                    handleChange={(selectedOption) =>
+                      handleSelect(selectedOption, "position")
+                    }
+                    //   isValid={validationErrors.personal.position}
+                  />
+                </div>
               </div>
               <InputGroup
                 label="ელ-ფოსტა"
@@ -96,8 +127,10 @@ const CreateBlog = () => {
                 //   changeHandler={handleTextInputChange}
                 //   isValid={validationErrors.personal.lastname}
               />
-              <div className='flex justify-end'>
-                <button className="bg-[#adadad] rounded-md text-white px-10 py-3">გამოქვეყნება</button>
+              <div className="flex justify-end mt-10">
+                <button className="bg-[#adadad] rounded-md text-white px-10 py-3">
+                  გამოქვეყნება
+                </button>
               </div>
             </form>
           </div>

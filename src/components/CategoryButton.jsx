@@ -9,7 +9,7 @@ const CategoryButton = ({ text, bgColor, textColor }) => {
     padding:"8px 18px"
   };
 
-  return <button style={buttonStyle} className="font-medium">{text}</button>;
+  return <button style={buttonStyle} className="font-medium" type="button">{text}</button>;
 };
 
 export default CategoryButton;
