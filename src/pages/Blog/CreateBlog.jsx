@@ -7,6 +7,8 @@ import TextareaGroup from '../../components/TextareaGroup';
 import MultiSelectDropdown from '../../components/MultiSelectDropdown';
 import { useGlobalContext } from '../../context/Context';
 import { ValidateBlog } from '../../validation/Validation';
+import GalleryIcon from '../../assets/gallery.png'
+import CloseIcon from '../../assets/close.png'
 
 const CreateBlog = () => {
     const { info, setStore, setValidationErrors, validationErrors } =
@@ -75,7 +77,8 @@ const CreateBlog = () => {
               ბლოგის დამატება
             </h1>
             <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-              <div className="flex flex-col gap-3">
+              {!info.image ? (
+               <div className="flex flex-col gap-3">
                 <p className="font-medium leading-[20px]">ატვირთეთ ფოტო</p>
                 <div className="relative cursor-pointer w-full bg-[#F4F3FF] border-[2px] border-dashed border-[#85858D] rounded-xl justify-center flex flex-col items-center gap-6 h-[180px]">
                   <input
@@ -92,7 +95,17 @@ const CreateBlog = () => {
                     </div>
                   </div>
                 </div>
+              </div> ) : (
+              <div className="bg-[#F2F2FA] px-5 py-6 rounded-2xl flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <img src={GalleryIcon} />
+                  <p className="text-[#1A1A1F] font-medium">BlogImg.JPEG</p>
+                </div>
+                <button>
+                  <img src={CloseIcon} />
+                </button>
               </div>
+              )}
               <div className="flex gap-8">
                 <div className="flex flex-col gap-3 w-full ">
                   <label
@@ -118,7 +131,8 @@ const CreateBlog = () => {
                           (error) => error === "invalid"
                         )
                           ? "border-red-500"
-                          : info.author && Object.values(validationErrors.author).every(
+                          : info.author &&
+                            Object.values(validationErrors.author).every(
                               (error) => error === "valid"
                             )
                           ? "border-green-500"
