@@ -11,7 +11,7 @@ import GalleryIcon from '../../assets/gallery.png'
 import CloseIcon from '../../assets/close.png'
 
 const CreateBlog = () => {
-    const { info, setStore, setValidationErrors, validationErrors } =
+    const { info, setStore, setValidationErrors, validationErrors, makeBlog } =
       useGlobalContext();
 
 
@@ -49,6 +49,7 @@ const CreateBlog = () => {
 
     const validateForm = () => {
       const errors = ValidateBlog(info);
+      makeBlog()
     };
 
     const handleSubmit = (e) => {
@@ -98,6 +99,9 @@ const CreateBlog = () => {
       }
     };
 
+    info.categories.map((category) =>
+           console.log(JSON.stringify(category.id))
+         );
 
   return (
     <div className="min-w-[1920px] min-h-[1080px] bg-[#E4E3EB] flex flex-col gap-12">
@@ -139,7 +143,9 @@ const CreateBlog = () => {
                 <div className="bg-[#F2F2FA] px-5 py-6 rounded-2xl flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <img src={GalleryIcon} />
-                    <p className="text-[#1A1A1F] font-medium">BlogImg.JPEG</p>
+                    <p className="text-[#1A1A1F] font-medium">
+                      {info?.image?.name}
+                    </p>
                   </div>
                   <button>
                     <img src={CloseIcon} />

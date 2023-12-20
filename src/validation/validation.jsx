@@ -74,7 +74,7 @@ export const ValidateBlog = (values) => {
     response.publish_date = "valid";
   }
 
-  if (!values?.categories.length > 0) {
+  if (!values?.categories || !values?.categories.length !== 0) {
     response.categories = "valid";
   } else {
     response.categories = "invalid";
