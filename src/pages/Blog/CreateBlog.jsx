@@ -103,6 +103,21 @@ const CreateBlog = () => {
            console.log(JSON.stringify(category.id))
          );
 
+
+      const handleImageDelete = () => {
+        // Reset image-related states in context
+        setStore((prevInfo) => ({
+          ...prevInfo,
+          image: {}, // Resetting the image object
+        }));
+
+        // Clear validation errors associated with the image
+        setValidationErrors((prevErrors) => ({
+          ...prevErrors,
+          image: {}, // Resetting image validation errors
+        }));
+      };
+
   return (
     <div className="min-w-[1920px] min-h-[1080px] bg-[#E4E3EB] flex flex-col gap-12">
       <div className="flex items-center justify-center bg-white px-24 py-8">
@@ -147,8 +162,8 @@ const CreateBlog = () => {
                       {info?.image?.name}
                     </p>
                   </div>
-                  <button>
-                    <img src={CloseIcon} />
+                  <button onClick={handleImageDelete}>
+                    <img src={CloseIcon} alt="Close Icon" />
                   </button>
                 </div>
               )}
