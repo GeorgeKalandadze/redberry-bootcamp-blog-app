@@ -105,16 +105,13 @@ const CreateBlog = () => {
 
 
       const handleImageDelete = () => {
-        // Reset image-related states in context
         setStore((prevInfo) => ({
           ...prevInfo,
-          image: {}, // Resetting the image object
+          image: {},
         }));
-
-        // Clear validation errors associated with the image
         setValidationErrors((prevErrors) => ({
           ...prevErrors,
-          image: {}, // Resetting image validation errors
+          image: {},
         }));
       };
 
@@ -202,42 +199,41 @@ const CreateBlog = () => {
                       onChange={handleTextInputChange}
                     />
                   </div>
-                  <div className="flex flex-col gap-1">
-                    <p
-                      className={`font-small text-[13px] ${
+                  <ul className="font-small text-[13px] list-disc list-inside md:text-15px">
+                    <li
+                      className={`${
                         validationErrors?.author?.tooShort === "invalid"
                           ? "text-red-500"
                           : validationErrors?.author?.tooShort === "valid"
                           ? "text-green-500"
                           : "text-[#85858D]"
-                      } md:text-15px`}
+                      }`}
                     >
                       მინიმუმ 4 სიმბოლო
-                    </p>
-                    <p
-                      className={`font-small text-[13px] ${
+                    </li>
+                    <li
+                      className={`${
                         validationErrors?.author?.twoWord === "invalid"
                           ? "text-red-500"
                           : validationErrors?.author?.twoWord === "valid"
                           ? "text-green-500"
                           : "text-[#85858D]"
-                      } md:text-15px`}
+                      }`}
                     >
                       მინიმუმ ორი სიტყვა
-                    </p>
-
-                    <p
-                      className={`font-small text-[13px] ${
+                    </li>
+                    <li
+                      className={`${
                         validationErrors?.author?.georgianChars === "invalid"
                           ? "text-red-500"
                           : validationErrors?.author?.georgianChars === "valid"
                           ? "text-green-500"
                           : "text-[#85858D]"
-                      } md:text-15px`}
+                      }`}
                     >
                       მხოლოდ ქართული სიმბოლოები
-                    </p>
-                  </div>
+                    </li>
+                  </ul>
                 </div>
                 <InputGroup
                   label="სათური *"
