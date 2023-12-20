@@ -42,8 +42,12 @@ const InputGroup = ({
       </div>
 
       <p
-        className={`font-small text-[13px] text-[#85858D] ${
-          isValid == "invalid" ? "text-red-500" : ""
+        className={`font-small text-[13px] ${
+          isValid === "invalid"
+            ? "text-red-500"
+            : isValid === "valid"
+            ? "text-green-500"
+            : "text-[#85858D]"
         } md:text-15px`}
       >
         {hint}

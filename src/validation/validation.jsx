@@ -1,19 +1,52 @@
 export const ValidateBlog = (values) => {
-  const response = {};
+  const response = {
+    author: {
+      tooShort: "",
+      twoWord: "",
+      georgianChars: "",
+    },
+  };
 
   const REGEX_EMAIL = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@redberry\.ge$/;
-  const REGEX_NAME = /^(?:[ა-ჰ]+\s[ა-ჰ]+)+$/;
+  const REGEX_NAME = /^[ა-ჰ\s]+$/;
 
+  const words = values.author.trim().split(/\s+/).filter(Boolean);
+  const wordCount = words.length;
 
-  if (
-    !values?.author ||
-    values?.author.trim().length < 4 ||
-    !REGEX_NAME.test(values?.author)
-  ) {
-    response.author = "invalid";
-  } else {
-    response.author = "valid";
+  if (!values?.author || values?.author.trim().length < 4) {
+    response.author.tooShort = "invalid";
+  }else{
+    response.author.tooShort = "valid";
   }
+
+  if (wordCount < 2) {
+    response.author.twoWord = "invalid";
+  }else{
+    response.author.twoWord = "valid";
+  }
+
+  if (!REGEX_NAME.test(values?.author)) {
+    response.author.georgianChars = "invalid";
+  }else{
+    response.author.georgianChars = "valid";
+  }
+  
+
+//   if (!values?.author || values?.author.trim().length < 4) {
+//     response.author.tooShort = "invalid";
+//   } else if (wordCount < 2) {
+//     response.author.twoWord = "invalid";
+//   } else if (!REGEX_NAME.test(values?.author)) {
+//     response.author.georgianChars = "invalid";
+//   } else {
+//     response.author = "valid";
+//   }
+
+
+
+
+
+
 
   if (!values?.title || values?.title.length < 2) {
     response.title = "invalid";
@@ -46,8 +79,6 @@ export const ValidateBlog = (values) => {
    } else {
      response.image = "valid";
    }
-
-  console.log(response);
 
   return response;
 };

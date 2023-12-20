@@ -55,8 +55,7 @@ const CreateBlog = () => {
     };
 
 
-   console.log(validationErrors);
-   console.log(info);
+   
 
   return (
     <div className="min-w-[1920px] min-h-[1080px] bg-[#E4E3EB] flex flex-col gap-12">
@@ -94,16 +93,71 @@ const CreateBlog = () => {
                 </div>
               </div>
               <div className="flex gap-8">
-                <InputGroup
-                  label="ავტორი *"
-                  type="text"
-                  name="author"
-                  placeholder="შეიყვნეთ ავტორი"
-                  hint="მინიმუმ 2 სიმბოლო, ქართული ასოები"
-                  value={info.author}
-                  changeHandler={handleTextInputChange}
-                  isValid={validationErrors?.author}
-                />
+                <div className="flex flex-col gap-3 w-full ">
+                  <label
+                    className={`font-bold text-[14px] text-[#1A1A1F] ${
+                      validationErrors.author == "invalid" ? "text-red-500" : ""
+                    } md:text-[16px]`}
+                  >
+                    ავტორი *
+                  </label>
+                  <div className="w-full relative">
+                    <input
+                      type="text"
+                      //placeholder={placeholder}
+                      name="author"
+                      value={info.author}
+                      className={`w-full border-[2px] ${
+                        Object.values(validationErrors.author).some(
+                          (error) => error === "invalid"
+                        )
+                          ? "border-red-500"
+                          : Object.values(validationErrors.author).every(
+                              (error) => error === "valid"
+                            )
+                          ? "border-green-500"
+                          : "#c3c2c8"
+                      } border-[#c3c2c8] rounded-2xl px-[15px] py-[16px] outline-none`}
+                      onChange={handleTextInputChange}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <p
+                      className={`font-small text-[13px] ${
+                        validationErrors.author.tooShort === "invalid"
+                          ? "text-red-500"
+                          : validationErrors.author.tooShort === "valid"
+                          ? "text-green-500"
+                          : "text-[#85858D]"
+                      } md:text-15px`}
+                    >
+                      მინიმუმ 4 სიმბოლო
+                    </p>
+                    <p
+                      className={`font-small text-[13px] ${
+                        validationErrors.author.twoWord === "invalid"
+                          ? "text-red-500"
+                          : validationErrors.author.twoWord === "valid"
+                          ? "text-green-500"
+                          : "text-[#85858D]"
+                      } md:text-15px`}
+                    >
+                      მინიმუმ ორი სიტყვა
+                    </p>
+
+                    <p
+                      className={`font-small text-[13px] ${
+                        validationErrors.author.georgianChars === "invalid"
+                          ? "text-red-500"
+                          : validationErrors.author.georgianChars === "valid"
+                          ? "text-green-500"
+                          : "text-[#85858D]"
+                      } md:text-15px`}
+                    >
+                      მხოლოდ ქართული სიმბოლოები
+                    </p>
+                  </div>
+                </div>
                 <InputGroup
                   label="სათური *"
                   type="text"
