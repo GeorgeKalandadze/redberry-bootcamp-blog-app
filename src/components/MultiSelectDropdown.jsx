@@ -79,12 +79,11 @@ const MultiSelectDropdown = ({
 
     setStore((prevInfo) => ({
       ...prevInfo,
-      categories: updatedOptions,
+      categories: updatedOptions, // Update categories without the deleted option
     }));
 
-    const categoryErrors = ValidateBlog({
-      categories: updatedOptions,
-    }).categories;
+    // Check if there are no more categories left after deletion
+    const categoryErrors = updatedOptions.length === 0 ? "invalid" : "valid";
 
     setValidationErrors((prevErrors) => ({
       ...prevErrors,
@@ -115,6 +114,7 @@ const MultiSelectDropdown = ({
       setStartX(null);
     };
 
+    console.log(info);
 
   return (
     <div
