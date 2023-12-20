@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header';
 import HomeImg from '../../assets/Blog-1024x355 1.png'
 import CategoryButton from '../../components/CategoryButton';
@@ -45,6 +45,27 @@ const Home = () => {
       setError("invalid");
     }
   };
+
+   useEffect(() => {
+     const fetchData = async () => {
+       try {
+         const response = await axios.get(
+           "https://api.blog.redberryinternship.ge/api/blogs",
+           {
+             headers: {
+                Authorization: `Bearer ${"b5e0db82076215b2884e6558888b370b48558754b602fa59a385177db3a8e3ab"}`,
+              },
+           }
+         );
+         console.log(response);
+       } catch (error) {
+         console.error("Error fetching data: ", error);
+       }
+     };
+
+     fetchData();
+   }, []);
+
 
 
   const openModal = () => {
