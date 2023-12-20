@@ -11,31 +11,39 @@ import { useSessionStorage } from '../../hooks/useSessionStorage';
 
 const Home = () => {
   const [email, setEmail] = useSessionStorage("email", '')
-  const loginUser = (email) => {
-    return axios
-      .post(
-        "https://api.blog.redberryinternship.ge/api/login",
-        {
-          email: email,
-        },
-        {
-          headers: {
-            Authorization: `Bearer${"b5e0db82076215b2884e6558888b370b48558754b602fa59a385177db3a8e3ab"}`,
+  const [showModal, setShowModal] = useState(false);
+  const loginUser = async (email) => {
+    try {
+      const response = await axios
+        .post(
+          "https://api.blog.redberryinternship.ge/api/login",
+          {
+            email: email,
           },
-        }
-      )
-      .then((response) => {
-        console.log("Login successful:", response);
-        return response.data;
-      })
-      .catch((error) => {
-        console.error("Error during login:", error);
-      });
+          {
+            headers: {
+              Authorization: `Bearer${"b5e0db82076215b2884e6558888b370b48558754b602fa59a385177db3a8e3ab"}`,
+            },
+          }
+        );
+      console.log("Login successful:", response);
+      return response.data;
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
+  };
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
   };
 
   return (
     <div className="min-w-[1920px] min-h-[1080px] bg-[#E4E3EB] flex flex-col gap-12">
-      <Modal showModal={true}>
+      <Modal showModal={showModal} setShowModal={closeModal}>
         <div className="gap-6 flex flex-col">
           <h1 className="font-bold text-[32px]">შესვლა</h1>
           <form className="flex items-start flex-col gap-6 w-full pb-4">
@@ -51,7 +59,7 @@ const Home = () => {
               />
             </div>
             <button
-            type='button'
+              type="button"
               className="bg-[#5D37F3] rounded-xl w-full text-white py-[12px]"
               onClick={() => loginUser(email)}
             >
@@ -60,7 +68,7 @@ const Home = () => {
           </form>
         </div>
       </Modal>
-      <Header />
+      <Header openModal={openModal} />
       <div className="flex px-24 py-8 justify-between items-center">
         <h1 className="text-[64px] font-bold">ბლოგი</h1>
         <img src={HomeImg} className="w-[624px] h-[350px]" />

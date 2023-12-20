@@ -13,6 +13,10 @@ const Modal = ({ showModal, setShowModal, children }) => {
     visible: { opacity: 1, scale: 1, transition: { delay: 0.2 } },
   };
 
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <AnimatePresence exitBeforeEnter={false}>
       {showModal && (
@@ -52,7 +56,7 @@ const Modal = ({ showModal, setShowModal, children }) => {
             }}
             onClick={(e) => e.stopPropagation()} // Prevent modal close when clicking inside modal
           >
-            <div className="flex justify-end">
+            <div className="flex justify-end" onClick={closeModal}>
               <img src={CloseIcon} />
             </div>
             {children}
