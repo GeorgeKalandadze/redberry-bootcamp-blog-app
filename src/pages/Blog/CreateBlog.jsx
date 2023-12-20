@@ -9,20 +9,9 @@ import { useGlobalContext } from '../../context/Context';
 import { ValidateBlog } from '../../validation/Validation';
 
 const CreateBlog = () => {
-    const {info, setStore} = useGlobalContext();
+    const { info, setStore, setValidationErrors, validationErrors } =
+      useGlobalContext();
 
-     const positions = [
-      { label: "ჯუნიორ დეველოპერი", id: 1, team_id: 1 },
-      { label: "მიდლ დეველოპერი", id: 2, team_id: 1 },
-      { label: "სენიორ დეველოპერი", id: 3, team_id: 1 },
-      { label: "ლიდდეველოპერი", id: 4, team_id: 1 },
-      { label: "ჯუნიორ დიზაინერი", id: 5, team_id: 2 },
-      { label: "მიდლ დიზაინერი", id: 6, team_id: 2 },
-      { label: "ჯუნიორ დიზაინერი", id: 7, team_id: 2 },
-      { label: "ჯუნიო HR", id: 8, team_id: 3 },
-      { label: "მიდლ HR", id: 9, team_id: 3 },
-      { label: "სენიორ HR", id: 10, team_id: 3 },
-    ];
 
     const handleSelect = (selectedOption, field) => {
       setStore((formData) => ({
@@ -33,12 +22,27 @@ const CreateBlog = () => {
 
    const handleTextInputChange = (e) => {
      const { value, name } = e.target;
-    
+     let formattedValue = value;
+
+     const updatedInfo = {
+       ...info,
+       [name]: formattedValue,
+     };
+
+    const errors = ValidateBlog(updatedInfo);
+
      setStore((prevInfo) => ({
        ...prevInfo,
        [name]: value,
      }));
+
+     
+      setValidationErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: errors[name],
+      }));
    };
+
 
 
     const validateForm = () => {
@@ -51,6 +55,7 @@ const CreateBlog = () => {
     };
 
 
+   console.log(validationErrors);
    console.log(info);
 
   return (
@@ -97,26 +102,27 @@ const CreateBlog = () => {
                   hint="მინიმუმ 2 სიმბოლო, ქართული ასოები"
                   value={info.author}
                   changeHandler={handleTextInputChange}
-                  //   isValid={validationErrors.personal.firstname}
+                  isValid={validationErrors?.author}
                 />
                 <InputGroup
                   label="სათური *"
                   type="text"
                   name="title"
                   placeholder="შეიყვნეთ სათაური"
-                  hint="მინიმუმ 2 სიმბოლო, ქართული ასოები"
+                  hint="მინიმუმ 2 სიმბოლო"
                   value={info.title}
                   changeHandler={handleTextInputChange}
-                  //   isValid={validationErrors.personal.lastname}
+                  isValid={validationErrors?.title}
                 />
               </div>
               <TextareaGroup
                 name="description"
-                label="აღწერა"
+                label="აღწერა *"
                 placeholder="როლი თანამდებობაზე და ზოგადი აღწერა"
-                hint="მინიმუმ 4 სიმბოლო, ქართული ასოები"
+                hint="მინიმუმ 2 სიმბოლო"
                 value={info.description}
                 changeHandler={handleTextInputChange}
+                validation={validationErrors?.description}
               />
               <div className="flex gap-8 items-center">
                 <InputGroup
@@ -125,14 +131,13 @@ const CreateBlog = () => {
                   name="publish_date"
                   value={info.publish_date}
                   changeHandler={handleTextInputChange}
-                  // isValid={validationErrors.personal.firstname}
+                  isValid={validationErrors.publish_date}
                 />
                 <div className="flex flex-col gap-3 w-full pb-3">
                   <p className={`font-bold text-[14px] text-[#1A1A1F] `}>
-                    კატეგორია
+                    კატეგორია *
                   </p>
                   <MultiSelectDropdown
-                    options={positions}
                     label="პოზიცია"
                     //   value={info?.position?.label}
                     handleChange={(selectedOption) =>
@@ -144,14 +149,14 @@ const CreateBlog = () => {
               </div>
               <div className="w-1/2 pr-4">
                 <InputGroup
-                  label="ელ-ფოსტა"
+                  label="ელ-ფოსტა *"
                   type="text"
                   name="email"
                   placeholder="Example@redberry.ge"
                   hint="მეილი უნდა მთავრდებოდეს @redberry.ge-ით"
                   value={info.email}
                   changeHandler={handleTextInputChange}
-                  //   isValid={validationErrors.personal.lastname}
+                  isValid={validationErrors.email}
                 />
               </div>
               <div className="flex justify-end mt-10">

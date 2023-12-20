@@ -17,12 +17,17 @@ const AppContext = createContext({
 
 export const AppProvider = ({children}) => {
      const [store, setStore] = useSessionStorage("info", info);
+     const [validationErrors, setValidationErrors] = useSessionStorage('blogErrors',{})
+
 
     return (
       <AppContext.Provider
         value={{
           info: store,
           setStore,
+
+          setValidationErrors,
+          validationErrors,
         }}
       >
         {children}

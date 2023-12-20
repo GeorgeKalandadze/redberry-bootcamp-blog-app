@@ -5,17 +5,6 @@ export const ValidateBlog = (values) => {
   const REGEX_NAME = /^(?:[ა-ჰ]+\s[ა-ჰ]+)+$/;
 
 
-
-  if (
-    !values?.title ||
-    values?.title.length < 2 ||
-    !REGEX_NAME.test(values?.title)
-  ) {
-    response.title = "invalid";
-  } else {
-    response.title = "valid";
-  }
-
   if (
     !values?.author ||
     values?.author.trim().length < 4 ||
@@ -26,14 +15,17 @@ export const ValidateBlog = (values) => {
     response.author = "valid";
   }
 
-  if (
-    !values?.title ||
-    values?.title.length < 4 ||
-    !REGEX_NAME.test(values?.title)
-  ) {
+  if (!values?.title || values?.title.length < 2) {
     response.title = "invalid";
   } else {
     response.title = "valid";
+  }
+
+
+  if (!values?.description || values?.description.length < 2) {
+    response.description = "invalid";
+  } else {
+    response.description = "valid";
   }
 
 
@@ -54,7 +46,7 @@ export const ValidateBlog = (values) => {
    } else {
      response.image = "valid";
    }
-   
+
   console.log(response);
 
   return response;
