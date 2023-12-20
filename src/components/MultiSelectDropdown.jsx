@@ -15,7 +15,8 @@ const MultiSelectDropdown = ({
   const [selectedOption, setSelectedOption] = useState(value);
   const [isOpen, setIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
-  const { info, setStore } = useGlobalContext();
+  const { info, setStore, setValidationErrors, validationErrors } =
+    useGlobalContext();
   const [selectedOptions, setSelectedOptions] = useState(info.categories || []);
   const [newCategories, setNewCategories] = useState(info.categories);
 
@@ -61,6 +62,8 @@ const MultiSelectDropdown = ({
         categories: [...prevInfo.categories, option],
       }));
     }
+
+    
   };
 
   //setSelectedOptions(selectedOptions.filter((option) => option !== value));

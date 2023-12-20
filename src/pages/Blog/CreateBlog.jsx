@@ -55,6 +55,7 @@ const CreateBlog = () => {
     };
 
 
+    console.log();
    
 
   return (
@@ -96,7 +97,11 @@ const CreateBlog = () => {
                 <div className="flex flex-col gap-3 w-full ">
                   <label
                     className={`font-bold text-[14px] text-[#1A1A1F] ${
-                      validationErrors.author == "invalid" ? "text-red-500" : ""
+                      Object.values(validationErrors?.author || {}).some(
+                        (error) => error === "invalid"
+                      )
+                        ? "text-red-500"
+                        : ""
                     } md:text-[16px]`}
                   >
                     ავტორი *
@@ -108,11 +113,12 @@ const CreateBlog = () => {
                       name="author"
                       value={info.author}
                       className={`w-full border-[2px] ${
+                        validationErrors?.author &&
                         Object.values(validationErrors.author).some(
                           (error) => error === "invalid"
                         )
                           ? "border-red-500"
-                          : Object.values(validationErrors.author).every(
+                          : info.author && Object.values(validationErrors.author).every(
                               (error) => error === "valid"
                             )
                           ? "border-green-500"
@@ -124,9 +130,9 @@ const CreateBlog = () => {
                   <div className="flex flex-col gap-1">
                     <p
                       className={`font-small text-[13px] ${
-                        validationErrors.author.tooShort === "invalid"
+                        validationErrors?.author?.tooShort === "invalid"
                           ? "text-red-500"
-                          : validationErrors.author.tooShort === "valid"
+                          : validationErrors?.author?.tooShort === "valid"
                           ? "text-green-500"
                           : "text-[#85858D]"
                       } md:text-15px`}
@@ -135,9 +141,9 @@ const CreateBlog = () => {
                     </p>
                     <p
                       className={`font-small text-[13px] ${
-                        validationErrors.author.twoWord === "invalid"
+                        validationErrors?.author?.twoWord === "invalid"
                           ? "text-red-500"
-                          : validationErrors.author.twoWord === "valid"
+                          : validationErrors?.author?.twoWord === "valid"
                           ? "text-green-500"
                           : "text-[#85858D]"
                       } md:text-15px`}
@@ -147,9 +153,9 @@ const CreateBlog = () => {
 
                     <p
                       className={`font-small text-[13px] ${
-                        validationErrors.author.georgianChars === "invalid"
+                        validationErrors?.author?.georgianChars === "invalid"
                           ? "text-red-500"
-                          : validationErrors.author.georgianChars === "valid"
+                          : validationErrors?.author?.georgianChars === "valid"
                           ? "text-green-500"
                           : "text-[#85858D]"
                       } md:text-15px`}
@@ -197,7 +203,7 @@ const CreateBlog = () => {
                     handleChange={(selectedOption) =>
                       handleSelect(selectedOption, "position")
                     }
-                    //   isValid={validationErrors.personal.position}
+                    isValid={validationErrors?.categories}
                   />
                 </div>
               </div>
