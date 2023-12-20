@@ -6,6 +6,7 @@ import InputGroup from '../../components/InputGroup';
 import TextareaGroup from '../../components/TextareaGroup';
 import MultiSelectDropdown from '../../components/MultiSelectDropdown';
 import { useGlobalContext } from '../../context/Context';
+import { ValidateBlog } from '../../validation/Validation';
 
 const CreateBlog = () => {
     const {info, setStore} = useGlobalContext();
@@ -40,6 +41,16 @@ const CreateBlog = () => {
    };
 
 
+    const validateForm = () => {
+      const errors = ValidateBlog(info);
+    };
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      validateForm();
+    };
+
+
    console.log(info);
 
   return (
@@ -58,7 +69,7 @@ const CreateBlog = () => {
             <h1 className="font-bold text-[30px] leading-[45px]">
               ბლოგის დამატება
             </h1>
-            <form className="flex flex-col gap-6">
+            <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
               <div className="flex flex-col gap-3">
                 <p className="font-medium leading-[20px]">ატვირთეთ ფოტო</p>
                 <div className="relative cursor-pointer w-full bg-[#F4F3FF] border-[2px] border-dashed border-[#85858D] rounded-xl justify-center flex flex-col items-center gap-6 h-[180px]">
@@ -144,7 +155,10 @@ const CreateBlog = () => {
                 />
               </div>
               <div className="flex justify-end mt-10">
-                <button className="bg-[#adadad] rounded-md text-white px-10 py-3">
+                <button
+                  className="bg-[#adadad] rounded-md text-white px-10 py-3"
+                  type="submit"
+                >
                   გამოქვეყნება
                 </button>
               </div>
