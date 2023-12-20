@@ -16,6 +16,7 @@ const Home = () => {
   const [email, setEmail] = useSessionStorage("email", '')
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState("");
+  const [blogs, setBlogs] = useState([])
 
   const loginUser = async (email) => {
     try {
@@ -58,6 +59,7 @@ const Home = () => {
            }
          );
          console.log(response);
+         setBlogs(response.data.data)
        } catch (error) {
          console.error("Error fetching data: ", error);
        }
@@ -79,7 +81,7 @@ const Home = () => {
   return (
     <div className="min-w-[1920px] min-h-[1080px] bg-[#E4E3EB] flex flex-col gap-12">
       <Modal showModal={showModal} setShowModal={closeModal} error={error}>
-        <AnimatePresence >
+        <AnimatePresence>
           {error === "invalid" || error === "" ? (
             <motion.div
               key="invalidContent"
@@ -176,75 +178,16 @@ const Home = () => {
         />
       </div>
       <div className="px-24 py-8 flex justify-between flex-wrap gap-y-12">
-        <BlogCart
-          name={"ლილე კვარაცხელია"}
-          date={"02.11.2023"}
-          img={NatureImg}
-          announcement={"EOMM-ის მრჩეველთა საბჭოს ნინო ეგაძე შეუერთდა"}
-          description="6 თვის შემდეგ ყველის ბრმა დეგუსტაციის დროც დადგა. მაქსიმალური სიზუსტისთვის, ეს პროცესი..."
-        />
-        <BlogCart
-          name={"ლილე კვარაცხელია"}
-          date={"02.11.2023"}
-          img={NatureImg}
-          announcement={"EOMM-ის მრჩეველთა საბჭოს ნინო ეგაძე შეუერთდა"}
-          description="6 თვის შემდეგ ყველის ბრმა დეგუსტაციის დროც დადგა. მაქსიმალური სიზუსტისთვის, ეს პროცესი..."
-        />
-        <BlogCart
-          name={"ლილე კვარაცხელია"}
-          date={"02.11.2023"}
-          announcement={"EOMM-ის მრჩეველთა საბჭოს ნინო ეგაძე შეუერთდა"}
-          description="6 თვის შემდეგ ყველის ბრმა დეგუსტაციის დროც დადგა. მაქსიმალური სიზუსტისთვის, ეს პროცესი..."
-        />
-        <BlogCart
-          name={"ლილე კვარაცხელია"}
-          date={"02.11.2023"}
-          img={NatureImg}
-          announcement={"EOMM-ის მრჩეველთა საბჭოს ნინო ეგაძე შეუერთდა"}
-          description="6 თვის შემდეგ ყველის ბრმა დეგუსტაციის დროც დადგა. მაქსიმალური სიზუსტისთვის, ეს პროცესი..."
-        />
-        <BlogCart
-          name={"ლილე კვარაცხელია"}
-          date={"02.11.2023"}
-          img={NatureImg}
-          announcement={"EOMM-ის მრჩეველთა საბჭოს ნინო ეგაძე შეუერთდა"}
-          description="6 თვის შემდეგ ყველის ბრმა დეგუსტაციის დროც დადგა. მაქსიმალური სიზუსტისთვის, ეს პროცესი..."
-        />
-        <BlogCart
-          name={"ლილე კვარაცხელია"}
-          date={"02.11.2023"}
-          img={NatureImg}
-          announcement={"EOMM-ის მრჩეველთა საბჭოს ნინო ეგაძე შეუერთდა"}
-          description="6 თვის შემდეგ ყველის ბრმა დეგუსტაციის დროც დადგა. მაქსიმალური სიზუსტისთვის, ეს პროცესი..."
-        />
-        <BlogCart
-          name={"ლილე კვარაცხელია"}
-          date={"02.11.2023"}
-          img={NatureImg}
-          announcement={"EOMM-ის მრჩეველთა საბჭოს ნინო ეგაძე შეუერთდა"}
-          description="6 თვის შემდეგ ყველის ბრმა დეგუსტაციის დროც დადგა. მაქსიმალური სიზუსტისთვის, ეს პროცესი..."
-        />
-        <BlogCart
-          name={"ლილე კვარაცხელია"}
-          date={"02.11.2023"}
-          img={NatureImg}
-          announcement={"EOMM-ის მრჩეველთა საბჭოს ნინო ეგაძე შეუერთდა"}
-          description="6 თვის შემდეგ ყველის ბრმა დეგუსტაციის დროც დადგა. მაქსიმალური სიზუსტისთვის, ეს პროცესი..."
-        />
-        <BlogCart
-          name={"ლილე კვარაცხელია"}
-          date={"02.11.2023"}
-          img={NatureImg}
-          announcement={"EOMM-ის მრჩეველთა საბჭოს ნინო ეგაძე შეუერთდა"}
-          description="6 თვის შემდეგ ყველის ბრმა დეგუსტაციის დროც დადგა. მაქსიმალური სიზუსტისთვის, ეს პროცესი..."
-        />
-        <BlogCart
-          name={"ლილე კვარაცხელია"}
-          date={"02.11.2023"}
-          img={NatureImg}
-          announcement={"EOMM-ის მრჩეველთა საბჭოს ნინო ეგაძე შეუერთდა"}
-          description="6 თვის შემდეგ ყველის ბრმა დეგუსტაციის დროც დადგა. მაქსიმალური სიზუსტისთვის, ეს პროცესი..."
-        />
+        {blogs.map((blog) => (
+          <BlogCart
+            name={blog.author}
+            date={blog.publish_date}
+            img={blog.image}
+            announcement={blog.title}
+            description={blog.description}
+            categories={blog.categories}
+          />
+        ))}
       </div>
     </div>
   );
