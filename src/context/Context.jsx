@@ -3,7 +3,7 @@ import { useSessionStorage } from "../hooks/useSessionStorage";
 const info = {
   title: "",
   description: "",
-  image: "",
+  image: {},
   author: "",
   publish_date: "",
   categories: [],

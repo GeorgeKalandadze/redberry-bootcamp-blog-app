@@ -58,7 +58,46 @@ const CreateBlog = () => {
 
 
     console.log(validationErrors);
-   
+
+    const handleImageUpload = (event) => {
+      const { files } = event.target;
+
+      if (files && files[0]) {
+        const selectedImage = files[0];
+        const reader = new FileReader();
+
+        reader.onload = () => {
+          const dataUrl = reader.result;
+          const fileName = selectedImage.name; // Get the file name
+
+          setStore((prevInfo) => ({
+            ...prevInfo,
+            image: {
+              url: dataUrl,
+              name: fileName, 
+            },
+          }));
+
+          const updatedInfo = {
+            ...info,
+            image: {
+              url: dataUrl,
+              name: fileName, 
+            },
+          };
+
+          const imageErrors = ValidateBlog(updatedInfo).image;
+
+          setValidationErrors((prevErrors) => ({
+            ...prevErrors,
+            image: imageErrors,
+          }));
+        };
+
+        reader.readAsDataURL(selectedImage);
+      }
+    };
+
 
   return (
     <div className="min-w-[1920px] min-h-[1080px] bg-[#E4E3EB] flex flex-col gap-12">
@@ -77,34 +116,35 @@ const CreateBlog = () => {
               ბლოგის დამატება
             </h1>
             <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-              {!info.image ? (
-               <div className="flex flex-col gap-3">
-                <p className="font-medium leading-[20px]">ატვირთეთ ფოტო</p>
-                <div className="relative cursor-pointer w-full bg-[#F4F3FF] border-[2px] border-dashed border-[#85858D] rounded-xl justify-center flex flex-col items-center gap-6 h-[180px]">
-                  <input
-                    type="file"
-                    name="image"
-                    className="cursor-pointer absolute top-0 left-0 w-full h-full opacity-0"
-                    //   onChange={(event) => handleImageChange(event)}
-                  />
-                  <div className="flex flex-col items-center w-full">
-                    <img src={UploadImg} />
-                    <div class="flex gap-1">
-                      <p>ჩააგდეთ ფაილი აქ ან </p>
-                      <p class="font-medium underline"> აირჩიეთ ფაილი</p>
+              {Object.keys(info.image).length == 0 ? (
+                <div className="flex flex-col gap-3">
+                  <p className="font-medium leading-[20px]">ატვირთეთ ფოტო</p>
+                  <div className="relative cursor-pointer w-full bg-[#F4F3FF] border-[2px] border-dashed border-[#85858D] rounded-xl justify-center flex flex-col items-center gap-6 h-[180px]">
+                    <input
+                      type="file"
+                      name="image"
+                      className="cursor-pointer absolute top-0 left-0 w-full h-full opacity-0"
+                      onChange={(event) => handleImageUpload(event)}
+                    />
+                    <div className="flex flex-col items-center w-full">
+                      <img src={UploadImg} />
+                      <div class="flex gap-1">
+                        <p>ჩააგდეთ ფაილი აქ ან </p>
+                        <p class="font-medium underline"> აირჩიეთ ფაილი</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div> ) : (
-              <div className="bg-[#F2F2FA] px-5 py-6 rounded-2xl flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <img src={GalleryIcon} />
-                  <p className="text-[#1A1A1F] font-medium">BlogImg.JPEG</p>
+              ) : (
+                <div className="bg-[#F2F2FA] px-5 py-6 rounded-2xl flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <img src={GalleryIcon} />
+                    <p className="text-[#1A1A1F] font-medium">BlogImg.JPEG</p>
+                  </div>
+                  <button>
+                    <img src={CloseIcon} />
+                  </button>
                 </div>
-                <button>
-                  <img src={CloseIcon} />
-                </button>
-              </div>
               )}
               <div className="flex gap-8">
                 <div className="flex flex-col gap-3 w-full ">

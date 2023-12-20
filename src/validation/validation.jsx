@@ -80,7 +80,7 @@ export const ValidateBlog = (values) => {
     response.categories = "invalid";
   }
 
-   if (!values?.image) {
+   if (!values?.image || !values?.image.url) {
      response.image = "invalid";
    } else {
      response.image = "valid";
