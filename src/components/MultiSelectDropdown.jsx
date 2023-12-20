@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import ArrowDownIcon from "../assets/Vector.png";
 import CategoryButton from "./CategoryButton";
 import axios from "axios";
+import { useGlobalContext } from "../context/Context";
 
 const MultiSelectDropdown = ({
   label,
@@ -14,7 +15,9 @@ const MultiSelectDropdown = ({
   const [selectedOption, setSelectedOption] = useState(value);
   const [isOpen, setIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const { info, setStore } = useGlobalContext();
+  const [selectedOptions, setSelectedOptions] = useState(info.categories || []);
+  const [newCategories, setNewCategories] = useState(info.categories);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -50,10 +53,14 @@ const MultiSelectDropdown = ({
     transition: "max-height 0.3s ease-in-out, opacity 0.3s ease-in-out",
   };
 
-  const handleOptionClick = (value) => {
-    if (!selectedOptions.includes(value)) {
-      setSelectedOptions([...selectedOptions, value]);
-    } 
+  const handleOptionClick = (option) => {
+    if (!selectedOptions.includes(option)) {
+      setSelectedOptions([...selectedOptions, option]);
+      setStore((prevInfo) => ({
+        ...prevInfo,
+        categories: [...prevInfo.categories, option],
+      }));
+    }
   };
 
   //setSelectedOptions(selectedOptions.filter((option) => option !== value));
