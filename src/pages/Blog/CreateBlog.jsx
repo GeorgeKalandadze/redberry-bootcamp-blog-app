@@ -8,7 +8,7 @@ import MultiSelectDropdown from '../../components/MultiSelectDropdown';
 import { useGlobalContext } from '../../context/Context';
 
 const CreateBlog = () => {
-    const {info} = useGlobalContext();
+    const {info, setStore} = useGlobalContext();
 
      const positions = [
       { label: "ჯუნიორ დეველოპერი", id: 1, team_id: 1 },
@@ -30,7 +30,17 @@ const CreateBlog = () => {
       }));
     };
 
-     console.log(info);
+   const handleTextInputChange = (e) => {
+     const { value, name } = e.target;
+    
+     setStore((prevInfo) => ({
+       ...prevInfo,
+       [name]: value,
+     }));
+   };
+
+
+   console.log(info);
 
   return (
     <div className="min-w-[1920px] min-h-[1080px] bg-[#E4E3EB] flex flex-col gap-12">
@@ -75,7 +85,7 @@ const CreateBlog = () => {
                   placeholder="შეიყვნეთ ავტორი"
                   hint="მინიმუმ 2 სიმბოლო, ქართული ასოები"
                   value={info.author}
-                  //   changeHandler={handleTextInputChange}
+                  changeHandler={handleTextInputChange}
                   //   isValid={validationErrors.personal.firstname}
                 />
                 <InputGroup
@@ -85,7 +95,7 @@ const CreateBlog = () => {
                   placeholder="შეიყვნეთ სათაური"
                   hint="მინიმუმ 2 სიმბოლო, ქართული ასოები"
                   value={info.title}
-                  //   changeHandler={handleTextInputChange}
+                  changeHandler={handleTextInputChange}
                   //   isValid={validationErrors.personal.lastname}
                 />
               </div>
@@ -95,6 +105,7 @@ const CreateBlog = () => {
                 placeholder="როლი თანამდებობაზე და ზოგადი აღწერა"
                 hint="მინიმუმ 4 სიმბოლო, ქართული ასოები"
                 value={info.description}
+                changeHandler={handleTextInputChange}
               />
               <div className="flex gap-8 items-center">
                 <InputGroup
@@ -102,7 +113,7 @@ const CreateBlog = () => {
                   type="date"
                   name="publish_date"
                   value={info.publish_date}
-                  // changeHandler={handleTextInputChange}
+                  changeHandler={handleTextInputChange}
                   // isValid={validationErrors.personal.firstname}
                 />
                 <div className="flex flex-col gap-3 w-full pb-3">
@@ -128,7 +139,7 @@ const CreateBlog = () => {
                   placeholder="Example@redberry.ge"
                   hint="მეილი უნდა მთავრდებოდეს @redberry.ge-ით"
                   value={info.email}
-                  //   changeHandler={handleTextInputChange}
+                  changeHandler={handleTextInputChange}
                   //   isValid={validationErrors.personal.lastname}
                 />
               </div>

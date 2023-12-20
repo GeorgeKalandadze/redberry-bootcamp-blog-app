@@ -22,6 +22,7 @@ export const AppProvider = ({children}) => {
       <AppContext.Provider
         value={{
           info: store,
+          setStore,
         }}
       >
         {children}
