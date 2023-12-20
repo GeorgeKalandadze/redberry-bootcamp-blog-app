@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import ArrowDownIcon from "../assets/Vector.png";
+import DeleteIcon from "../assets/delete_icon.png";
 import CategoryButton from "./CategoryButton";
 import axios from "axios";
 import { useGlobalContext } from "../context/Context";
@@ -72,6 +73,26 @@ const MultiSelectDropdown = ({
     }
   };
 
+  const handleDeleteOption = (option) => {
+    const updatedOptions = selectedOptions.filter((opt) => opt !== option);
+    setSelectedOptions(updatedOptions);
+
+    setStore((prevInfo) => ({
+      ...prevInfo,
+      categories: updatedOptions,
+    }));
+
+    const categoryErrors = ValidateBlog({
+      categories: updatedOptions,
+    }).categories;
+
+    setValidationErrors((prevErrors) => ({
+      ...prevErrors,
+      categories: categoryErrors,
+    }));
+  };
+
+
   //setSelectedOptions(selectedOptions.filter((option) => option !== value));
 
     const containerRef = useRef(null);
@@ -93,6 +114,7 @@ const MultiSelectDropdown = ({
     const handleTouchEnd = () => {
       setStartX(null);
     };
+
 
   return (
     <div
@@ -124,12 +146,31 @@ const MultiSelectDropdown = ({
             onTouchEnd={handleTouchEnd}
           >
             {selectedOptions.map((option, index) => (
-              <CategoryButton
-                key={index}
-                text={option.title}
-                bgColor={option.background_color}
-                textColor={option.text_color}
-              />
+              // <CategoryButton
+              //   key={index}
+              //   text={option.title}
+              //   bgColor={option.background_color}
+              //   textColor={option.text_color}
+              // />
+
+              <div
+                style={{
+                  backgroundColor: option.background_color,
+                  // color: textColor,
+                  borderRadius: "30px",
+                  padding:  "8px 18px",
+                  whiteSpace: "nowrap",
+                }}
+                className="flex justify-center gap-8 items-center"
+              >
+                <p style={{ color: option.text_color }} className="text-[14px] font-medium">
+                  {option.title}
+                </p>
+                <img
+                  src={DeleteIcon}
+                  onClick={() => handleDeleteOption(option)}
+                />
+              </div>
             ))}
           </div>
         ) : (
