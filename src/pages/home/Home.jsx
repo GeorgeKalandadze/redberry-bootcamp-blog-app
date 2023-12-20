@@ -9,11 +9,13 @@ import InputGroup from '../../components/InputGroup';
 import axios from 'axios';
 import { useSessionStorage } from '../../hooks/useSessionStorage';
 import ErrorIcon from '../../assets/error.png'
+import SuccessIcon from '../../assets/success.png'
+import { AnimatePresence, motion } from 'framer-motion';
 
 const Home = () => {
   const [email, setEmail] = useSessionStorage("email", '')
   const [showModal, setShowModal] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
 
   const loginUser = async (email) => {
     try {
@@ -29,17 +31,21 @@ const Home = () => {
         }
       );
       console.log("Login successful:", response);
-      setError(false);
+
+      if (response.status === 204) {
+        setError("valid");
+        // Possibly handle further logic for successful login here
+      } else {
+        setError("invalid");
+      }
+
       return response.data;
     } catch (error) {
       console.error("Error during login:", error.response);
-      if (error.response && error.response.status === 422) {
-        setError(true);
-      } else {
-        setError(false);
-      }
+      setError("invalid");
     }
   };
+
 
   const openModal = () => {
     setShowModal(true);
@@ -51,39 +57,70 @@ const Home = () => {
 
   return (
     <div className="min-w-[1920px] min-h-[1080px] bg-[#E4E3EB] flex flex-col gap-12">
-      <Modal showModal={showModal} setShowModal={closeModal}>
-        <div className="gap-6 flex flex-col">
-          <h1 className="font-bold text-[32px]">შესვლა</h1>
-          <form className="flex items-start flex-col gap-6 w-full pb-4">
-            <div className="flex items-start flex-col gap-3 w-full">
-              <label className={`font-bold text-[14px] text-[#1A1A1F] `}>
-                ელ ფოსტა
-              </label>
-              <input
-                placeholder="Example@redberry.ge"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className={`w-full border-[2px] rounded-xl px-[15px] py-[12px] outline-none ${
-                  error ? "border-red-500" : "border-[#5D37F3]"
-                }`}
-              />
-              {error && (
-                <div className="flex items-center gap-2 text-red-500">
-                  <img src={ErrorIcon} alt="Error Icon" />
-                  <span>ელ-ფოსტა არ მოიძებნა</span>
-                </div>
-              )}
-            </div>
-            <button
-              type="button"
-              className="bg-[#5D37F3] rounded-xl w-full text-white py-[12px]"
-              onClick={() => loginUser(email)}
+      <Modal showModal={showModal} setShowModal={closeModal} error={error}>
+        <AnimatePresence >
+          {error === "invalid" || error === "" ? (
+            <motion.div
+              key="invalidContent"
+              className="gap-6 flex flex-col"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
             >
-              შესვლა
-            </button>
-          </form>
-        </div>
+              <h1 className="font-bold text-[32px]">შესვლა</h1>
+              <form className="flex items-start flex-col gap-6 w-full pb-4">
+                <div className="flex items-start flex-col gap-3 w-full">
+                  <label className={`font-bold text-[14px] text-[#1A1A1F] `}>
+                    ელ ფოსტა
+                  </label>
+                  <input
+                    placeholder="Example@redberry.ge"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className={`w-full border-[2px] rounded-xl px-[15px] py-[12px] outline-none ${
+                      error === "invalid"
+                        ? "border-red-500"
+                        : "border-[#5D37F3]"
+                    }`}
+                  />
+                  {error === "invalid" && (
+                    <div className="flex items-center gap-2 text-red-500">
+                      <img src={ErrorIcon} alt="Error Icon" />
+                      <span>ელ-ფოსტა არ მოიძებნა</span>
+                    </div>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  className="bg-[#5D37F3] rounded-xl w-full text-white py-[12px]"
+                  onClick={() => loginUser(email)}
+                >
+                  შესვლა
+                </button>
+              </form>
+            </motion.div>
+          ) : error === "valid" ? (
+            <motion.div
+              key="validContent"
+              className="gap-6 flex flex-col justify-center items-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <img src={SuccessIcon} alt="Success Icon" />
+              <h1 className="font-bold text-[25px]">წარმატებული ავტორიზაცია</h1>
+              <button
+                type="button"
+                className="bg-[#5D37F3] rounded-xl text-white py-[12px] w-full"
+                onClick={() => setShowModal(false)}
+              >
+                კარგი
+              </button>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
       </Modal>
+      ;
       <Header openModal={openModal} />
       <div className="flex px-24 py-8 justify-between items-center">
         <h1 className="text-[64px] font-bold">ბლოგი</h1>
