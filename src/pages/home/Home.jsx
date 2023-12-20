@@ -8,28 +8,36 @@ import Modal from '../../components/Modal';
 import InputGroup from '../../components/InputGroup';
 import axios from 'axios';
 import { useSessionStorage } from '../../hooks/useSessionStorage';
+import ErrorIcon from '../../assets/error.png'
 
 const Home = () => {
   const [email, setEmail] = useSessionStorage("email", '')
   const [showModal, setShowModal] = useState(false);
+  const [error, setError] = useState(false);
+
   const loginUser = async (email) => {
     try {
-      const response = await axios
-        .post(
-          "https://api.blog.redberryinternship.ge/api/login",
-          {
-            email: email,
+      const response = await axios.post(
+        "https://api.blog.redberryinternship.ge/api/login",
+        {
+          email: email,
+        },
+        {
+          headers: {
+            Authorization: `Bearer${"b5e0db82076215b2884e6558888b370b48558754b602fa59a385177db3a8e3ab"}`,
           },
-          {
-            headers: {
-              Authorization: `Bearer${"b5e0db82076215b2884e6558888b370b48558754b602fa59a385177db3a8e3ab"}`,
-            },
-          }
-        );
+        }
+      );
       console.log("Login successful:", response);
+      setError(false);
       return response.data;
     } catch (error) {
-      console.error("Error during login:", error);
+      console.error("Error during login:", error.response);
+      if (error.response && error.response.status === 422) {
+        setError(true);
+      } else {
+        setError(false);
+      }
     }
   };
 
@@ -55,8 +63,16 @@ const Home = () => {
                 placeholder="Example@redberry.ge"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className={`w-full border-[2px]  border-[#5D37F3] rounded-xl px-[15px] py-[12px] outline-none`}
+                className={`w-full border-[2px] rounded-xl px-[15px] py-[12px] outline-none ${
+                  error ? "border-red-500" : "border-[#5D37F3]"
+                }`}
               />
+              {error && (
+                <div className="flex items-center gap-2 text-red-500">
+                  <img src={ErrorIcon} alt="Error Icon" />
+                  <span>ელ-ფოსტა არ მოიძებნა</span>
+                </div>
+              )}
             </div>
             <button
               type="button"
