@@ -55,7 +55,7 @@ const CreateBlog = () => {
     };
 
 
-    console.log();
+    console.log(validationErrors);
    
 
   return (

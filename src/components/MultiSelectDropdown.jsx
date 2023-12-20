@@ -3,6 +3,7 @@ import ArrowDownIcon from "../assets/Vector.png";
 import CategoryButton from "./CategoryButton";
 import axios from "axios";
 import { useGlobalContext } from "../context/Context";
+import { ValidateBlog } from "../validation/Validation";
 
 const MultiSelectDropdown = ({
   label,
@@ -61,9 +62,14 @@ const MultiSelectDropdown = ({
         ...prevInfo,
         categories: [...prevInfo.categories, option],
       }));
-    }
 
-    
+      const categoryErrors = ValidateBlog(info).categories;
+
+      setValidationErrors((prevErrors) => ({
+        ...prevErrors,
+        categories: categoryErrors,
+      }));
+    }
   };
 
   //setSelectedOptions(selectedOptions.filter((option) => option !== value));
