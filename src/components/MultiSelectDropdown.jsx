@@ -126,6 +126,7 @@ const MultiSelectDropdown = ({
           ? "border-green-500"
           : ""
       }`}
+      
     >
       <div
         className={`bg-white flex items-center cursor-pointer justify-between `}

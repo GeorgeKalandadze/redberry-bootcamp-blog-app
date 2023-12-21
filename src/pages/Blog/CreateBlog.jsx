@@ -9,6 +9,7 @@ import { useGlobalContext } from '../../context/Context';
 import { ValidateBlog } from '../../validation/Validation';
 import GalleryIcon from '../../assets/gallery.png'
 import CloseIcon from '../../assets/close.png'
+import { Link } from 'react-router-dom';
 
 const CreateBlog = () => {
     const { info, setStore, setValidationErrors, validationErrors, makeBlog } =
@@ -121,11 +122,13 @@ const CreateBlog = () => {
         <img src={RedberryLogo} />
       </div>
       <div className="px-24 py-8 flex">
-        <button
-          className={`bg-[#FFFFFF] h-[44px] w-[44px] rounded-full flex items-center justify-center`}
-        >
-          <img src={ArrowIcon2} />
-        </button>
+        <Link to="/">
+          <button
+            className={`bg-[#FFFFFF] h-[44px] w-[44px] rounded-full flex items-center justify-center`}
+          >
+            <img src={ArrowIcon2} />
+          </button>
+        </Link>
         <div className="w-full justify-center flex">
           <div className="w-[720px] flex flex-col gap-4 ">
             <h1 className="font-bold text-[30px] leading-[45px]">

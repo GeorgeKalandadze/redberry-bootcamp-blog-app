@@ -10,7 +10,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/free-mode";
 import { FreeMode, Pagination } from "swiper/modules";
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const Blog = () => {
@@ -110,11 +110,13 @@ const Blog = () => {
     <div className="min-w-[1920px] min-h-[1080px] bg-[#F3F2FA] flex flex-col gap-12">
       <Header />
       <div className="flex px-24 py-8">
-        <button
-          className={`bg-[#FFFFFF] h-[44px] w-[44px] rounded-full flex items-center justify-center`}
-        >
-          <img src={ArrowIcon2} />
-        </button>
+        <Link to='/'>
+          <button
+            className={`bg-[#FFFFFF] h-[44px] w-[44px] rounded-full flex items-center justify-center`}
+          >
+            <img src={ArrowIcon2} />
+          </button>
+        </Link>
         <div className="w-full justify-center flex ">
           <div className="w-[720px] flex flex-col gap-4">
             <img src={blog.image} className="w-full rounded-xl h-[328px]" />
@@ -126,18 +128,16 @@ const Blog = () => {
               {blog.title}
             </h1>
             <div className="flex gap-3 flex-wrap">
-              {blog && blog.categories ? (
-                blog.categories.map((category) => (
-                  <CategoryButton
-                    key={category.id} // Remember to provide a unique key when using map in React
-                    text={category.title}
-                    bgColor={category.background_color}
-                    textColor={category.text_color}
-                  />
-                ))
-              ) : (
-                null
-              )}
+              {blog && blog.categories
+                ? blog.categories.map((category) => (
+                    <CategoryButton
+                      key={category.id} // Remember to provide a unique key when using map in React
+                      text={category.title}
+                      bgColor={category.background_color}
+                      textColor={category.text_color}
+                    />
+                  ))
+                : null}
             </div>
             <p className="text-[#404049] text-[16px] leading-[28px]">
               {blog.description}
