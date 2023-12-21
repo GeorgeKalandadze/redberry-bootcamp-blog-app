@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useSessionStorage } from "../hooks/useSessionStorage";
 import axios from "axios";
+import axiosClient from "../config/axiosClient";
 const info = {
   title: "",
   description: "",
@@ -27,14 +28,7 @@ export const AppProvider = ({children}) => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get(
-            "https://api.blog.redberryinternship.ge/api/blogs",
-            {
-              headers: {
-                Authorization: `Bearer ${"49b48dd795fd2e830af9465f762ec9a4062aad78567fdd2a1f4fa4df29acf792"}`,
-              },
-            }
-          );
+          const response = await axiosClient.get("/blogs");
           console.log(response);
           setBlogs(response.data.data);
         } catch (error) {

@@ -173,7 +173,7 @@ const CreateBlog = () => {
             formData,
             {
               headers: {
-                Authorization: `Bearer ${"49b48dd795fd2e830af9465f762ec9a4062aad78567fdd2a1f4fa4df29acf792"}`,
+                Authorization: `Bearer ${"282c0587589f7516edf61b215c828ba8047b67aabbe141c5d17ec45c0d624fd0"}`,
                 "Content-Type": "multipart/form-data",
               },
             }
@@ -202,7 +202,7 @@ const CreateBlog = () => {
               <h1 className="font-bold text-[25px]">
                 ჩანაწი წარმატებით დაემატა
               </h1>
-              <Link to={'/'} className='w-full'>
+              <Link to={"/"} className="w-full">
                 <button
                   type="button"
                   className="bg-[#5D37F3] rounded-xl text-white py-[16px] w-full"
@@ -295,9 +295,10 @@ const CreateBlog = () => {
                               Object.values(validationErrors.author).every(
                                 (error) => error === "valid"
                               )
-                            ? "border-green-500"
+                            ? "border-green-500 bg-[#F8FFF8]"
                             : "#c3c2c8"
-                        } border-[#c3c2c8] rounded-2xl px-[15px] py-[16px] outline-none`}
+                        } border-[#c3c2c8] rounded-2xl px-[15px] py-[16px] outline-none
+                        `}
                         onChange={handleTextInputChange}
                       />
                     </div>

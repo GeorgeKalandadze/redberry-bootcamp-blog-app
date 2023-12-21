@@ -34,7 +34,8 @@ const TextareaGroup = ({
             : validation === "valid"
             ? "border-[1px] border-green-500"
             : ""
-        }`}
+        }
+        ${validation == "valid" ? "bg-[#F8FFF8]" : ""}`}
         value={value}
         onChange={(event) => changeHandler(event)}
       ></textarea>

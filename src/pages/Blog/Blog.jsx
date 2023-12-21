@@ -13,6 +13,7 @@ import { FreeMode, Pagination } from "swiper/modules";
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useGlobalContext } from '../../context/Context';
+import axiosClient from '../../config/axiosClient';
 
 const Blog = () => {
     const [swiper, setSwiper] = useState(null);
@@ -23,14 +24,7 @@ const Blog = () => {
      useEffect(() => {
        const fetchData = async () => {
          try {
-           const response = await axios.get(
-             `https://api.blog.redberryinternship.ge/api/blogs/${id}`,
-             {
-               headers: {
-                 Authorization: `Bearer ${"49b48dd795fd2e830af9465f762ec9a4062aad78567fdd2a1f4fa4df29acf792"}`,
-               },
-             }
-           );
+           const response = await axiosClient.get(`/blogs/${id}`);
            console.log(response.data);
            setBlog(response.data);
          } catch (error) {
