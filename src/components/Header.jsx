@@ -13,7 +13,6 @@ const Header = ({ openModal }) => {
         <button
           className="bg-[#5D37F3] rounded-md px-[20px] py-[10px] text-white text-[14px]"
           onClick={() => navigate('/create-blog')}
-          
         >
           დაამატე ბლოგი
         </button>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header';
 import NatureImg from "../../assets/nature_img.jpg";
 import CategoryButton from '../../components/CategoryButton';
@@ -10,10 +10,36 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/free-mode";
 import { FreeMode, Pagination } from "swiper/modules";
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const Blog = () => {
-    const [swiper, setSwiper] = useState(null); // State to store Swiper instance
+    const [swiper, setSwiper] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [blog, setBlog] = useState({})
+    const { id } = useParams();
+
+     useEffect(() => {
+       const fetchData = async () => {
+         try {
+           const response = await axios.get(
+             `https://api.blog.redberryinternship.ge/api/blogs/${id}`,
+             {
+               headers: {
+                 Authorization: `Bearer ${"b5e0db82076215b2884e6558888b370b48558754b602fa59a385177db3a8e3ab"}`,
+               },
+             }
+           );
+           console.log(response.data);
+           setBlog(response.data);
+         } catch (error) {
+           console.error("Error fetching data: ", error);
+         }
+       };
+
+       fetchData();
+     }, []);
+
     const goToNextSlide = () => {
       if (swiper !== null) {
         swiper.slideNext();
@@ -78,6 +104,8 @@ const Blog = () => {
       },
     ];
 
+
+    console.log("blogggggggggggg",blog.categories);
   return (
     <div className="min-w-[1920px] min-h-[1080px] bg-[#F3F2FA] flex flex-col gap-12">
       <Header />
@@ -89,68 +117,30 @@ const Blog = () => {
         </button>
         <div className="w-full justify-center flex ">
           <div className="w-[720px] flex flex-col gap-4">
-            <img src={NatureImg} className="w-full rounded-xl h-[328px]" />
-            <p className="text-[16px] font-medium">ლილე კვარაცხელია</p>
+            <img src={blog.image} className="w-full rounded-xl h-[328px]" />
+            <p className="text-[16px] font-medium">{blog.author}</p>
             <p className="font-small text-[#85858D]">
-              02.11.2023 • lile.kvaratskhelia@redberry.ge
+              {blog.publish_date} • {blog?.email}
             </p>
             <h1 className="font-bold text-[30px] leading-[45px]">
-              მობილური ფოტოგრაფიის კონკურსის გამარჯვებულთა ვინაობა ცნობილია
+              {blog.title}
             </h1>
             <div className="flex gap-3 flex-wrap">
-              <CategoryButton
-                text={"კვლევა"}
-                bgColor={"#E9EFE9"}
-                textColor={"#60BE16"}
-              />
-              <CategoryButton
-                text={"ხელოვნური ინტელექტი"}
-                bgColor={"#EEE1F7"}
-                textColor={"#B71FDD"}
-              />
-              <CategoryButton
-                text={"UI/UX"}
-                bgColor={"#FA575714"}
-                textColor={"#DC2828"}
-              />
-              <CategoryButton
-                text={"ხელოვნური ინტელექტი"}
-                bgColor={"#EEE1F7"}
-                textColor={"#B71FDD"}
-              />
-              <CategoryButton
-                text={"UI/UX"}
-                bgColor={"#FA575714"}
-                textColor={"#DC2828"}
-              />
-              <CategoryButton
-                text={"ხელოვნური ინტელექტი"}
-                bgColor={"#EEE1F7"}
-                textColor={"#B71FDD"}
-              />
+              {blog && blog.categories ? (
+                blog.categories.map((category) => (
+                  <CategoryButton
+                    key={category.id} // Remember to provide a unique key when using map in React
+                    text={category.title}
+                    bgColor={category.background_color}
+                    textColor={category.text_color}
+                  />
+                ))
+              ) : (
+                null
+              )}
             </div>
             <p className="text-[#404049] text-[16px] leading-[28px]">
-              6 თვის შემდეგ ყველის ბრმა დეგუსტაციის დროც დადგა. მაქსიმალური
-              სიზუსტისთვის, ეს პროცესი ორჯერ გაიმეორეს და ორივეჯერ იმ ყველს
-              მიენიჭა უპირატესობა, რომელსაც ჰიპ-ჰოპს ასმენინებდნენ. „მუსიკალური
-              ენერგია პირდაპირ ყველის შუაგულში რეზონირებდა“, — აღნიშნა ბერნის
-              ხელოვნების უნივერსიტეტის წარმომადგენელმა, მაიკლ ჰერენბერგმა. რა
-              თქმა უნდა, ეს ერთი კვლევა საკმარისი არ არის საბოლოო დასკვნების
-              გამოსატანად. სანაცვლოდ, მეცნიერებს სურთ, უშუალოდ ჰიპ-ჰოპის ჟანრის
-              სხვადასხვა მუსიკა მოასმენინონ რამდენიმე ყველს და უკვე ისინი
-              შეაჯიბრონ ერთმანეთს. აქვე საგულისხმოა, რომ როგორც ბერნის
-              მეცნიერები განმარტავენ, ექსპერიმენტს საფუძვლად არა ყველის
-              გაუმჯობესებული წარმოება, არამედ კულტურული საკითხები დაედო. მათი
-              თქმით, ადამიანებს უყვართ ყველი და მუსიკა, ამიტომაც საინტერესოა ამ
-              ორის კავშირის დანახვა. 6 თვის შემდეგ ყველის ბრმა დეგუსტაციის დროც
-              დადგა. მაქსიმალური სიზუსტისთვის, ეს პროცესი ორჯერ გაიმეორეს და
-              ორივეჯერ იმ ყველს მიენიჭა უპირატესობა, რომელსაც ჰიპ-ჰოპს
-              ასმენინებდნენ. „მუსიკალური ენერგია პირდაპირ ყველის შუაგულში
-              რეზონირებდა“, — აღნიშნა ბერნის ხელოვნების უნივერსიტეტის
-              წარმომადგენელმა, მაიკლ ჰერენბერგმა. რა თქმა უნდა, ეს ერთი კვლევა
-              საკმარისი არ არის საბოლოო დასკვნების გამოსატანად. სანაცვლოდ,
-              მეცნიერებს სურთ, უშუალოდ ჰიპ-ჰოპის ჟანრის სხვადასხვა მუსიკა
-              მოასმენინონ რამდენიმე ყველს და უკვე ისინი შეაჯიბრონ ერთმანეთს.
+              {blog.description}
             </p>
           </div>
         </div>
@@ -203,7 +193,7 @@ const Blog = () => {
             pagination={{ clickable: true }}
             modules={[FreeMode]}
             className="w-full mt-8"
-            style={{ justifyContent: "space-between", width:"100%" }} 
+            style={{ justifyContent: "space-between", width: "100%" }}
           >
             {carouselItems.map((item, index) => (
               <SwiperSlide key={item.title}>

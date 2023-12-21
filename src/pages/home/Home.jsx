@@ -176,6 +176,7 @@ const Home = () => {
               announcement={blog.title}
               description={blog.description}
               categories={blog.categories}
+              id={blog.id}
             />
           ))}
         </div>
