@@ -12,12 +12,13 @@ import "swiper/css/free-mode";
 import { FreeMode, Pagination } from "swiper/modules";
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useGlobalContext } from '../../context/Context';
 
 const Blog = () => {
     const [swiper, setSwiper] = useState(null);
-    const [currentIndex, setCurrentIndex] = useState(0);
     const [blog, setBlog] = useState({})
     const { id } = useParams();
+    const {blogs} = useGlobalContext();
 
      useEffect(() => {
        const fetchData = async () => {
@@ -109,7 +110,26 @@ const Blog = () => {
       },
     ];
 
-    console.log(isEnd);
+     const [selectedCategories, setSelectedCategories] = useState([]);
+
+     const toggleCategorySelection = (categoryId) => {
+       if (selectedCategories.includes(categoryId)) {
+         setSelectedCategories(
+           selectedCategories.filter((id) => id !== categoryId)
+         );
+       } else {
+         setSelectedCategories([...selectedCategories, categoryId]);
+       }
+     };
+
+     const filteredBlogs =
+       selectedCategories.length > 0
+         ? blogs.filter((blog) =>
+             blog.categories.some((blogCat) =>
+               selectedCategories.includes(blogCat.id)
+             )
+           )
+         : blogs;
 
   return (
     <div className="min-w-[1920px] min-h-[1080px] bg-[#F3F2FA] flex flex-col gap-12">
@@ -173,7 +193,6 @@ const Blog = () => {
                 isEnd ? "#AABBCC" : "#5D37F3"
               }] h-[44px] w-[44px] rounded-full flex items-center justify-center`}
               onClick={goToNextSlide}
-              
             >
               <img src={ArrowIcon} alt="Next" />
             </button>
@@ -199,12 +218,22 @@ const Blog = () => {
             className="w-full mt-8"
             style={{ justifyContent: "space-between", width: "100%" }}
           >
-            {carouselItems.map((item, index) => (
-              <SwiperSlide key={item.title}>
+            {filteredBlogs.map((blog, index) => (
+              <SwiperSlide key={blog.id}>
                 <div className="flex justify-center">
                   {" "}
-                  {/* Adjust alignment */}
-                  <BlogCart {...item} />
+                  <Link to={`blog/${blog.id}`}>
+                    <BlogCart
+                      key={blog.id}
+                      name={blog.author}
+                      date={blog.publish_date}
+                      img={blog.image}
+                      announcement={blog.title}
+                      description={blog.description}
+                      categories={blog.categories}
+                      id={blog.id}
+                    />
+                  </Link>
                 </div>
               </SwiperSlide>
             ))}

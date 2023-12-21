@@ -17,44 +17,33 @@ const AppContext = createContext({
 
 
 export const AppProvider = ({children}) => {
-     const [store, setStore] = useSessionStorage("info", info);
-     const [validationErrors, setValidationErrors] = useSessionStorage('blogErrors',{})
-      const [isLogged, setIsLogged] = useSessionStorage("isLoggedin", "");
+    const [store, setStore] = useSessionStorage("info", info);
+    const [validationErrors, setValidationErrors] = useSessionStorage('blogErrors',{})
+    const [isLogged, setIsLogged] = useSessionStorage("isLoggedin", "");
     const [categories, setCategories] = useState([]);
+    const [blogs, setBlogs] = useState([]);
 
-     const makeBlog = async (email) => {
-       try {
-         const formData = new FormData;
-         formData.append("title", store.title);
-         formData.append("description", store.description);
-         formData.append("author", store.author);
-         formData.append("publish_date", store.publish_date);
-         formData.append("email", store.email);
-         const categoryIds = store.categories
-           .map((category) => category.id)
-           .join(",");
-         formData.append("categories", `[${categoryIds}]`);
 
-         const response = await fetch(store.image.url);
-         const blob = await response.blob();
-         formData.append("image", blob, store.image.url);
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(
+            "https://api.blog.redberryinternship.ge/api/blogs",
+            {
+              headers: {
+                Authorization: `Bearer ${"49b48dd795fd2e830af9465f762ec9a4062aad78567fdd2a1f4fa4df29acf792"}`,
+              },
+            }
+          );
+          console.log(response);
+          setBlogs(response.data.data);
+        } catch (error) {
+          console.error("Error fetching data: ", error);
+        }
+      };
 
-         const blogResponse = await axios.post(
-           "https://api.blog.redberryinternship.ge/api/blogs",
-           formData,
-           {
-             headers: {
-               Authorization: `Bearer ${"b5e0db82076215b2884e6558888b370b48558754b602fa59a385177db3a8e3ab"}`,
-               "Content-Type": "multipart/form-data",
-             },
-           }
-         );
-
-         console.log("Blog created successfully:", blogResponse);
-       } catch (error) {
-         console.error("Error creating blog:", error);
-       }
-     };
+      fetchData();
+    }, []);
 
 
      useEffect(() => {
@@ -79,14 +68,14 @@ export const AppProvider = ({children}) => {
     return (
       <AppContext.Provider
         value={{
-          isLogged, 
+          isLogged,
           setIsLogged,
           info: store,
           setStore,
           setValidationErrors,
           validationErrors,
           categories,
-          makeBlog,
+          blogs,
         }}
       >
         {children}

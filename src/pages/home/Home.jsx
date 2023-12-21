@@ -17,9 +17,8 @@ const Home = () => {
   const [email, setEmail] = useSessionStorage("email", '')
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState("");
-  // const [isLogged, setIsLogged] = useSessionStorage("isLoggedin","")
-  const [blogs, setBlogs] = useState([])
-  const { categories, isLogged, setIsLogged } = useGlobalContext();
+  // const [blogs, setBlogs] = useState([])
+  const { categories, isLogged, setIsLogged, blogs } = useGlobalContext();
 
   const loginUser = async (email) => {
     try {
@@ -205,7 +204,7 @@ const Home = () => {
                 key={option.id}
                 className={`category-scroll-item ${
                   selectedCategories.includes(option.id)
-                    ? "border-[3px] border-[#5D37F3]"
+                    ? "border-[2px] border-black"
                     : ""
                 } `}
                 style={{ borderRadius: "30px" }}
