@@ -4,10 +4,12 @@
 
 @font-face {
   font-family: 'FiraGO';
-  src: url('path/to/FiraGO-Regular.woff2') format('woff2'), /* Adjust the path and format as needed */
-       url('path/to/FiraGO-Regular.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
+  src: url('path/to/font.woff2') format('woff2');
+  font-display: swap; /* This will use a fallback until the font is loaded */
+}
+
+body {
+  font-family: 'FiraGO', sans-serif;
 }
 
 .scroll-container {

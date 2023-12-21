@@ -153,7 +153,7 @@ const Home = () => {
       <div className="min-w-[1920px] min-h-[1080px] bg-[#E4E3EB] flex flex-col gap-12">
         <Header openModal={openModal} />
         <div className="flex px-24 py-8 justify-between items-center">
-          <h1 className="text-[64px] font-bold">ბლოგი</h1>
+          <h1 className="text-[74px] font-bold">ბლოგი</h1>
           <img src={HomeImg} className="w-[624px] h-[350px]" />
         </div>
         <div className="px-24 py-8 flex gap-10 justify-center flex-wrap">

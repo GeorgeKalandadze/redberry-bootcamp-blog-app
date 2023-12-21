@@ -123,7 +123,7 @@ const Blog = () => {
           </button>
         </Link>
         <div className="w-full justify-center flex ">
-          <div className="w-[720px] flex flex-col gap-4">
+          <div className="w-[820px] flex flex-col gap-4">
             <img src={blog.image} className="w-full rounded-xl h-[328px]" />
             <p className="text-[16px] font-medium">{blog.author}</p>
             <p className="font-small text-[#85858D]">
