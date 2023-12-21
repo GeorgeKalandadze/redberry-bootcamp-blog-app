@@ -96,6 +96,35 @@ const Home = () => {
   }
 
 
+
+  const [selectedCategories, setSelectedCategories] = useSessionStorage("categories",[]);
+
+  const toggleCategorySelection = (categoryId) => {
+    const index = selectedCategories.indexOf(categoryId);
+    if (index === -1) {
+      setSelectedCategories([...selectedCategories, categoryId]);
+    } else {
+      const updatedCategories = [...selectedCategories];
+      updatedCategories.splice(index, 1); 
+      setSelectedCategories(updatedCategories);
+    }
+  };
+
+  const [filteredBlogs, setFilteredBlogs] = useState([]);
+
+  useEffect(() => {
+    if (selectedCategories.length === 0) {
+      setFilteredBlogs(blogs);
+    } else {
+      const filtered = blogs.filter((blog) =>
+        selectedCategories.every((selectedCat) =>
+          blog.categories.some((blogCat) => blogCat.id === selectedCat)
+        )
+      );
+      setFilteredBlogs(filtered);
+    }
+  }, [selectedCategories, blogs]);
+
  
 
   return (
@@ -172,7 +201,18 @@ const Home = () => {
         <div className="px-24 py-8 category-scroll-container">
           <div className="category-scroll-content">
             {categories.map((option) => (
-              <div key={option.id} className="category-scroll-item">
+              <div
+                key={option.id}
+                className={`category-scroll-item ${
+                  selectedCategories.includes(option.id)
+                    ? "border-[3px] border-[#5D37F3]"
+                    : ""
+                } `}
+                style={{ borderRadius: "30px" }}
+                onClick={() => {
+                  toggleCategorySelection(option.id);
+                }}
+              >
                 <CategoryButton
                   text={option.title}
                   bgColor={option.background_color}
@@ -183,7 +223,7 @@ const Home = () => {
           </div>
         </div>
         <div className="px-24 py-8 flex justify-between flex-wrap gap-y-12">
-          {blogs
+          {filteredBlogs
             .filter((blog) => !isPublished(blog.publish_date))
             .map((blog) => (
               <BlogCart
