@@ -11,6 +11,7 @@ const InputGroup = ({
   isValid,
   focusHandler,
 }) => {
+  const isFocused = isValid !== "valid" && isValid !== "invalid";
   return (
     <div className="flex flex-col gap-3 w-full ">
       <label
@@ -34,7 +35,9 @@ const InputGroup = ({
               ? "border-green-500"
               : "#c3c2c8"
           } border-[#c3c2c8] rounded-2xl px-[15px] py-[16px] outline-none
-          ${isValid == "valid" ? "bg-[#F8FFF8]" : ""}`}
+          ${isValid == "valid" ? "bg-[#F8FFF8]" : ""} ${
+            isFocused ? "focus:border-[#5D37F3]" : ""
+          }`}
           onChange={changeHandler}
         />
         {/* {isValid == "valid" && (

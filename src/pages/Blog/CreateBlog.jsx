@@ -186,6 +186,22 @@ const CreateBlog = () => {
         }
       };
 
+
+      const areAllAuthorFieldValid =
+        validationErrors.author &&
+        Object.values(validationErrors.author).every(
+          (error) => error === "valid"
+        );
+
+        const isAnyAuthorFieldInvalid = Object.values(
+          validationErrors?.author || {}
+        ).some((error) => error === "invalid");
+
+
+        const isFocused = areAllAuthorFieldValid || isAnyAuthorFieldInvalid;
+
+        console.log(isFocused);
+
   return (
     <>
       {statusCode === 204 && (
@@ -270,11 +286,7 @@ const CreateBlog = () => {
                   <div className="flex flex-col gap-3 w-full ">
                     <label
                       className={`font-bold text-[14px] text-[#1A1A1F] ${
-                        Object.values(validationErrors?.author || {}).some(
-                          (error) => error === "invalid"
-                        )
-                          ? "text-red-500"
-                          : ""
+                        isAnyAuthorFieldInvalid ? "text-red-500" : ""
                       } md:text-[16px]`}
                     >
                       ავტორი *
@@ -282,23 +294,17 @@ const CreateBlog = () => {
                     <div className="w-full relative">
                       <input
                         type="text"
-                        //placeholder={placeholder}
+                        placeholder={"შეიყვნეთ ავტორი"}
                         name="author"
                         value={info.author}
                         className={`w-full border-[2px] ${
-                          validationErrors?.author &&
-                          Object.values(validationErrors.author).some(
-                            (error) => error === "invalid"
-                          )
+                          validationErrors?.author && isAnyAuthorFieldInvalid
                             ? "border-red-500"
-                            : info.author &&
-                              Object.values(validationErrors.author).every(
-                                (error) => error === "valid"
-                              )
+                            : areAllAuthorFieldValid
                             ? "border-green-500 bg-[#F8FFF8]"
                             : "#c3c2c8"
                         } border-[#c3c2c8] rounded-2xl px-[15px] py-[16px] outline-none
-                        `}
+                        ${!isFocused ? "focus:border-[#5D37F3]" : ""}`}
                         onChange={handleTextInputChange}
                       />
                     </div>
