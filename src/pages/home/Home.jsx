@@ -17,7 +17,6 @@ const Home = () => {
   const [email, setEmail] = useSessionStorage("email", '')
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState("");
-  // const [blogs, setBlogs] = useState([])
   const { categories, isLogged, setIsLogged, blogs } = useGlobalContext();
 
   const loginUser = async (email) => {
@@ -50,27 +49,6 @@ const Home = () => {
       setIsLogged("isNotLogged");
     }
   };
-
-   useEffect(() => {
-     const fetchData = async () => {
-       try {
-         const response = await axios.get(
-           "https://api.blog.redberryinternship.ge/api/blogs",
-           {
-             headers: {
-               Authorization: `Bearer ${"49b48dd795fd2e830af9465f762ec9a4062aad78567fdd2a1f4fa4df29acf792"}`,
-             },
-           }
-         );
-         console.log(response);
-         setBlogs(response.data.data)
-       } catch (error) {
-         console.error("Error fetching data: ", error);
-       }
-     };
-
-     fetchData();
-   }, []);
 
 
 
