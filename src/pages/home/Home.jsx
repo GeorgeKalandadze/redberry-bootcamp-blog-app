@@ -59,8 +59,8 @@ const Home = () => {
            "https://api.blog.redberryinternship.ge/api/blogs",
            {
              headers: {
-                Authorization: `Bearer ${"b5e0db82076215b2884e6558888b370b48558754b602fa59a385177db3a8e3ab"}`,
-              },
+               Authorization: `Bearer ${"49b48dd795fd2e830af9465f762ec9a4062aad78567fdd2a1f4fa4df29acf792"}`,
+             },
            }
          );
          console.log(response);
@@ -84,6 +84,19 @@ const Home = () => {
   };
 
 
+  const isPublished = (publishDate) => {
+    const timestamp1 = new Date().getTime();
+    const timestamp2 = new Date(publishDate).getTime();
+
+    if(timestamp2 > timestamp1){
+      return true
+    }else{
+      return false
+    }
+  }
+
+
+ 
 
   return (
     <>
@@ -156,29 +169,34 @@ const Home = () => {
           <h1 className="text-[74px] font-bold">ბლოგი</h1>
           <img src={HomeImg} className="w-[624px] h-[350px]" />
         </div>
-        <div className="px-24 py-8 flex gap-10 justify-center flex-wrap">
-          {categories.map((option) => (
-            <div>
-              <CategoryButton
-                text={option.title}
-                bgColor={option.background_color}
-                textColor={option.text_color}
-              />
-            </div>
-          ))}
+        <div className="px-24 py-8 category-scroll-container">
+          <div className="category-scroll-content">
+            {categories.map((option) => (
+              <div key={option.id} className="category-scroll-item">
+                <CategoryButton
+                  text={option.title}
+                  bgColor={option.background_color}
+                  textColor={option.text_color}
+                />
+              </div>
+            ))}
+          </div>
         </div>
         <div className="px-24 py-8 flex justify-between flex-wrap gap-y-12">
-          {blogs.map((blog) => (
-            <BlogCart
-              name={blog.author}
-              date={blog.publish_date}
-              img={blog.image}
-              announcement={blog.title}
-              description={blog.description}
-              categories={blog.categories}
-              id={blog.id}
-            />
-          ))}
+          {blogs
+            .filter((blog) => !isPublished(blog.publish_date))
+            .map((blog) => (
+              <BlogCart
+                key={blog.id}
+                name={blog.author}
+                date={blog.publish_date}
+                img={blog.image}
+                announcement={blog.title}
+                description={blog.description}
+                categories={blog.categories}
+                id={blog.id}
+              />
+            ))}
         </div>
       </div>
     </>

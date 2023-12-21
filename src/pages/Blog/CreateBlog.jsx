@@ -173,7 +173,7 @@ const CreateBlog = () => {
             formData,
             {
               headers: {
-                Authorization: `Bearer ${"b5e0db82076215b2884e6558888b370b48558754b602fa59a385177db3a8e3ab"}`,
+                Authorization: `Bearer ${"49b48dd795fd2e830af9465f762ec9a4062aad78567fdd2a1f4fa4df29acf792"}`,
                 "Content-Type": "multipart/form-data",
               },
             }
