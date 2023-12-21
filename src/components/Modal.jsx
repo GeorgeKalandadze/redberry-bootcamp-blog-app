@@ -37,6 +37,7 @@ const Modal = ({ showModal, setShowModal, children }) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            zIndex:10
           }}
         >
           <motion.div
