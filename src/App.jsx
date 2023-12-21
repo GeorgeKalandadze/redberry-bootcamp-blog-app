@@ -1,7 +1,7 @@
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './pages/home/home';
-import Blog from './pages/Blog/Blog';
+import Blog from './pages/blog/Blog';
 import CreateBlog from './pages/blog/CreateBlog';
 import NotFound from './pages/notFound/NotFound';
 import { useGlobalContext } from './context/Context';

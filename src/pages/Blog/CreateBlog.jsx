@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import RedberryLogo from "../../assets/redberry_logo.png";
 import ArrowIcon2 from "../../assets/Arrow-3.svg";
 import UploadImg from '../../assets/folder-add.png'
@@ -70,7 +70,7 @@ const CreateBlog = () => {
 
         reader.onload = () => {
           const dataUrl = reader.result;
-          const fileName = selectedImage.name; // Get the file name
+          const fileName = selectedImage.name;
 
           setStore((prevInfo) => ({
             ...prevInfo,
@@ -116,8 +116,35 @@ const CreateBlog = () => {
         }));
       };
 
+      const [formValid, setFormValid] = useState(false);
+
+      const checkFormValidity = () => {
+        const errors = ValidateBlog(info);
+
+
+        const isAuthorValid =
+          errors.author &&
+          Object.values(errors.author).every((error) => error === "valid");
+
+        if (isAuthorValid && 
+          errors.title == "valid" &&
+          errors.description  == "valid" &&
+          errors.publish_date  == "valid" &&
+          errors.categories  == "valid" &&
+          errors.image  == "valid" 
+          ) {
+          setFormValid(true);
+        } else {
+          setFormValid(false);
+        }
+      };
+
+      useEffect(() => {
+        checkFormValidity();
+      }, [validationErrors, info]);
+
   return (
-    <div className="min-w-[1920px] min-h-[1080px] bg-[#E4E3EB] flex flex-col gap-12">
+    <div className="min-w-[1920px] min-h-[1080px] bg-[#FBFAFF] flex flex-col gap-12">
       <div className="flex items-center justify-center bg-white px-24 py-8">
         <img src={RedberryLogo} />
       </div>
@@ -295,8 +322,14 @@ const CreateBlog = () => {
               </div>
               <div className="flex justify-end mt-10">
                 <button
-                  className="bg-[#adadad] rounded-md text-white px-10 py-3"
+                  className={`bg-[#E4E3EB] rounded-md text-white px-10 py-3 ${
+                    formValid
+                      ? "cursor-pointer"
+                      : "cursor-not-allowed opacity-50"
+                  }`}
                   type="submit"
+                  disabled={!formValid}
+                  style={{ backgroundColor: formValid ? "#5D37F3" : "#E4E3EB" }}
                 >
                   გამოქვეყნება
                 </button>
