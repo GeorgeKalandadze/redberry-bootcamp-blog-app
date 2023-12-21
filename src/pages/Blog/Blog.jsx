@@ -52,11 +52,16 @@ const Blog = () => {
       }
     };
 
+    const [isBeginning, setIsBeginning] = useState(true);
+    const [isEnd, setIsEnd] = useState(false);
+
     const handleSlideChange = (swiper) => {
-      setCurrentIndex(swiper.activeIndex);
+      setIsBeginning(swiper.isBeginning);
+      setIsEnd(swiper.isEnd);
     };
 
-    console.log(currentIndex);
+
+
 
     const carouselItems = [
       {
@@ -104,13 +109,13 @@ const Blog = () => {
       },
     ];
 
+    console.log(isEnd);
 
-    console.log("blogggggggggggg",blog.categories);
   return (
     <div className="min-w-[1920px] min-h-[1080px] bg-[#F3F2FA] flex flex-col gap-12">
       <Header />
       <div className="flex px-24 py-8">
-        <Link to='/'>
+        <Link to="/">
           <button
             className={`bg-[#FFFFFF] h-[44px] w-[44px] rounded-full flex items-center justify-center`}
           >
@@ -153,7 +158,7 @@ const Blog = () => {
           <div className="flex gap-4">
             <button
               className={`bg-[${
-                currentIndex === 0 ? "#AABBCC" : "#E4E3EB"
+                isBeginning ? "#AABBCC" : "#E4E3EB"
               }] h-[44px] w-[44px] rounded-full flex items-center justify-center`}
               onClick={goToPrevSlide}
             >
@@ -165,11 +170,10 @@ const Blog = () => {
             </button>
             <button
               className={`bg-[${
-                currentIndex === carouselItems.length - 1
-                  ? "#AABBCC"
-                  : "#5D37F3"
+                isEnd ? "#AABBCC" : "#5D37F3"
               }] h-[44px] w-[44px] rounded-full flex items-center justify-center`}
               onClick={goToNextSlide}
+              
             >
               <img src={ArrowIcon} alt="Next" />
             </button>
