@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useSessionStorage } from "../hooks/useSessionStorage";
 import axios from "axios";
 const info = {
@@ -19,13 +19,10 @@ const AppContext = createContext({
 export const AppProvider = ({children}) => {
      const [store, setStore] = useSessionStorage("info", info);
      const [validationErrors, setValidationErrors] = useSessionStorage('blogErrors',{})
-
-  
-     const nums = [1,2,3]
+      const [isLogged, setIsLogged] = useSessionStorage("isLoggedin", "");
+    const [categories, setCategories] = useState([]);
 
      const makeBlog = async (email) => {
-
-         
        try {
          const formData = new FormData;
          formData.append("title", store.title);
@@ -60,16 +57,35 @@ export const AppProvider = ({children}) => {
      };
 
 
+     useEffect(() => {
+       const fetchData = async () => {
+         try {
+           const response = await axios.get(
+             "https://api.blog.redberryinternship.ge/api/categories"
+           );
+           console.log(response.data.data);
+           setCategories(response.data.data);
+         } catch (error) {
+           console.error("Error fetching data: ", error);
+         }
+       };
+
+       fetchData();
+     }, []);
+
+
 
 
     return (
       <AppContext.Provider
         value={{
+          isLogged, 
+          setIsLogged,
           info: store,
           setStore,
-
           setValidationErrors,
           validationErrors,
+          categories,
           makeBlog,
         }}
       >

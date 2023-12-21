@@ -11,12 +11,15 @@ import { useSessionStorage } from '../../hooks/useSessionStorage';
 import ErrorIcon from '../../assets/error.png'
 import SuccessIcon from '../../assets/success.png'
 import { AnimatePresence, motion } from 'framer-motion';
+import { useGlobalContext } from '../../context/Context';
 
 const Home = () => {
   const [email, setEmail] = useSessionStorage("email", '')
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState("");
+  // const [isLogged, setIsLogged] = useSessionStorage("isLoggedin","")
   const [blogs, setBlogs] = useState([])
+  const { categories, isLogged, setIsLogged } = useGlobalContext();
 
   const loginUser = async (email) => {
     try {
@@ -35,15 +38,17 @@ const Home = () => {
 
       if (response.status === 204) {
         setError("valid");
-        // Possibly handle further logic for successful login here
+        setIsLogged("isLogged")
       } else {
         setError("invalid");
+        setIsLogged("isNotLogged");
       }
 
       return response.data;
     } catch (error) {
       console.error("Error during login:", error.response);
       setError("invalid");
+      setIsLogged("isNotLogged");
     }
   };
 
@@ -78,11 +83,13 @@ const Home = () => {
     setShowModal(false);
   };
 
+
+
   return (
     <>
-      <Modal showModal={showModal} setShowModal={closeModal} error={error}>
+      <Modal showModal={showModal} setShowModal={closeModal} error={isLogged}>
         <AnimatePresence>
-          {error === "invalid" || error === "" ? (
+          {isLogged === "isNotLogged" || isLogged === "" ? (
             <motion.div
               key="invalidContent"
               className="gap-6 flex flex-col"
@@ -101,12 +108,12 @@ const Home = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className={`w-full border-[2px] rounded-xl px-[15px] py-[12px] outline-none ${
-                      error === "invalid"
+                      isLogged === "isNotLogged"
                         ? "border-red-500"
                         : "border-[#5D37F3]"
                     }`}
                   />
-                  {error === "invalid" && (
+                  {isLogged === "isNotLogged" && (
                     <div className="flex items-center gap-2 text-red-500">
                       <img src={ErrorIcon} alt="Error Icon" />
                       <span>ელ-ფოსტა არ მოიძებნა</span>
@@ -122,7 +129,7 @@ const Home = () => {
                 </button>
               </form>
             </motion.div>
-          ) : error === "valid" ? (
+          ) : isLogged === "isLogged" ? (
             <motion.div
               key="validContent"
               className="gap-6 flex flex-col justify-center items-center"
@@ -149,33 +156,16 @@ const Home = () => {
           <h1 className="text-[64px] font-bold">ბლოგი</h1>
           <img src={HomeImg} className="w-[624px] h-[350px]" />
         </div>
-        <div className="px-24 py-8 flex gap-10 justify-center">
-          <CategoryButton
-            text={"მარკეტი"}
-            bgColor={"#FFB82F14"}
-            textColor={"#D6961C"}
-          />
-
-          <CategoryButton
-            text={"აპლიკაცია"}
-            bgColor={"#1CD67D14"}
-            textColor={"#15C972"}
-          />
-          <CategoryButton
-            text={"ხელოვნური ინტელექტი"}
-            bgColor={"#EEE1F7"}
-            textColor={"#B71FDD"}
-          />
-          <CategoryButton
-            text={"UI/UX"}
-            bgColor={"#FA575714"}
-            textColor={"#DC2828"}
-          />
-          <CategoryButton
-            text={"კვლევა"}
-            bgColor={"#E9EFE9"}
-            textColor={"#60BE16"}
-          />
+        <div className="px-24 py-8 flex gap-10 justify-center flex-wrap">
+          {categories.map((option) => (
+            <div>
+              <CategoryButton
+                text={option.title}
+                bgColor={option.background_color}
+                textColor={option.text_color}
+              />
+            </div>
+          ))}
         </div>
         <div className="px-24 py-8 flex justify-between flex-wrap gap-y-12">
           {blogs.map((blog) => (

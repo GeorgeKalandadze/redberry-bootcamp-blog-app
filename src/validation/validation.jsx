@@ -32,21 +32,6 @@ export const ValidateBlog = (values) => {
   }
   
 
-//   if (!values?.author || values?.author.trim().length < 4) {
-//     response.author.tooShort = "invalid";
-//   } else if (wordCount < 2) {
-//     response.author.twoWord = "invalid";
-//   } else if (!REGEX_NAME.test(values?.author)) {
-//     response.author.georgianChars = "invalid";
-//   } else {
-//     response.author = "valid";
-//   }
-
-
-
-
-
-
 
   if (!values?.title || values?.title.length < 2) {
     response.title = "invalid";
