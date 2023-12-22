@@ -20,6 +20,7 @@ const AppContext = createContext({
 export const AppProvider = ({children}) => {
     const [store, setStore] = useSessionStorage("info", info);
     const [validationErrors, setValidationErrors] = useSessionStorage('blogErrors',{})
+    const [email, setEmail] = useSessionStorage("email", "");
     const [isLogged, setIsLogged] = useSessionStorage("isLoggedin", "");
     const [categories, setCategories] = useState([]);
     const [blogs, setBlogs] = useState([]);
@@ -57,6 +58,35 @@ export const AppProvider = ({children}) => {
        fetchData();
      }, []);
 
+     const loginUser = async (email) => {
+       try {
+         const response = await axios.post(
+           "https://api.blog.redberryinternship.ge/api/login",
+           {
+             email: email,
+           },
+           {
+             headers: {
+               Authorization: `Bearer${"282c0587589f7516edf61b215c828ba8047b67aabbe141c5d17ec45c0d624fd0"}`,
+             },
+           }
+         );
+         console.log("Login successful:", response);
+
+         if (response.status === 204) {
+           setIsLogged("isLogged");
+         } else {
+           setIsLogged("isNotLogged");
+         }
+
+         return response.data;
+       } catch (error) {
+         console.error("Error during login:", error.response);
+         setIsLogged("isNotLogged");
+       }
+     };
+
+
 
 
         const animations = {
@@ -79,6 +109,9 @@ export const AppProvider = ({children}) => {
           blogs,
           setBlogs,
           animations,
+          email,
+          setEmail,
+          loginUser,
         }}
       >
         {children}

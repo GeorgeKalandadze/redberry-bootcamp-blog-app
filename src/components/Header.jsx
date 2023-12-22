@@ -12,11 +12,11 @@ const Header = ({ openModal }) => {
       {isLogged === "isLogged" ? (
         <button
           className="bg-[#5D37F3] rounded-md px-[20px] py-[10px] text-white text-[14px]"
-          onClick={() => navigate('/create-blog')}
+          onClick={() => navigate("/create-blog")}
         >
           დაამატე ბლოგი
         </button>
-      ) : isLogged === "" ? (
+      ) : isLogged === "isNotLogged" || isLogged === "" ? (
         <button
           className="bg-[#5D37F3] rounded-md w-[93px] h-[40px] text-white text-[14px]"
           onClick={openModal}
