@@ -26,7 +26,8 @@ const Home = () => {
   const [email, setEmail] = useSessionStorage("email", '')
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState("");
-  const { categories, isLogged, setIsLogged, blogs } = useGlobalContext();
+  const { categories, isLogged, setIsLogged, blogs, animations } =
+    useGlobalContext();
 
   const loginUser = async (email) => {
     try {
@@ -181,14 +182,21 @@ const Home = () => {
           ) : null}
         </AnimatePresence>
       </Modal>
-      <div className="min-w-[1920px] min-h-[1080px] bg-[#E4E3EB] flex flex-col gap-12">
+      <motion.div
+        className="min-w-[1920px] min-h-[1080px] bg-[#E4E3EB] flex flex-col gap-12"
+        variants={animations}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        transition={{ duration: 0.3 }}
+      >
         <Header openModal={openModal} />
         <div className="flex px-24 py-8 justify-between items-center">
           <h1 className="text-[74px] font-bold">ბლოგი</h1>
           <img src={HomeImg} className="w-[624px] h-[350px]" />
         </div>
         <div className="px-24 py-8  flex justify-center overflow-hidden">
-          <div className=" w-[680px] flex gap-10 overflow-hidden" >
+          <div className=" w-[680px] flex gap-10 overflow-hidden">
             {categories.map((option) => (
               <div
                 key={option.id}
@@ -227,7 +235,7 @@ const Home = () => {
               />
             ))}
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

@@ -18,7 +18,7 @@ import SuccessIcon from "../../assets/success.png";
 const CreateBlog = () => {
    const [statusCode, setStatusCode] = useState(null);
    const [showModal, setShowModal] = useState(false);
-    const { info, setStore, setValidationErrors, validationErrors, setBlogs} =
+    const { info, setStore, setValidationErrors, validationErrors, setBlogs, animations} =
       useGlobalContext();
 
 
@@ -231,7 +231,14 @@ const CreateBlog = () => {
         </Modal>
       )}
 
-      <div className="min-w-[1920px] min-h-[1080px] bg-[#FBFAFF] flex flex-col gap-12">
+      <motion.div
+        className="min-w-[1920px] min-h-[1080px] bg-[#FBFAFF] flex flex-col gap-12"
+        variants={animations}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        transition={{ duration: 0.3 }}
+      >
         <div className="flex items-center justify-center bg-white px-24 py-8">
           <img src={RedberryLogo} />
         </div>
@@ -419,7 +426,7 @@ const CreateBlog = () => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

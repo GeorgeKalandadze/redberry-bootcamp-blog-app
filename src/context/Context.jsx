@@ -59,6 +59,11 @@ export const AppProvider = ({children}) => {
 
 
 
+        const animations = {
+          initial: { opacity: 0, x: 100 },
+          animate: { opacity: 1, x: 0 },
+          exit: { opacity: 0, x: -100 },
+        };
 
 
     return (
@@ -72,7 +77,8 @@ export const AppProvider = ({children}) => {
           validationErrors,
           categories,
           blogs,
-          setBlogs
+          setBlogs,
+          animations,
         }}
       >
         {children}

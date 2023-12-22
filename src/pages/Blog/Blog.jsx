@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header';
-import NatureImg from "../../assets/nature_img.jpg";
 import CategoryButton from '../../components/CategoryButton';
 import ArrowIcon from '../../assets/Arrow-2.svg'
 import ArrowIcon2 from '../../assets/Arrow-3.svg'
@@ -14,12 +13,13 @@ import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useGlobalContext } from '../../context/Context';
 import axiosClient from '../../config/axiosClient';
+import { motion } from "framer-motion";
 
 const Blog = () => {
     const [swiper, setSwiper] = useState(null);
     const [blog, setBlog] = useState({})
     const { id } = useParams();
-    const {blogs} = useGlobalContext();
+    const { blogs, animations } = useGlobalContext();
 
      useEffect(() => {
        const fetchData = async () => {
@@ -76,7 +76,14 @@ const Blog = () => {
 
 
   return (
-    <div className="min-w-[1920px] min-h-[1080px] bg-[#F3F2FA] flex flex-col gap-12">
+    <motion.div
+      className="min-w-[1920px] min-h-[1080px] bg-[#F3F2FA] flex flex-col gap-12"
+      variants={animations}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      transition={{ duration: 0.3 }}
+    >
       <Header />
       <div className="flex px-24 py-8">
         <Link to="/">
@@ -166,23 +173,23 @@ const Blog = () => {
               <SwiperSlide key={blog.id}>
                 <div className="flex justify-center">
                   {" "}
-                    <BlogCart
-                      key={blog.id}
-                      name={blog.author}
-                      date={blog.publish_date}
-                      img={blog.image}
-                      announcement={blog.title}
-                      description={blog.description}
-                      categories={blog.categories}
-                      id={blog.id}
-                    />
+                  <BlogCart
+                    key={blog.id}
+                    name={blog.author}
+                    date={blog.publish_date}
+                    img={blog.image}
+                    announcement={blog.title}
+                    description={blog.description}
+                    categories={blog.categories}
+                    id={blog.id}
+                  />
                 </div>
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
