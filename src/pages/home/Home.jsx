@@ -3,15 +3,24 @@ import Header from '../../components/Header';
 import HomeImg from '../../assets/Blog-1024x355 1.png'
 import CategoryButton from '../../components/CategoryButton';
 import BlogCart from '../../components/BlogCart';
-import NatureImg from "../../assets/nature_img.jpg";
 import Modal from '../../components/Modal';
-import InputGroup from '../../components/InputGroup';
 import axios from 'axios';
 import { useSessionStorage } from '../../hooks/useSessionStorage';
 import ErrorIcon from '../../assets/error.png'
 import SuccessIcon from '../../assets/success.png'
-import { AnimatePresence, motion } from 'framer-motion';
+import {
+  AnimatePresence,
+  motion,
+} from "framer-motion";
 import { useGlobalContext } from '../../context/Context';
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+
+
 
 const Home = () => {
   const [email, setEmail] = useSessionStorage("email", '')
@@ -90,17 +99,20 @@ const Home = () => {
   const [filteredBlogs, setFilteredBlogs] = useState([]);
 
   useEffect(() => {
-    if (selectedCategories.length === 0) {
-      setFilteredBlogs(blogs);
-    } else {
-      const filtered = blogs.filter((blog) =>
-        selectedCategories.some((selectedCat) =>
-          blog.categories.some((blogCat) => blogCat.id === selectedCat)
-        )
-      );
-      setFilteredBlogs(filtered);
-    }
-  }, [selectedCategories, blogs]);
+  if (selectedCategories.length === 0) {
+    setFilteredBlogs(blogs);
+  } else {
+    const filtered = blogs.filter((blog) =>
+      selectedCategories.some((selectedCat) =>
+        blog.categories.some((blogCat) => blogCat.id === selectedCat)
+      )
+    );
+    setFilteredBlogs(filtered);
+  }
+}, [selectedCategories, blogs]);
+
+
+
 
  
 
@@ -175,16 +187,16 @@ const Home = () => {
           <h1 className="text-[74px] font-bold">ბლოგი</h1>
           <img src={HomeImg} className="w-[624px] h-[350px]" />
         </div>
-        <div className="px-24 py-8 category-scroll-container">
-          <div className="category-scroll-content">
+        <div className="px-24 py-8  flex justify-center overflow-hidden ">
+          <div className=" w-[680px] flex gap-10 overflow-hidden ">
             {categories.map((option) => (
               <div
                 key={option.id}
-                className={`category-scroll-item ${
+                className={` ${
                   selectedCategories.includes(option.id)
                     ? "border-[2px] border-black"
                     : ""
-                } `}
+                } flex-none`}
                 style={{ borderRadius: "30px" }}
                 onClick={() => {
                   toggleCategorySelection(option.id);

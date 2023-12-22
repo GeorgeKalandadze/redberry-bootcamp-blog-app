@@ -39,8 +39,7 @@ export const AppProvider = ({children}) => {
       fetchData();
     }, []);
 
-    
-
+  
 
      useEffect(() => {
        const fetchData = async () => {
@@ -61,6 +60,7 @@ export const AppProvider = ({children}) => {
 
 
 
+
     return (
       <AppContext.Provider
         value={{
@@ -72,6 +72,7 @@ export const AppProvider = ({children}) => {
           validationErrors,
           categories,
           blogs,
+          setBlogs
         }}
       >
         {children}

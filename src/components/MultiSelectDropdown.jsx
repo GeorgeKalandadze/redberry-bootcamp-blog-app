@@ -114,7 +114,6 @@ const MultiSelectDropdown = ({
     };
 
     console.log(info);
-
   return (
     <div
       className={`w-full bg-white px-[15px] py-[16px] rounded-2xl relative border-2 ${

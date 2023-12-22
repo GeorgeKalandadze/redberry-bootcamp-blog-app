@@ -14,7 +14,7 @@ const BlogCart = ({
 }) => {
   return (
     <div className="flex flex-col gap-4 w-[480px]">
-      <Link to={`blog/${id}`}>
+      <Link to={`/blog/${id}`}>
         <img src={img} className="w-full h-[328px] rounded-xl" alt={name} />
       </Link>
       <p className="text-[16px] font-medium">{name}</p>
@@ -35,7 +35,7 @@ const BlogCart = ({
       </p>
       <Link
         className="text-[#5D37F3] flex items-center gap-2"
-        to={`blog/${id}`}
+        to={`/blog/${id}`}
       >
         სრულად ნახვა
         <img src={ArrowIcon} alt="Arrow" />

@@ -33,7 +33,7 @@ const Blog = () => {
        };
 
        fetchData();
-     }, []);
+     }, [id]);
 
     const goToNextSlide = () => {
       if (swiper !== null) {
@@ -217,7 +217,6 @@ const Blog = () => {
               <SwiperSlide key={blog.id}>
                 <div className="flex justify-center">
                   {" "}
-                  <Link to={`blog/${blog.id}`}>
                     <BlogCart
                       key={blog.id}
                       name={blog.author}
@@ -228,7 +227,6 @@ const Blog = () => {
                       categories={blog.categories}
                       id={blog.id}
                     />
-                  </Link>
                 </div>
               </SwiperSlide>
             ))}

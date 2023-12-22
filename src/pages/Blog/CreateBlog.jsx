@@ -18,7 +18,7 @@ import SuccessIcon from "../../assets/success.png";
 const CreateBlog = () => {
    const [statusCode, setStatusCode] = useState(null);
    const [showModal, setShowModal] = useState(false);
-    const { info, setStore, setValidationErrors, validationErrors, } =
+    const { info, setStore, setValidationErrors, validationErrors, setBlogs} =
       useGlobalContext();
 
 
@@ -64,8 +64,6 @@ const CreateBlog = () => {
       validateForm();
     };
 
-
-    console.log(validationErrors);
 
     const handleImageUpload = (event) => {
       const { files } = event.target;
@@ -178,8 +176,10 @@ const CreateBlog = () => {
               },
             }
           );
-          setStatusCode(blogResponse.status);
-           setShowModal(blogResponse.status === 204);
+          if (blogResponse.status === 204) {
+            setShowModal(true);
+            setStatusCode(blogResponse.status);
+          }
           console.log("Blog created successfully:", blogResponse);
         } catch (error) {
           console.error("Error creating blog:", error);
@@ -200,7 +200,6 @@ const CreateBlog = () => {
 
         const isFocused = areAllAuthorFieldValid || isAnyAuthorFieldInvalid;
 
-        console.log(isFocused);
 
   return (
     <>
