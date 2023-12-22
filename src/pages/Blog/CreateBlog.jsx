@@ -310,7 +310,11 @@ const CreateBlog = () => {
                             ? "border-green-500 bg-[#F8FFF8]"
                             : "#c3c2c8"
                         } border-[#c3c2c8] rounded-2xl px-[15px] py-[16px] outline-none
-                        ${!isFocused ? "focus:border-[#5D37F3]" : ""}`}
+                        ${!isFocused ? "focus:border-[#5D37F3]" : ""} ${
+                          isAnyAuthorFieldInvalid
+                            ? "shakeAnimation"
+                            : ""
+                        }`}
                         onChange={handleTextInputChange}
                       />
                     </div>

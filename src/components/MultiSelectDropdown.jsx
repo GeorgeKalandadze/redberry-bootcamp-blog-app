@@ -92,7 +92,7 @@ const MultiSelectDropdown = ({
           : isValid === "valid"
           ? "border-green-500"
           : ""
-      }`}
+      } ${isValid === "invalid" ? "shakeAnimation" : ""}`}
     >
       <div
         className={`bg-white flex items-center cursor-pointer justify-between `}
