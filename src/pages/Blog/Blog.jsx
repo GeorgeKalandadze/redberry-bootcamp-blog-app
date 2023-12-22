@@ -57,53 +57,6 @@ const Blog = () => {
 
 
 
-
-    const carouselItems = [
-      {
-        name: "Item 1",
-        date: "Date 1",
-        announcement: "Announcement 1",
-        description: "Description 1",
-        img: NatureImg,
-      },
-      {
-        name: "Item 1",
-        date: "Date 1",
-        announcement: "Announcement 1",
-        description: "Description 1",
-        img: NatureImg,
-      },
-      {
-        name: "Item 1",
-        date: "Date 1",
-        announcement: "Announcement 1",
-        description: "Description 1",
-        img: NatureImg,
-      },
-      {
-        name: "Item 1",
-        date: "Date 1",
-        announcement: "Announcement 1",
-        description: "Description 1",
-        img: NatureImg,
-      },
-
-      {
-        name: "Item 1",
-        date: "Date 1",
-        announcement: "Announcement 1",
-        description: "Description 1",
-        img: NatureImg,
-      },
-      {
-        name: "Item 1",
-        date: "Date 1",
-        announcement: "Announcement 1",
-        description: "Description 1",
-        img: NatureImg,
-      },
-    ];
-
       const [filteredBlogs, setFilteredBlogs] = useState([]);
 
       useEffect(() => {
@@ -120,10 +73,6 @@ const Blog = () => {
           setFilteredBlogs(filtered);
         }
       }, [blog.categories, blog.id, blogs]);
-
-      console.log("all blogs",blogs)
-      console.log("single blog",blog)
-
 
 
   return (

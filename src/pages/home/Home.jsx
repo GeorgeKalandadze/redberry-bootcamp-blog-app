@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Header from '../../components/Header';
 import HomeImg from '../../assets/Blog-1024x355 1.png'
 import CategoryButton from '../../components/CategoryButton';
@@ -114,7 +114,7 @@ const Home = () => {
 
 
 
- 
+
 
   return (
     <>
@@ -187,8 +187,8 @@ const Home = () => {
           <h1 className="text-[74px] font-bold">ბლოგი</h1>
           <img src={HomeImg} className="w-[624px] h-[350px]" />
         </div>
-        <div className="px-24 py-8  flex justify-center overflow-hidden ">
-          <div className=" w-[680px] flex gap-10 overflow-hidden ">
+        <div className="px-24 py-8  flex justify-center overflow-hidden">
+          <div className=" w-[680px] flex gap-10 overflow-hidden" >
             {categories.map((option) => (
               <div
                 key={option.id}

@@ -1,5 +1,4 @@
 import React from "react";
-// import SuccessIcon from "../assets/success-icon.png";
 const InputGroup = ({
   label,
   type,
@@ -40,9 +39,6 @@ const InputGroup = ({
           }`}
           onChange={changeHandler}
         />
-        {/* {isValid == "valid" && (
-          <img src={SuccessIcon} className="absolute right-2 top-5" />
-        )} */}
       </div>
 
       <p

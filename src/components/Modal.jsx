@@ -33,11 +33,11 @@ const Modal = ({ showModal, setShowModal, children }) => {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.5)", // Dark transparent backdrop
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            zIndex:10
+            zIndex:40
           }}
         >
           <motion.div
@@ -53,9 +53,9 @@ const Modal = ({ showModal, setShowModal, children }) => {
               width: "480px",
               textAlign: "center",
               boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
-              zIndex: 10, // Optional box shadow
+              zIndex: 10,
             }}
-            onClick={(e) => e.stopPropagation()} // Prevent modal close when clicking inside modal
+            onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-end" onClick={closeModal}>
               <img src={CloseIcon} />

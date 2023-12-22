@@ -9,13 +9,7 @@ const TextareaGroup = ({
   name,
   validation = "",
 }) => {
-  const inputClass = `outline-none py-3 rounded px-3 w-full ${
-    validation === "invalid"
-      ? "border-[1px] border-red-500"
-      : validation === "valid"
-      ? "border-[1px] border-green-500"
-      : ""
-  }`;
+ 
   return (
     <div className="flex flex-col gap-3">
       <label

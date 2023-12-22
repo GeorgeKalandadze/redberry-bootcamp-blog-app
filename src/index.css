@@ -37,37 +37,68 @@ body {
   border-radius: 4px;
 }
 
-.category-scroll-container {
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
-}
 
-.category-scroll-content {
-  width: 680px;
-  display: flex;
-  gap: 10px;
+.horizontal-scroll {
+ /* Adjust the maximum width as needed */
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  user-select: none;
- 
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f9f9f9;
+  /* Additional styles for webkit browsers */
+  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+  scrollbar-width: thin; /* Hide scrollbar for Firefox */
 }
 
-.category-scroll-content::-webkit-scrollbar {
-  display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+/* Define scrollbar styles for webkit browsers (Chrome, Safari, etc.) */
+.horizontal-scroll::-webkit-scrollbar {
+  height: 8px;
 }
 
-.category-scroll-content {
-  scrollbar-width: none; /* For Firefox */
+.horizontal-scroll::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
 }
 
-.category-scroll-content {
-  -ms-overflow-style: none; /* For Internet Explorer 10+ */
+.horizontal-scroll::-webkit-scrollbar-track {
+  background-color: #f9f9f9;
+  border-radius: 4px;
 }
 
-.category-scroll-item {
-  flex: 0 0 auto;
-  user-select: none;
+/* Horizontal scroll content styles */
+.scroll-content {
+  display: flex; /* Ensure the content is in a flex container */
+  gap: 20px; /* Adjust the gap between items as needed */
+  padding: 10px; /* Adjust padding as needed */
 }
 
 
+.horizontal-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f9f9f9;
+  /* Additional styles for webkit browsers */
+  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+  scrollbar-width: thin; /* Hide scrollbar for Firefox */
+  scroll-snap-type: x mandatory; /* Enable scroll snapping */
+}
+
+/* Horizontal scroll content styles */
+.scroll-content {
+  display: flex;
+  gap: 20px; /* Adjust the gap between items as needed */
+  padding: 10px; /* Adjust padding as needed */
+  scroll-snap-type: x mandatory; /* Enable scroll snapping for children */
+}
+
+/* Individual scroll items */
+.scroll-item {
+  flex: 0 0 auto; /* Ensure items don't grow or shrink */
+  width: 300px; /* Adjust the width of each item */
+  scroll-snap-align: start; /* Define how each item snaps */
+  /* Other styles for items */
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  padding: 20px;
+}

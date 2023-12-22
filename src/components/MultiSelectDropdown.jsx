@@ -1,52 +1,22 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {useRef, useState } from "react";
 import ArrowDownIcon from "../assets/Vector.png";
 import DeleteIcon from "../assets/delete_icon.png";
 import CategoryButton from "./CategoryButton";
-import axios from "axios";
+
 import { useGlobalContext } from "../context/Context";
 import { ValidateBlog } from "../validation/Validation";
 
 const MultiSelectDropdown = ({
-  label,
-  options,
-  value,
   className = "",
-  handleChange,
   isValid,
 }) => {
-  const [selectedOption, setSelectedOption] = useState(value);
   const [isOpen, setIsOpen] = useState(false);
   const { info, setStore, setValidationErrors, validationErrors, categories } =
     useGlobalContext();
   const [selectedOptions, setSelectedOptions] = useState(info.categories || []);
-  const [newCategories, setNewCategories] = useState(info.categories);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.blog.redberryinternship.ge/api/categories"
-        );
-        console.log(response.data.data);
-        setCategories(response.data.data);
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const handleSelect = (option) => {
-    setSelectedOption(option.label);
-    if (handleChange) {
-      handleChange(option);
-    }
-    setIsOpen(false);
   };
 
   const dropdownStyles = {
@@ -55,6 +25,7 @@ const MultiSelectDropdown = ({
     transition: "max-height 0.3s ease-in-out, opacity 0.3s ease-in-out",
   };
 
+  //add categories in selected dropdown
   const handleOptionClick = (option) => {
     if (!selectedOptions.includes(option)) {
       setSelectedOptions([...selectedOptions, option]);
@@ -72,16 +43,16 @@ const MultiSelectDropdown = ({
     }
   };
 
+  //delete categories from dropdown
   const handleDeleteOption = (option) => {
     const updatedOptions = selectedOptions.filter((opt) => opt !== option);
     setSelectedOptions(updatedOptions);
 
     setStore((prevInfo) => ({
       ...prevInfo,
-      categories: updatedOptions, // Update categories without the deleted option
+      categories: updatedOptions,
     }));
 
-    // Check if there are no more categories left after deletion
     const categoryErrors = updatedOptions.length === 0 ? "invalid" : "valid";
 
     setValidationErrors((prevErrors) => ({
@@ -90,30 +61,27 @@ const MultiSelectDropdown = ({
     }));
   };
 
+  
+  const containerRef = useRef(null);
+  const [startX, setStartX] = useState(null);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
-  //setSelectedOptions(selectedOptions.filter((option) => option !== value));
+  const handleTouchStart = (e) => {
+    setStartX(e.touches[0].clientX);
+    setScrollLeft(containerRef.current.scrollLeft);
+  };
 
-    const containerRef = useRef(null);
-    const [startX, setStartX] = useState(null);
-    const [scrollLeft, setScrollLeft] = useState(0);
+  const handleTouchMove = (e) => {
+    if (!startX) return;
+    const x = e.touches[0].clientX;
+    const distance = x - startX;
+    containerRef.current.scrollLeft = scrollLeft - distance;
+  };
 
-    const handleTouchStart = (e) => {
-      setStartX(e.touches[0].clientX);
-      setScrollLeft(containerRef.current.scrollLeft);
-    };
+  const handleTouchEnd = () => {
+    setStartX(null);
+  };
 
-    const handleTouchMove = (e) => {
-      if (!startX) return;
-      const x = e.touches[0].clientX;
-      const distance = x - startX;
-      containerRef.current.scrollLeft = scrollLeft - distance;
-    };
-
-    const handleTouchEnd = () => {
-      setStartX(null);
-    };
-
-    console.log(info);
   return (
     <div
       className={`w-full bg-white px-[15px] py-[16px] rounded-2xl relative border-2 ${
@@ -125,7 +93,6 @@ const MultiSelectDropdown = ({
           ? "border-green-500"
           : ""
       }`}
-      
     >
       <div
         className={`bg-white flex items-center cursor-pointer justify-between `}
@@ -145,24 +112,19 @@ const MultiSelectDropdown = ({
             onTouchEnd={handleTouchEnd}
           >
             {selectedOptions.map((option, index) => (
-              // <CategoryButton
-              //   key={index}
-              //   text={option.title}
-              //   bgColor={option.background_color}
-              //   textColor={option.text_color}
-              // />
-
               <div
                 style={{
                   backgroundColor: option.background_color,
-                  // color: textColor,
                   borderRadius: "30px",
-                  padding:  "8px 18px",
+                  padding: "8px 18px",
                   whiteSpace: "nowrap",
                 }}
                 className="flex justify-center gap-8 items-center"
               >
-                <p style={{ color: option.text_color }} className="text-[14px] font-medium">
+                <p
+                  style={{ color: option.text_color }}
+                  className="text-[14px] font-medium"
+                >
                   {option.title}
                 </p>
                 <img
