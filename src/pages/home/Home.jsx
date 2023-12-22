@@ -94,7 +94,7 @@ const Home = () => {
       setFilteredBlogs(blogs);
     } else {
       const filtered = blogs.filter((blog) =>
-        selectedCategories.every((selectedCat) =>
+        selectedCategories.some((selectedCat) =>
           blog.categories.some((blogCat) => blogCat.id === selectedCat)
         )
       );
