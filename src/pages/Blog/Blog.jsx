@@ -104,26 +104,27 @@ const Blog = () => {
       },
     ];
 
-     const [selectedCategories, setSelectedCategories] = useState([]);
+      const [filteredBlogs, setFilteredBlogs] = useState([]);
 
-     const toggleCategorySelection = (categoryId) => {
-       if (selectedCategories.includes(categoryId)) {
-         setSelectedCategories(
-           selectedCategories.filter((id) => id !== categoryId)
-         );
-       } else {
-         setSelectedCategories([...selectedCategories, categoryId]);
-       }
-     };
+      useEffect(() => {
+        if (blog.categories && blog.categories.length > 0) {
+          const filtered = blogs.filter(
+            (item) =>
+              item.id !== blog.id &&
+              item.categories.some((blogCat) =>
+                blog.categories.some(
+                  (selectedCat) => blogCat.id === selectedCat.id
+                )
+              )
+          );
+          setFilteredBlogs(filtered);
+        }
+      }, [blog.categories, blog.id, blogs]);
 
-     const filteredBlogs =
-       selectedCategories.length > 0
-         ? blogs.filter((blog) =>
-             blog.categories.some((blogCat) =>
-               selectedCategories.includes(blogCat.id)
-             )
-           )
-         : blogs;
+      console.log("all blogs",blogs)
+      console.log("single blog",blog)
+
+
 
   return (
     <div className="min-w-[1920px] min-h-[1080px] bg-[#F3F2FA] flex flex-col gap-12">

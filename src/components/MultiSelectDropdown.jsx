@@ -135,7 +135,7 @@ const MultiSelectDropdown = ({
         {selectedOptions.length > 0 ? (
           <div
             ref={containerRef}
-            className="flex items-center overflow-x-auto max-w-[300px] gap-3"
+            className="flex items-center overflow-x-auto max-w-[300px] gap-3 "
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",

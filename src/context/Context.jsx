@@ -39,6 +39,8 @@ export const AppProvider = ({children}) => {
       fetchData();
     }, []);
 
+    
+
 
      useEffect(() => {
        const fetchData = async () => {
