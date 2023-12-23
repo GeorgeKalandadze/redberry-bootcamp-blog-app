@@ -2,6 +2,7 @@ import React from "react";
 import ArrowIcon from "../assets/Arrow.svg";
 import { Link } from "react-router-dom";
 import CategoryButton from "./CategoryButton";
+import HorizontalScroll from "./HorizontalScroll";
 
 const BlogCart = ({
   name,
@@ -20,7 +21,7 @@ const BlogCart = ({
       <p className="text-[16px] font-medium">{name}</p>
       <p className="font-small text-[#85858D]">{date}</p>
       <h1 className="font-bold text-[20px] leading-[28px]">{announcement}</h1>
-      <div className="flex gap-3">
+      <HorizontalScroll className="flex gap-3 overflow-hidden">
         {categories.map((category, index) => (
           <CategoryButton
             key={index}
@@ -29,7 +30,7 @@ const BlogCart = ({
             textColor={category.text_color}
           />
         ))}
-      </div>
+      </HorizontalScroll>
       <p className="text-[#404049] text-[16px] leading-[28px] overflow-hidden line-clamp-3 h-[84px]">
         {description}
       </p>

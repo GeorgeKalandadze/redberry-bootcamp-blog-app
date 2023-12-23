@@ -20,6 +20,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import GuestLayout from '../../layouts/GuestLayout';
+import HorizontalScroll from '../../components/HorizontalScroll';
 
 
 
@@ -113,7 +114,32 @@ const Home = () => {
 
 
 
+const scrollContainerRef = useRef(null);
+const [isDragging, setIsDragging] = useState(false);
+const [showScrollIndicator, setShowScrollIndicator] = useState(false);
+const [startX, setStartX] = useState(null);
+const [scrollLeft, setScrollLeft] = useState(0);
 
+const handleScrollStart = (e) => {
+  setIsDragging(true);
+  setShowScrollIndicator(true);
+  setStartX(e.pageX || e.touches[0].pageX);
+  setScrollLeft(scrollContainerRef.current.scrollLeft);
+};
+
+const handleScrollMove = (e) => {
+  if (isDragging && startX !== null) {
+    const x = e.pageX || e.touches[0].pageX;
+    const walk = (x - startX) * 1.5;
+    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
+  }
+};
+
+const handleScrollEnd = () => {
+  setIsDragging(false);
+  setShowScrollIndicator(false);
+  setStartX(null);
+};
 
   return (
     <GuestLayout>
@@ -121,30 +147,33 @@ const Home = () => {
         <h1 className="text-[74px] font-bold">ბლოგი</h1>
         <img src={HomeImg} className="w-[624px] h-[350px]" />
       </div>
-      <div className="px-24 py-8  flex justify-center overflow-hidden">
-        <div className=" w-[680px] flex gap-10 overflow-hidden">
-          {categories.map((option) => (
-            <div
-              key={option.id}
-              className={` ${
-                selectedCategories.includes(option.id)
-                  ? "border-[2px] border-black"
-                  : ""
-              } flex-none`}
-              style={{ borderRadius: "30px" }}
-              onClick={() => {
-                toggleCategorySelection(option.id);
-              }}
-            >
-              <CategoryButton
-                text={option.title}
-                bgColor={option.background_color}
-                textColor={option.text_color}
-              />
-            </div>
-          ))}
-        </div>
+      <div className="px-24 py-8  flex justify-center ">
+        <HorizontalScroll className="w-[680px] flex gap-10 horizontal-scroll overflow-hidden">
+         
+            {categories.map((option) => (
+              <div
+                key={option.id}
+                className={`scroll-item ${
+                  selectedCategories.includes(option.id)
+                    ? "border-[2px] border-black"
+                    : ""
+                } flex-none`}
+                style={{ borderRadius: "30px" }}
+                onClick={() => {
+                  toggleCategorySelection(option.id);
+                }}
+              >
+                <CategoryButton
+                  text={option.title}
+                  bgColor={option.background_color}
+                  textColor={option.text_color}
+                />
+              </div>
+            ))}
+          
+        </HorizontalScroll>
       </div>
+
       <div className="px-24 py-8 flex justify-between flex-wrap gap-y-12">
         {filteredBlogs
           .filter((blog) => !isPublished(blog.publish_date))

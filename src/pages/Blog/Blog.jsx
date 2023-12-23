@@ -15,6 +15,7 @@ import { useGlobalContext } from '../../context/Context';
 import axiosClient from '../../config/axiosClient';
 import { motion } from "framer-motion";
 import GuestLayout from "../../layouts/GuestLayout";
+import HorizontalScroll from '../../components/HorizontalScroll';
 
 
 const Blog = () => {
@@ -78,114 +79,112 @@ const Blog = () => {
 
 
   return (
-  
-        <GuestLayout>
-          <div className="flex px-24 py-8">
-            <Link to="/">
-              <button
-                className={`bg-[#FFFFFF] h-[44px] w-[44px] rounded-full flex items-center justify-center`}
-              >
-                <img src={ArrowIcon2} />
-              </button>
-            </Link>
-            <div className="w-full justify-center flex ">
-              <div className="w-[820px] flex flex-col gap-4">
-                <img src={blog.image} className="w-full rounded-xl h-[328px]" />
-                <p className="text-[16px] font-medium">{blog.author}</p>
-                <p className="font-small text-[#85858D]">
-                  {blog.publish_date} • {blog?.email}
-                </p>
-                <h1 className="font-bold text-[30px] leading-[45px]">
-                  {blog.title}
-                </h1>
-                <div className="flex gap-3 flex-wrap">
-                  {blog && blog.categories
-                    ? blog.categories.map((category) => (
-                        <CategoryButton
-                          key={category.id} // Remember to provide a unique key when using map in React
-                          text={category.title}
-                          bgColor={category.background_color}
-                          textColor={category.text_color}
-                        />
-                      ))
-                    : null}
-                </div>
-                <p className="text-[#404049] text-[16px] leading-[28px]">
-                  {blog.description}
-                </p>
-              </div>
-            </div>
+    <GuestLayout>
+      <div className="flex px-24 py-8">
+        <Link to="/">
+          <button
+            className={`bg-[#FFFFFF] h-[44px] w-[44px] rounded-full flex items-center justify-center`}
+          >
+            <img src={ArrowIcon2} />
+          </button>
+        </Link>
+        <div className="w-full justify-center flex ">
+          <div className="w-[820px] flex flex-col gap-4">
+            <img src={blog.image} className="w-full rounded-xl h-[328px]" />
+            <p className="text-[16px] font-medium">{blog.author}</p>
+            <p className="font-small text-[#85858D]">
+              {blog.publish_date} • {blog?.email}
+            </p>
+            <h1 className="font-bold text-[30px] leading-[45px]">
+              {blog.title}
+            </h1>
+            <HorizontalScroll className="flex gap-3 overflow-hidden">
+              {blog && blog.categories
+                ? blog.categories.map((category) => (
+                    <CategoryButton
+                      key={category.id} // Remember to provide a unique key when using map in React
+                      text={category.title}
+                      bgColor={category.background_color}
+                      textColor={category.text_color}
+                    />
+                  ))
+                : null}
+            </HorizontalScroll>
+            <p className="text-[#404049] text-[16px] leading-[28px]">
+              {blog.description}
+            </p>
           </div>
-          <div className=" flex flex-col w-full">
-            <div className="flex justify-between items-center px-24 py-8">
-              <h1 className="font-bold text-[30px] leading-[45px]">
-                მსგავსი სტატიები
-              </h1>
-              <div className="flex gap-4">
-                <button
-                  className={`bg-[${
-                    isBeginning ? "#AABBCC" : "#E4E3EB"
-                  }] h-[44px] w-[44px] rounded-full flex items-center justify-center`}
-                  onClick={goToPrevSlide}
-                >
-                  <img
-                    src={ArrowIcon}
-                    className="transform rotate-180"
-                    alt="Previous"
+        </div>
+      </div>
+      <div className=" flex flex-col w-full">
+        <div className="flex justify-between items-center px-24 py-8">
+          <h1 className="font-bold text-[30px] leading-[45px]">
+            მსგავსი სტატიები
+          </h1>
+          <div className="flex gap-4">
+            <button
+              className={`bg-[${
+                isBeginning ? "#AABBCC" : "#E4E3EB"
+              }] h-[44px] w-[44px] rounded-full flex items-center justify-center`}
+              onClick={goToPrevSlide}
+            >
+              <img
+                src={ArrowIcon}
+                className="transform rotate-180"
+                alt="Previous"
+              />
+            </button>
+            <button
+              className={`bg-[${
+                isEnd ? "#AABBCC" : "#5D37F3"
+              }] h-[44px] w-[44px] rounded-full flex items-center justify-center`}
+              onClick={goToNextSlide}
+            >
+              <img src={ArrowIcon} alt="Next" />
+            </button>
+          </div>
+        </div>
+        <div className="flex items-center justify-center">
+          <Swiper
+            breakpoints={{
+              340: {
+                slidesPerView: 2,
+                spaceBetween: 15,
+              },
+              700: {
+                slidesPerView: 3,
+                spaceBetween: 15,
+              },
+            }}
+            freeMode={true}
+            onSlideChange={(swiper) => handleSlideChange(swiper)}
+            onSwiper={(swiper) => setSwiper(swiper)}
+            pagination={{ clickable: true }}
+            modules={[FreeMode]}
+            className="w-full mt-8"
+            style={{ justifyContent: "space-between", width: "100%" }}
+          >
+            {filteredBlogs.map((blog, index) => (
+              <SwiperSlide key={blog.id}>
+                <div className="flex justify-center">
+                  {" "}
+                  <BlogCart
+                    key={blog.id}
+                    name={blog.author}
+                    date={blog.publish_date}
+                    img={blog.image}
+                    announcement={blog.title}
+                    description={blog.description}
+                    categories={blog.categories}
+                    id={blog.id}
                   />
-                </button>
-                <button
-                  className={`bg-[${
-                    isEnd ? "#AABBCC" : "#5D37F3"
-                  }] h-[44px] w-[44px] rounded-full flex items-center justify-center`}
-                  onClick={goToNextSlide}
-                >
-                  <img src={ArrowIcon} alt="Next" />
-                </button>
-              </div>
-            </div>
-            <div className="flex items-center justify-center">
-              <Swiper
-                breakpoints={{
-                  340: {
-                    slidesPerView: 2,
-                    spaceBetween: 15,
-                  },
-                  700: {
-                    slidesPerView: 3,
-                    spaceBetween: 15,
-                  },
-                }}
-                freeMode={true}
-                onSlideChange={(swiper) => handleSlideChange(swiper)}
-                onSwiper={(swiper) => setSwiper(swiper)}
-                pagination={{ clickable: true }}
-                modules={[FreeMode]}
-                className="w-full mt-8"
-                style={{ justifyContent: "space-between", width: "100%" }}
-              >
-                {filteredBlogs.map((blog, index) => (
-                  <SwiperSlide key={blog.id}>
-                    <div className="flex justify-center">
-                      {" "}
-                      <BlogCart
-                        key={blog.id}
-                        name={blog.author}
-                        date={blog.publish_date}
-                        img={blog.image}
-                        announcement={blog.title}
-                        description={blog.description}
-                        categories={blog.categories}
-                        id={blog.id}
-                      />
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
-          </div>
-        </GuestLayout>
-      
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      </div>
+    </GuestLayout>
   );
 }
 
