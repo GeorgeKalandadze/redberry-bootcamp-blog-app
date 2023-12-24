@@ -1,6 +1,6 @@
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import Blog from "./pages/blog/Blog"
 import Home from "./pages/home/Home";
 import NotFound from './pages/notFound/NotFound';
 import { useGlobalContext } from './context/Context';
@@ -17,7 +17,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Home/>} />
-           
+            <Route path="/blog/:id" element={<Blog/>} />
             {isLogged === "isLogged" ? (
               <Route path="/create-blog" element={<CreateBlog/>} />
             ) : (
