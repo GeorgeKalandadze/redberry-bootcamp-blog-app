@@ -8,6 +8,7 @@ const HorizontalScroll = ({children, className}) => {
     const [scrollLeft, setScrollLeft] = useState(0);
 
     const handleScrollStart = (e) => {
+      // e.preventDefault(); // Prevent text selection on scroll start
       setIsDragging(true);
       setShowScrollIndicator(true);
       setStartX(e.pageX || e.touches[0].pageX);
@@ -15,6 +16,7 @@ const HorizontalScroll = ({children, className}) => {
     };
 
     const handleScrollMove = (e) => {
+      // e.preventDefault(); // Prevent text selection while scrolling
       if (isDragging && startX !== null) {
         const x = e.pageX || e.touches[0].pageX;
         const walk = (x - startX) * 1.5;
@@ -22,11 +24,13 @@ const HorizontalScroll = ({children, className}) => {
       }
     };
 
-    const handleScrollEnd = () => {
+    const handleScrollEnd = (e) => {
+      // e.preventDefault(); // Prevent text selection on scroll end
       setIsDragging(false);
       setShowScrollIndicator(false);
       setStartX(null);
     };
+
 
   return (
     <div
@@ -39,8 +43,9 @@ const HorizontalScroll = ({children, className}) => {
       onTouchStart={handleScrollStart}
       onTouchMove={handleScrollMove}
       onTouchEnd={handleScrollEnd}
+      style={{ userSelect: isDragging ? "none" : "auto" }}
     >
-        {children}
+      {children}
     </div>
   );
 }

@@ -26,7 +26,7 @@ const MultiSelectDropdown = ({
     transition: "max-height 0.3s ease-in-out, opacity 0.3s ease-in-out",
   };
 
-  
+
   //add categories in selected dropdown
   const handleOptionClick = (option) => {
     if (!selectedOptions.includes(option)) {
@@ -153,7 +153,7 @@ const MultiSelectDropdown = ({
           top: "100%",
           boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
           borderRadius: "8px 8px 8px 8px",
-          zIndex: 30,
+          zIndex: 20,
           backgroundColor: "white",
         }}
         className="flex flex-wrap px-2 gap-2 py-2 mt-1 scroll-container"
