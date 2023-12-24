@@ -108,8 +108,9 @@ const MultiSelectDropdown = ({
           <HorizontalScroll
             className="flex items-center overflow-hidden max-w-[300px] gap-3" 
           >
+    
             {selectedOptions.map((option, index) => (
-              <div
+              <div 
                 style={{
                   backgroundColor: option.background_color,
                   borderRadius: "30px",
