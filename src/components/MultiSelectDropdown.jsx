@@ -3,7 +3,7 @@ import ArrowDownIcon from "../assets/Vector.png";
 import DeleteIcon from "../assets/delete_icon.png";
 import CategoryButton from "./CategoryButton";
 import { useGlobalContext } from "../context/Context";
-import { ValidateBlog } from "../validation/Validation";
+import { ValidateBlog } from "../validation/validation";
 import HorizontalScroll from "./HorizontalScroll";
 
 const MultiSelectDropdown = ({

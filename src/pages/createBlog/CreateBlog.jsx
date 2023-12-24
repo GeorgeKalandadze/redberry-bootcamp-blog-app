@@ -6,7 +6,7 @@ import InputGroup from '../../components/InputGroup';
 import TextareaGroup from '../../components/TextareaGroup';
 import MultiSelectDropdown from '../../components/MultiSelectDropdown';
 import { useGlobalContext } from '../../context/Context';
-import { ValidateBlog } from '../../validation/Validation';
+import { ValidateBlog } from '../../validation/validation';
 import GalleryIcon from '../../assets/gallery.png'
 import CloseIcon from '../../assets/close.png'
 import { Link } from 'react-router-dom';
