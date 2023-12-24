@@ -1,6 +1,6 @@
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Blog from "./pages/blog/Blog"
+import Blog from "./pages/Blog/Blog"
 import Home from "./pages/home/Home";
 import NotFound from './pages/notFound/NotFound';
 import { useGlobalContext } from './context/Context';
