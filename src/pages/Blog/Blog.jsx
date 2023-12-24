@@ -89,9 +89,16 @@ const Blog = () => {
           <div className="w-[820px] flex flex-col gap-4">
             <img src={blog.image} className="w-full rounded-xl h-[328px]" />
             <p className="text-[16px] font-medium">{blog.author}</p>
-            <p className="font-small text-[#85858D]">
-              {blog.publish_date} • {blog?.email}
+            <p className="font-small text-[#85858D] ">
+              {blog.publish_date && blog?.email ? (
+                <>
+                  {blog.publish_date} • {blog.email}
+                </>
+              ) : (
+                <>{blog.publish_date || blog.email}</>
+              )}
             </p>
+
             <h1 className="font-bold text-[30px] leading-[45px]">
               {blog.title}
             </h1>
@@ -107,7 +114,7 @@ const Blog = () => {
                   ))
                 : null}
             </HorizontalScroll>
-            <p className="text-[#404049] text-[16px] leading-[28px]">
+            <p className="text-[#404049] text-[16px] leading-[28px] fon-[400]">
               {blog.description}
             </p>
           </div>

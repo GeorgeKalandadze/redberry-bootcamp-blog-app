@@ -6,7 +6,7 @@ const CategoryButton = ({ text, bgColor, textColor }) => {
     color: textColor,
     fontSize: "12px",
     borderRadius: "30px",
-    padding: "8px 18px",
+    padding: "8px 16px",
     whiteSpace: "nowrap",
   };
 

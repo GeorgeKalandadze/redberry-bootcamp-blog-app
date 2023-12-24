@@ -114,33 +114,6 @@ const Home = () => {
 
 
 
-const scrollContainerRef = useRef(null);
-const [isDragging, setIsDragging] = useState(false);
-const [showScrollIndicator, setShowScrollIndicator] = useState(false);
-const [startX, setStartX] = useState(null);
-const [scrollLeft, setScrollLeft] = useState(0);
-
-const handleScrollStart = (e) => {
-  setIsDragging(true);
-  setShowScrollIndicator(true);
-  setStartX(e.pageX || e.touches[0].pageX);
-  setScrollLeft(scrollContainerRef.current.scrollLeft);
-};
-
-const handleScrollMove = (e) => {
-  if (isDragging && startX !== null) {
-    const x = e.pageX || e.touches[0].pageX;
-    const walk = (x - startX) * 1.5;
-    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
-  }
-};
-
-const handleScrollEnd = () => {
-  setIsDragging(false);
-  setShowScrollIndicator(false);
-  setStartX(null);
-};
-
   return (
     <GuestLayout>
       <div className="flex px-24 py-8 justify-between items-center">
@@ -148,7 +121,7 @@ const handleScrollEnd = () => {
         <img src={HomeImg} className="w-[624px] h-[350px]" />
       </div>
       <div className="px-24 py-8  flex justify-center ">
-        <HorizontalScroll className="w-[680px] flex gap-10 horizontal-scroll overflow-hidden">
+        <HorizontalScroll className="w-[684px] flex gap-[22px] horizontal-scroll overflow-hidden">
          
             {categories.map((option) => (
               <div

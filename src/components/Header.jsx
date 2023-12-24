@@ -18,7 +18,7 @@ const Header = ({ openModal }) => {
         </button>
       ) : isLogged === "isNotLogged" || isLogged === "" ? (
         <button
-          className="bg-[#5D37F3] rounded-md w-[93px] h-[40px] text-white text-[14px]"
+          className="bg-[#5D37F3] rounded-md px-[20px] py-[10px text-white text-[14px]"
           onClick={openModal}
         >
           შესვლა
