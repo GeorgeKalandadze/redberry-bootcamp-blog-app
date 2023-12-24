@@ -1,7 +1,7 @@
 import './App.css'
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
-import Home from './pages/home/Home';
-import Blog from './pages/blog/Blog';
+import Blog from "./pages/blog/Blog";
+import Home from "./pages/home/Home";
 import CreateBlog from './pages/blog/CreateBlog';
 import NotFound from './pages/notFound/NotFound';
 import { useGlobalContext } from './context/Context';
