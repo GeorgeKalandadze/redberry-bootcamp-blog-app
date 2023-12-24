@@ -5,6 +5,7 @@ import CategoryButton from "./CategoryButton";
 
 import { useGlobalContext } from "../context/Context";
 import { ValidateBlog } from "../validation/Validation";
+import HorizontalScroll from "./HorizontalScroll";
 
 const MultiSelectDropdown = ({
   className = "",
@@ -25,6 +26,7 @@ const MultiSelectDropdown = ({
     transition: "max-height 0.3s ease-in-out, opacity 0.3s ease-in-out",
   };
 
+  
   //add categories in selected dropdown
   const handleOptionClick = (option) => {
     if (!selectedOptions.includes(option)) {
@@ -103,17 +105,8 @@ const MultiSelectDropdown = ({
         
       >
         {selectedOptions.length > 0 ? (
-          <div
-            ref={containerRef}
-            className="flex items-center overflow-x-auto max-w-[300px] gap-3 "
-            style={{
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-              overflow: "hidden",
-            }}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
+          <HorizontalScroll
+            className="flex items-center overflow-hidden max-w-[300px] gap-3" 
           >
             {selectedOptions.map((option, index) => (
               <div
@@ -137,7 +130,7 @@ const MultiSelectDropdown = ({
                 />
               </div>
             ))}
-          </div>
+          </HorizontalScroll>
         ) : (
           <h1 className="font-medium">აირჩიე კატეგორია</h1>
         )}
