@@ -11,7 +11,6 @@ import { FreeMode} from "swiper/modules";
 import { Link, useParams } from 'react-router-dom';
 import { useGlobalContext } from '../../context/Context';
 import axiosClient from '../../config/axiosClient';
-import { motion } from "framer-motion";
 import GuestLayout from "../../layouts/GuestLayout";
 import HorizontalScroll from '../../components/HorizontalScroll';
 
