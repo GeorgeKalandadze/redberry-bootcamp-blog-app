@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../../components/Header';
 import CategoryButton from '../../components/CategoryButton';
 import ArrowIcon from '../../assets/Arrow-2.svg'
 import ArrowIcon2 from '../../assets/Arrow-3.svg'
@@ -8,9 +7,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/free-mode";
-import { FreeMode, Pagination } from "swiper/modules";
+import { FreeMode} from "swiper/modules";
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
 import { useGlobalContext } from '../../context/Context';
 import axiosClient from '../../config/axiosClient';
 import { motion } from "framer-motion";
