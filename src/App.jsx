@@ -1,7 +1,7 @@
 import './App.css'
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Blog from "./pages/blog/Blog";
-// import Home from "./pages/home/Home";
+import Home from "./pages/home/Home";
 import NotFound from './pages/notFound/NotFound';
 import { useGlobalContext } from './context/Context';
 import { AnimatePresence } from 'framer-motion';

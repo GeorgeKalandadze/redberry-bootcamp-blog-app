@@ -124,19 +124,20 @@ const CreateBlog = () => {
 
       const checkFormValidity = () => {
         const errors = ValidateBlog(info);
-
-
+        console.log(errors);
         const isAuthorValid =
           errors.author &&
           Object.values(errors.author).every((error) => error === "valid");
 
-        if (isAuthorValid && 
+        if (
+          isAuthorValid &&
           errors.title == "valid" &&
-          errors.description  == "valid" &&
-          errors.publish_date  == "valid" &&
-          errors.categories  == "valid" &&
-          errors.image  == "valid" 
-          ) {
+          errors.description == "valid" &&
+          errors.publish_date == "valid" &&
+          info.categories.length !== 0 &&
+          errors.image == "valid" &&
+          errors.email !== "invalid" 
+        ) {
           setFormValid(true);
         } else {
           setFormValid(false);
@@ -201,6 +202,7 @@ const CreateBlog = () => {
         const isFocused = areAllAuthorFieldValid || isAnyAuthorFieldInvalid;
 
 
+        console.log();
   return (
     <>
       {statusCode === 204 && (

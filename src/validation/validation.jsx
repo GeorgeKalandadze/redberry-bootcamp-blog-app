@@ -47,10 +47,15 @@ export const ValidateBlog = (values) => {
   }
 
 
-  if (!REGEX_EMAIL.test(values?.email)) {
-    response.email = "invalid";
-  } else {
-    response.email = "valid";
+  if (values.email !== undefined) {
+    const trimmedEmail = values.email.trim();
+    if (trimmedEmail === "") {
+      delete response.email;
+    } else if (REGEX_EMAIL.test(trimmedEmail)) {
+      response.email = "valid";
+    } else {
+      response.email = "invalid";
+    }
   }
 
   if (!values?.publish_date) {
