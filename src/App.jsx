@@ -1,11 +1,11 @@
 import './App.css'
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
-import Blog from "./pages/blog/Blog";
-import Home from "./pages/home/Home";
-import NotFound from './pages/notFound/NotFound';
+import Blog from "./pages/blog/Blog.jsx";
+import Home from "./pages/home/Home.jsx";
+import NotFound from './pages/notFound/NotFound.jsx';
 import { useGlobalContext } from './context/Context';
 import { AnimatePresence } from 'framer-motion';
-import CreateBlog from './pages/createBlog/CreateBlog';
+import CreateBlog from './pages/createBlog/CreateBlog.jsx';
 
 
 function App() {
