@@ -2,7 +2,6 @@ import React, {useRef, useState } from "react";
 import ArrowDownIcon from "../assets/Vector.png";
 import DeleteIcon from "../assets/delete_icon.png";
 import CategoryButton from "./CategoryButton";
-
 import { useGlobalContext } from "../context/Context";
 import { ValidateBlog } from "../validation/Validation";
 import HorizontalScroll from "./HorizontalScroll";
@@ -64,25 +63,7 @@ const MultiSelectDropdown = ({
   };
 
   
-  const containerRef = useRef(null);
-  const [startX, setStartX] = useState(null);
-  const [scrollLeft, setScrollLeft] = useState(0);
 
-  const handleTouchStart = (e) => {
-    setStartX(e.touches[0].clientX);
-    setScrollLeft(containerRef.current.scrollLeft);
-  };
-
-  const handleTouchMove = (e) => {
-    if (!startX) return;
-    const x = e.touches[0].clientX;
-    const distance = x - startX;
-    containerRef.current.scrollLeft = scrollLeft - distance;
-  };
-
-  const handleTouchEnd = () => {
-    setStartX(null);
-  };
 
   return (
     <div

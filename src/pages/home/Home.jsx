@@ -1,24 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
-import Header from '../../components/Header';
 import HomeImg from '../../assets/Blog-1024x355 1.png'
 import CategoryButton from '../../components/CategoryButton';
 import BlogCart from '../../components/BlogCart';
-import Modal from '../../components/Modal';
 import axios from 'axios';
 import { useSessionStorage } from '../../hooks/useSessionStorage';
-import ErrorIcon from '../../assets/error.png'
-import SuccessIcon from '../../assets/success.png'
-import {
-  AnimatePresence,
-  motion,
-} from "framer-motion";
 import { useGlobalContext } from '../../context/Context';
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 import GuestLayout from '../../layouts/GuestLayout';
 import HorizontalScroll from '../../components/HorizontalScroll';
 
