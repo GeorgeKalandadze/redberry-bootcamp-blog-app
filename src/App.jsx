@@ -1,11 +1,11 @@
 import './App.css'
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
-import Blog from "./pages/blog/Blog.jsx";
-import Home from "./pages/home/Home.jsx";
-import NotFound from './pages/notFound/NotFound.jsx';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import Home from "./pages/home/Home";
+import NotFound from './pages/notFound/NotFound';
 import { useGlobalContext } from './context/Context';
 import { AnimatePresence } from 'framer-motion';
-import CreateBlog from './pages/createBlog/CreateBlog.jsx';
+import CreateBlog from './pages/createBlog/CreateBlog';
 
 
 function App() {
@@ -17,11 +17,11 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Home/>} />
-            <Route path="/blog/:id" element={<Blog/>} />
+           
             {isLogged === "isLogged" ? (
               <Route path="/create-blog" element={<CreateBlog/>} />
             ) : (
-              <Route path="/create-blog" element={<NotFound />} />
+              <Route path="/create-blog" element={<NotFound/>} />
             )}
           </Routes>
         </Router>
