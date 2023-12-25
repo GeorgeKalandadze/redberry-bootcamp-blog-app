@@ -18,7 +18,7 @@ import SuccessIcon from "../../assets/success.png";
 const CreateBlog = () => {
    const [statusCode, setStatusCode] = useState(null);
    const [showModal, setShowModal] = useState(false);
-    const { info, setStore, setValidationErrors, validationErrors, setBlogs, animations} =
+    const { info, setStore, setValidationErrors, validationErrors, setBlogs, animations,} =
       useGlobalContext();
 
 
@@ -172,7 +172,7 @@ const CreateBlog = () => {
             formData,
             {
               headers: {
-                Authorization: `Bearer ${"282c0587589f7516edf61b215c828ba8047b67aabbe141c5d17ec45c0d624fd0"}`,
+                Authorization: `Bearer ${"f09a320f7fdf64e7e7ed2dca3da2717a2ce3dd2b07e200e7ea441a0e750b3519"}`,
                 "Content-Type": "multipart/form-data",
               },
             }
@@ -180,6 +180,17 @@ const CreateBlog = () => {
           if (blogResponse.status === 204) {
             setShowModal(true);
             setStatusCode(blogResponse.status);
+             setStore((prevInfo) => ({
+               ...prevInfo,
+               title: "",
+               description: "",
+               image: {},
+               author: "",
+               publish_date: "",
+               categories: [],
+               email: "",
+             }));
+             setValidationErrors({})
           }
           console.log("Blog created successfully:", blogResponse);
         } catch (error) {

@@ -1,4 +1,4 @@
-import React, {useRef, useState } from "react";
+import React, { useState } from "react";
 import ArrowDownIcon from "../assets/Vector.png";
 import DeleteIcon from "../assets/delete_icon.png";
 import CategoryButton from "./CategoryButton";
@@ -6,14 +6,10 @@ import { useGlobalContext } from "../context/Context";
 import { ValidateBlog } from "../validation/validation";
 import HorizontalScroll from "./HorizontalScroll";
 
-const MultiSelectDropdown = ({
-  className = "",
-  isValid,
-}) => {
+const MultiSelectDropdown = ({ className = "", isValid }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { info, setStore, setValidationErrors, validationErrors, categories } =
     useGlobalContext();
-  const [selectedOptions, setSelectedOptions] = useState(info.categories || []);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -25,11 +21,8 @@ const MultiSelectDropdown = ({
     transition: "max-height 0.3s ease-in-out, opacity 0.3s ease-in-out",
   };
 
-
-  //add categories in selected dropdown
   const handleOptionClick = (option) => {
-    if (!selectedOptions.includes(option)) {
-      setSelectedOptions([...selectedOptions, option]);
+    if (!info.categories.includes(option)) {
       setStore((prevInfo) => ({
         ...prevInfo,
         categories: [...prevInfo.categories, option],
@@ -44,10 +37,8 @@ const MultiSelectDropdown = ({
     }
   };
 
-  //delete categories from dropdown
   const handleDeleteOption = (option) => {
-    const updatedOptions = selectedOptions.filter((opt) => opt !== option);
-    setSelectedOptions(updatedOptions);
+    const updatedOptions = info.categories.filter((opt) => opt !== option);
 
     setStore((prevInfo) => ({
       ...prevInfo,
@@ -62,9 +53,6 @@ const MultiSelectDropdown = ({
     }));
   };
 
-  
-
-
   return (
     <div
       className={`w-full bg-white px-[15px]  rounded-2xl relative border-2 ${
@@ -76,22 +64,19 @@ const MultiSelectDropdown = ({
           ? "border-green-500"
           : ""
       } ${isValid === "invalid" ? "shakeAnimation" : ""} ${
-        selectedOptions.length > 0 ? "py-[12px]" : "py-[16px]"
+        info.categories.length > 0 ? "py-[12px]" : "py-[16px]"
       }`}
       style={{ boxSizing: "border-box" }}
     >
       <div
         className={`bg-white flex items-center cursor-pointer justify-between`}
         onClick={handleToggle}
-        
       >
-        {selectedOptions.length > 0 ? (
-          <HorizontalScroll
-            className="flex items-center overflow-hidden max-w-[300px] gap-3" 
-          >
-    
-            {selectedOptions.map((option, index) => (
-              <div 
+        {info.categories.length > 0 ? (
+          <HorizontalScroll className="flex items-center overflow-hidden max-w-[300px] gap-3">
+            {info.categories.map((option, index) => (
+              <div
+                key={index}
                 style={{
                   backgroundColor: option.background_color,
                   borderRadius: "30px",
@@ -109,6 +94,7 @@ const MultiSelectDropdown = ({
                 <img
                   src={DeleteIcon}
                   onClick={() => handleDeleteOption(option)}
+                  alt="Delete"
                 />
               </div>
             ))}
@@ -140,8 +126,8 @@ const MultiSelectDropdown = ({
         }}
         className="flex flex-wrap px-2 gap-2 py-2 mt-1 scroll-container"
       >
-        {categories.map((option) => (
-          <div onClick={() => handleOptionClick(option)}>
+        {categories.map((option, index) => (
+          <div key={index} onClick={() => handleOptionClick(option)}>
             <CategoryButton
               text={option.title}
               bgColor={option.background_color}
