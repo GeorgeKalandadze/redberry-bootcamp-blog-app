@@ -60,38 +60,39 @@ const Home = () => {
 
   return (
     <GuestLayout>
-      <div className="flex px-24 py-8 justify-between items-center">
-        <h1 className="text-[74px] font-bold">ბლოგი</h1>
-        <img src={HomeImg} className="h-[350px]" />
+      <div className="flex-col flex px-[10px] py-8 justify-between lg:flex-row items-center md:px-14 2xl:px-24">
+        <h1 className="text-[60px] font-bold 2xl:text-[74px]">ბლოგი</h1>
+        <img
+          src={HomeImg}
+          className="h-[350px] w-full lg:w-[600px] 2xl:w-auto"
+        />
       </div>
-      <div className="px-24 py-8  flex justify-center ">
+      <div className=" py-8  flex justify-center px-[30px] md:px-14 2xl:px-24">
         <HorizontalScroll className="w-[684px] flex gap-[22px] horizontal-scroll overflow-hidden">
-         
-            {categories.map((option) => (
-              <div
-                key={option.id}
-                className={`scroll-item ${
-                  selectedCategories.includes(option.id)
-                    ? "border-[2px] border-black"
-                    : ""
-                } flex-none`}
-                style={{ borderRadius: "30px" }}
-                onClick={() => {
-                  toggleCategorySelection(option.id);
-                }}
-              >
-                <CategoryButton
-                  text={option.title}
-                  bgColor={option.background_color}
-                  textColor={option.text_color}
-                />
-              </div>
-            ))}
-          
+          {categories.map((option) => (
+            <div
+              key={option.id}
+              className={`scroll-item ${
+                selectedCategories.includes(option.id)
+                  ? "border-[2px] border-black"
+                  : ""
+              } flex-none`}
+              style={{ borderRadius: "30px" }}
+              onClick={() => {
+                toggleCategorySelection(option.id);
+              }}
+            >
+              <CategoryButton
+                text={option.title}
+                bgColor={option.background_color}
+                textColor={option.text_color}
+              />
+            </div>
+          ))}
         </HorizontalScroll>
       </div>
 
-      <div className="px-24 py-8 flex justify-between flex-wrap gap-y-12">
+      <div className="px-[30px] py-8 flex justify-between flex-wrap gap-y-6 md:px-14 2xl:px-24 2xl:gap-y-12">
         {filteredBlogs
           .filter((blog) => !isPublished(blog.publish_date))
           .map((blog) => (

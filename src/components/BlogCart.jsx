@@ -14,7 +14,7 @@ const BlogCart = ({
   id,
 }) => {
   return (
-    <div className="flex flex-col gap-4 w-[480px]">
+    <div className="flex flex-col gap-4 w-full lg:w-[450px] xl:w-[550px] 2xl:w-[480px]">
       <Link to={`/blog/${id}`}>
         <img src={img} className="w-full h-[328px] rounded-xl" alt={name} />
       </Link>
