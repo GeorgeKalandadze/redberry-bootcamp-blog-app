@@ -225,6 +225,7 @@ const CreateBlog = () => {
           if (blogResponse.status === 204) {
             setShowModal(true);
             setStatusCode(blogResponse.status);
+            setValidationErrors({})
             setStore({
               title: "",
               description: "",
