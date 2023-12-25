@@ -14,9 +14,11 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Modal from '../../components/Modal';
 import axios from 'axios';
 import SuccessIcon from "../../assets/success.png";
+import axiosClient from '../../config/axiosClient';
 
 const CreateBlog = () => {
    const [statusCode, setStatusCode] = useState(null);
+    const [formValid, setFormValid] = useState(false);
    const [showModal, setShowModal] = useState(false);
     const {
       info,
@@ -60,14 +62,9 @@ const CreateBlog = () => {
 
 
 
-    const validateForm = () => {
-      const errors = ValidateBlog(info);
-      makeBlog()
-    };
-
     const handleSubmit = (e) => {
       e.preventDefault();
-      validateForm();
+      makeBlog();
     };
 
 
@@ -126,7 +123,7 @@ const CreateBlog = () => {
         }));
       };
 
-      const [formValid, setFormValid] = useState(false);
+     
 
       const checkFormValidity = () => {
         const errors = ValidateBlog(info);
@@ -156,7 +153,57 @@ const CreateBlog = () => {
 
 
 
-      const makeBlog = async (email) => {
+      // const makeBlog = async (email) => {
+      //   try {
+      //     const formData = new FormData();
+      //     formData.append("title", info.title);
+      //     formData.append("description", info.description);
+      //     formData.append("author", info.author);
+      //     formData.append("publish_date", info.publish_date);
+      //     formData.append("email", info.email);
+      //     const categoryIds = info.categories
+      //       .map((category) => category.id)
+      //       .join(",");
+      //     formData.append("categories", `[${categoryIds}]`);
+
+      //     const response = await fetch(info.image.url);
+      //     const blob = await response.blob();
+      //     formData.append("image", blob, info.image.url);
+
+      //     const blogResponse = await axios.post(
+      //       "https://api.blog.redberryinternship.ge/api/blogs",
+      //       formData,
+      //       {
+      //         headers: {
+      //           Authorization: `Bearer ${"d3a07d694ce4910bcae301535fe885e3088635d1ddaa8d0f589633f70bf0f291"}`,
+      //           "Content-Type": "multipart/form-data",
+      //         },
+      //       }
+      //     );
+      //     if (blogResponse.status === 204) {
+      //       setShowModal(true);
+      //       setStatusCode(blogResponse.status);
+      //        setStore((prevInfo) => ({
+      //          ...prevInfo,
+      //          title: "",
+      //          description: "",
+      //          image: {},
+      //          author: "",
+      //          publish_date: "",
+      //          categories: [],
+      //          email: "",
+      //        }));
+      //        setValidationErrors({})
+      //        getBlogs()
+             
+      //     }
+      //     console.log("Blog created successfully:", blogResponse);
+      //   } catch (error) {
+      //     console.error("Error creating blog:", error);
+      //   }
+      // };
+
+      const makeBlog = async () => {
         try {
           const formData = new FormData();
           formData.append("title", info.title);
@@ -173,33 +220,24 @@ const CreateBlog = () => {
           const blob = await response.blob();
           formData.append("image", blob, info.image.url);
 
-          const blogResponse = await axios.post(
-            "https://api.blog.redberryinternship.ge/api/blogs",
-            formData,
-            {
-              headers: {
-                Authorization: `Bearer ${"d3a07d694ce4910bcae301535fe885e3088635d1ddaa8d0f589633f70bf0f291"}`,
-                "Content-Type": "multipart/form-data",
-              },
-            }
-          );
+          const blogResponse = await axiosClient.post("/blogs", formData);
+
           if (blogResponse.status === 204) {
             setShowModal(true);
             setStatusCode(blogResponse.status);
-             setStore((prevInfo) => ({
-               ...prevInfo,
-               title: "",
-               description: "",
-               image: {},
-               author: "",
-               publish_date: "",
-               categories: [],
-               email: "",
-             }));
-             setValidationErrors({})
-             getBlogs()
-             
+            setStore({
+              title: "",
+              description: "",
+              image: {},
+              author: "",
+              publish_date: "",
+              categories: [],
+              email: "",
+            });
+
+            getBlogs();
           }
+
           console.log("Blog created successfully:", blogResponse);
         } catch (error) {
           console.error("Error creating blog:", error);
@@ -220,8 +258,6 @@ const CreateBlog = () => {
 
         const isFocused = areAllAuthorFieldValid || isAnyAuthorFieldInvalid;
 
-
-        console.log();
   return (
     <>
       {statusCode === 204 && (
@@ -286,6 +322,7 @@ const CreateBlog = () => {
                         name="image"
                         className="cursor-pointer absolute top-0 left-0 w-full h-full opacity-0"
                         onChange={(event) => handleImageUpload(event)}
+                        accept="image/jpeg, image/png, image/jpg, image/svg"
                       />
                       <div className="flex flex-col items-center w-full">
                         <img src={UploadImg} />
@@ -332,9 +369,7 @@ const CreateBlog = () => {
                             : "#c3c2c8"
                         } border-[#c3c2c8] rounded-2xl px-[15px] py-[16px] outline-none
                         ${!isFocused ? "focus:border-[#5D37F3]" : ""} ${
-                          isAnyAuthorFieldInvalid
-                            ? "shakeAnimation"
-                            : ""
+                          isAnyAuthorFieldInvalid ? "shakeAnimation" : ""
                         }`}
                         onChange={handleTextInputChange}
                       />

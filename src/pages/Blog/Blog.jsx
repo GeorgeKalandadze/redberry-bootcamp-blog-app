@@ -19,7 +19,7 @@ const Blog = () => {
     const [swiper, setSwiper] = useState(null);
     const [singleBlog, setSingleBlog] = useState({});
     const { id } = useParams();
-    const { blogs} = useGlobalContext();
+    const { blogs } = useGlobalContext();
 
      useEffect(() => {
        const fetchData = async () => {

@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import HomeImg from '../../assets/Blog-1024x355 1.png'
 import CategoryButton from '../../components/CategoryButton';
 import BlogCart from '../../components/BlogCart';
-import axios from 'axios';
 import { useSessionStorage } from '../../hooks/useSessionStorage';
 import { useGlobalContext } from '../../context/Context';
 import GuestLayout from '../../layouts/GuestLayout';

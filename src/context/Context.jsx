@@ -62,17 +62,9 @@ export const AppProvider = ({children}) => {
 
      const loginUser = async (email) => {
        try {
-         const response = await axios.post(
-           "https://api.blog.redberryinternship.ge/api/login",
-           {
-             email: email,
-           },
-           {
-             headers: {
-               Authorization: `Bearer ${"d3a07d694ce4910bcae301535fe885e3088635d1ddaa8d0f589633f70bf0f291"}`,
-             },
-           }
-         );
+         const response = await axiosClient.post("/login", {
+           email: email,
+         });
          console.log("Login successful:", response);
 
          if (response.status === 204) {
