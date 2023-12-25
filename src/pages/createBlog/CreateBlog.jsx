@@ -290,7 +290,7 @@ const CreateBlog = () => {
       )}
 
       <motion.div
-        className="min-w-[1920px] min-h-[1080px] bg-[#FBFAFF] flex flex-col gap-12"
+        className="max-w-[1920px] min-h-[1080px] bg-[#FBFAFF] flex flex-col gap-12"
         variants={animations}
         initial="initial"
         animate="animate"

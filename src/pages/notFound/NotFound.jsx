@@ -9,7 +9,7 @@ const NotFound = () => {
    
   return (
     <motion.div
-      className="min-w-[1920px] h-[1080px] bg-[#E4E3EB] flex flex-col justify-center"
+      className="max-w-[1920px] h-[1080px] bg-[#E4E3EB] flex flex-col justify-center"
       variants={animations}
       initial="initial"
       animate="animate"
