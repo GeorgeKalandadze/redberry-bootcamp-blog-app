@@ -127,10 +127,11 @@ const Blog = () => {
           </h1>
           <div className="flex gap-4">
             <button
-              className={`bg-[${
-                isBeginning ? "#AABBCC" : "#E4E3EB"
-              }] h-[44px] w-[44px] rounded-full flex items-center justify-center`}
+              className={`h-[44px] w-[44px] rounded-full flex items-center justify-center `}
               onClick={goToPrevSlide}
+              style={{
+                backgroundColor: `${isBeginning? "#E4E3EB" : "#5D37F3"}`,
+              }}
             >
               <img
                 src={ArrowIcon}
@@ -139,9 +140,10 @@ const Blog = () => {
               />
             </button>
             <button
-              className={`bg-[${
-                isEnd ? "#AABBCC" : "#5D37F3"
-              }] h-[44px] w-[44px] rounded-full flex items-center justify-center`}
+              className={`h-[44px] w-[44px] rounded-full flex items-center justify-center`}
+              style={{
+                backgroundColor: `${isEnd ? "#E4E3EB" : "#5D37F3"}`,
+              }}
               onClick={goToNextSlide}
             >
               <img src={ArrowIcon} alt="Next" />
