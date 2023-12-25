@@ -18,8 +18,14 @@ import SuccessIcon from "../../assets/success.png";
 const CreateBlog = () => {
    const [statusCode, setStatusCode] = useState(null);
    const [showModal, setShowModal] = useState(false);
-    const { info, setStore, setValidationErrors, validationErrors, setBlogs, animations,} =
-      useGlobalContext();
+    const {
+      info,
+      setStore,
+      setValidationErrors,
+      validationErrors,
+      animations,
+      getBlogs
+    } = useGlobalContext();
 
 
     const handleSelect = (selectedOption, field) => {
@@ -172,7 +178,7 @@ const CreateBlog = () => {
             formData,
             {
               headers: {
-                Authorization: `Bearer ${"f09a320f7fdf64e7e7ed2dca3da2717a2ce3dd2b07e200e7ea441a0e750b3519"}`,
+                Authorization: `Bearer ${"d3a07d694ce4910bcae301535fe885e3088635d1ddaa8d0f589633f70bf0f291"}`,
                 "Content-Type": "multipart/form-data",
               },
             }
@@ -191,6 +197,8 @@ const CreateBlog = () => {
                email: "",
              }));
              setValidationErrors({})
+             getBlogs()
+             
           }
           console.log("Blog created successfully:", blogResponse);
         } catch (error) {

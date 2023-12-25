@@ -24,20 +24,20 @@ export const AppProvider = ({children}) => {
     const [isLogged, setIsLogged] = useSessionStorage("isLoggedin", "");
     const [categories, setCategories] = useState([]);
     const [blogs, setBlogs] = useState([]);
+    const [singleBlog, setSingleBlog] = useState({});
 
+    const getBlogs = async () => {
+      try {
+        const response = await axiosClient.get("/blogs");
+        console.log(response);
+        setBlogs(response.data.data);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
 
     useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await axiosClient.get("/blogs");
-          console.log(response);
-          setBlogs(response.data.data);
-        } catch (error) {
-          console.error("Error fetching data: ", error);
-        }
-      };
-
-      fetchData();
+      getBlogs()
     }, []);
 
   
@@ -58,6 +58,8 @@ export const AppProvider = ({children}) => {
        fetchData();
      }, []);
 
+     
+
      const loginUser = async (email) => {
        try {
          const response = await axios.post(
@@ -67,7 +69,7 @@ export const AppProvider = ({children}) => {
            },
            {
              headers: {
-               Authorization: `Bearer${"282c0587589f7516edf61b215c828ba8047b67aabbe141c5d17ec45c0d624fd0"}`,
+               Authorization: `Bearer ${"d3a07d694ce4910bcae301535fe885e3088635d1ddaa8d0f589633f70bf0f291"}`,
              },
            }
          );
@@ -112,6 +114,9 @@ export const AppProvider = ({children}) => {
           email,
           setEmail,
           loginUser,
+          singleBlog,
+          setSingleBlog,
+          getBlogs,
         }}
       >
         {children}

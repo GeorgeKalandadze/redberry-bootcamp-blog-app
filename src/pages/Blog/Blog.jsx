@@ -17,23 +17,22 @@ import HorizontalScroll from '../../components/HorizontalScroll';
 
 const Blog = () => {
     const [swiper, setSwiper] = useState(null);
-    const [blog, setBlog] = useState({})
+    const [singleBlog, setSingleBlog] = useState({});
     const { id } = useParams();
-    const { blogs, animations } = useGlobalContext();
+    const { blogs} = useGlobalContext();
 
      useEffect(() => {
        const fetchData = async () => {
          try {
            const response = await axiosClient.get(`/blogs/${id}`);
-           console.log(response.data);
-           setBlog(response.data);
+           setSingleBlog(response.data);
          } catch (error) {
            console.error("Error fetching data: ", error);
          }
        };
 
        fetchData();
-     }, [id]);
+     }, [id, blogs]);
 
     const goToNextSlide = () => {
       if (swiper !== null) {
@@ -60,19 +59,19 @@ const Blog = () => {
       const [filteredBlogs, setFilteredBlogs] = useState([]);
 
       useEffect(() => {
-        if (blog.categories && blog.categories.length > 0) {
+        if (singleBlog.categories && singleBlog.categories.length > 0) {
           const filtered = blogs.filter(
             (item) =>
-              item.id !== blog.id &&
+              item.id !== singleBlog.id &&
               item.categories.some((blogCat) =>
-                blog.categories.some(
+                singleBlog.categories.some(
                   (selectedCat) => blogCat.id === selectedCat.id
                 )
               )
           );
           setFilteredBlogs(filtered);
         }
-      }, [blog.categories, blog.id, blogs]);
+      }, [singleBlog.categories, singleBlog.id, blogs]);
 
 
   return (
@@ -87,24 +86,24 @@ const Blog = () => {
         </Link>
         <div className="w-full justify-center flex ">
           <div className="w-[820px] flex flex-col gap-4">
-            <img src={blog.image} className="w-full rounded-xl h-[328px]" />
-            <p className="text-[16px] font-medium">{blog.author}</p>
+            <img src={singleBlog.image} className="w-full rounded-xl h-[328px]" />
+            <p className="text-[16px] font-medium">{singleBlog.author}</p>
             <p className="font-small text-[#85858D] ">
-              {blog.publish_date && blog?.email ? (
+              {singleBlog.publish_date && singleBlog?.email ? (
                 <>
-                  {blog.publish_date} • {blog.email}
+                  {singleBlog.publish_date} • {singleBlog.email}
                 </>
               ) : (
-                <>{blog.publish_date || blog.email}</>
+                <>{singleBlog.publish_date || singleBlog.email}</>
               )}
             </p>
 
             <h1 className="font-bold text-[30px] leading-[45px]">
-              {blog.title}
+              {singleBlog.title}
             </h1>
             <HorizontalScroll className="flex gap-3 overflow-hidden">
-              {blog && blog.categories
-                ? blog.categories.map((category) => (
+              {singleBlog && singleBlog.categories
+                ? singleBlog.categories.map((category) => (
                     <CategoryButton
                       key={category.id} // Remember to provide a unique key when using map in React
                       text={category.title}
@@ -114,8 +113,8 @@ const Blog = () => {
                   ))
                 : null}
             </HorizontalScroll>
-            <p className="text-[#404049] text-[16px] leading-[28px] fon-[400]">
-              {blog.description}
+            <p className="text-[#404049] text-[16px] leading-[28px] fon-[400] w-full break-words">
+              {singleBlog.description}
             </p>
           </div>
         </div>

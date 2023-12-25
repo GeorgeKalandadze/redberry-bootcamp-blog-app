@@ -12,49 +12,8 @@ import HorizontalScroll from '../../components/HorizontalScroll';
 
 const Home = () => {
   
-  const [showModal, setShowModal] = useState(false);
-  const { categories, isLogged, setIsLogged, blogs, animations } =
+  const { categories, blogs} =
     useGlobalContext();
-
-  const loginUser = async (email) => {
-    try {
-      const response = await axios.post(
-        "https://api.blog.redberryinternship.ge/api/login",
-        {
-          email: email,
-        },
-        {
-          headers: {
-            Authorization: `Bearer${"282c0587589f7516edf61b215c828ba8047b67aabbe141c5d17ec45c0d624fd0"}`,
-          },
-        }
-      );
-      console.log("Login successful:", response);
-
-      if (response.status === 204) {
-        setIsLogged("isLogged")
-      } else {
-        setError("invalid");
-        setIsLogged("isNotLogged");
-      }
-
-      return response.data;
-    } catch (error) {
-      console.error("Error during login:", error.response);
-      setIsLogged("isNotLogged");
-    }
-  };
-
-
-
-  const openModal = () => {
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
-
 
   const isPublished = (publishDate) => {
     const timestamp1 = new Date().getTime();
