@@ -247,7 +247,9 @@ const CreateBlog = () => {
         transition={{ duration: 0.3 }}
       >
         <div className="flex items-center justify-center bg-white px-24 py-8 ">
-          <img src={RedberryLogo} className="w-[100px] md:w-auto" />
+          <Link to="/">
+            <img src={RedberryLogo} className="w-[100px] md:w-auto" />
+          </Link>
         </div>
         <div className="px-[10px] py-8 flex md:px-24">
           <Link to="/" className="hidden lg:block">
