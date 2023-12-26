@@ -27,14 +27,15 @@ const GuestLayout = ({children}) => {
         }
       };
 
-      const isInvalidEmail = !email.endsWith("@redberry.ge");
+      const isInvalidEmail = email !== "" && !email.endsWith("@redberry.ge");
 
       const buttonStyles = {
-        backgroundColor: isInvalidEmail ? "#CCCCCC" : "#5D37F3",
-        cursor: isInvalidEmail ? "not-allowed" : "pointer",
+        backgroundColor: !email.endsWith("@redberry.ge")
+          ? "#CCCCCC"
+          : "#5D37F3",
+        cursor: !email.endsWith("@redberry.ge") ? "not-allowed" : "pointer",
       };
 
-      console.log(email);
   return (
     <>
       <Modal showModal={showModal} setShowModal={closeModal} error={isLogged}>
@@ -58,15 +59,19 @@ const GuestLayout = ({children}) => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className={`w-full border-[2px] rounded-xl px-[15px] py-[12px] outline-none ${
-                      isLogged === "isNotLogged"
+                      isLogged === "isNotLogged" || isInvalidEmail
                         ? "border-red-500"
                         : "border-[#5D37F3]"
                     }`}
                   />
-                  {isLogged === "isNotLogged" && (
+                  {(isInvalidEmail || isLogged === "isNotLogged") && (
                     <div className="flex items-center gap-2 text-red-500">
                       <img src={ErrorIcon} alt="Error Icon" />
-                      <span>ელ-ფოსტა არ მოიძებნა</span>
+                      <span>
+                        {isInvalidEmail
+                          ? "მეილი უნდა მთავრდებოდეს @redberry.ge-ით"
+                          : isLogged === "isNotLogged" ? "მეილი არ მოიძებნა" : ""}
+                      </span>
                     </div>
                   )}
                 </div>
@@ -75,7 +80,7 @@ const GuestLayout = ({children}) => {
                   className="bg-[#5D37F3] rounded-xl w-full text-white py-[12px]"
                   style={buttonStyles}
                   onClick={() => handleLogin()}
-                  disabled={isInvalidEmail}
+                  disabled={!email.endsWith("@redberry.ge")}
                 >
                   შესვლა
                 </button>
