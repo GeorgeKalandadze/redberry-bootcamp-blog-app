@@ -246,11 +246,11 @@ const CreateBlog = () => {
         exit="exit"
         transition={{ duration: 0.3 }}
       >
-        <div className="flex items-center justify-center bg-white px-24 py-8">
-          <img src={RedberryLogo} />
+        <div className="flex items-center justify-center bg-white px-24 py-8 ">
+          <img src={RedberryLogo} className="w-[100px] md:w-auto" />
         </div>
-        <div className="px-24 py-8 flex">
-          <Link to="/">
+        <div className="px-[10px] py-8 flex md:px-24">
+          <Link to="/" className="hidden lg:block">
             <button
               className={`bg-[#FFFFFF] h-[44px] w-[44px] rounded-full flex items-center justify-center`}
             >
@@ -296,7 +296,7 @@ const CreateBlog = () => {
                     </button>
                   </div>
                 )}
-                <div className="flex gap-8">
+                <div className="flex gap-8 flex-col md:flex-row">
                   <div className="flex flex-col gap-3 w-full ">
                     <label
                       className={`font-bold text-[14px] text-[#1A1A1F] ${
@@ -381,7 +381,7 @@ const CreateBlog = () => {
                   changeHandler={handleTextInputChange}
                   validation={validationErrors?.description}
                 />
-                <div className="flex gap-8 items-center">
+                <div className="flex-col flex gap-8 items-center md:flex-row">
                   <InputGroup
                     label="გამოქვეყნების თარიღი *"
                     type="date"
@@ -404,7 +404,7 @@ const CreateBlog = () => {
                     />
                   </div>
                 </div>
-                <div className="w-1/2 pr-4">
+                <div className="w-full md:pr-4 md:w-1/2">
                   <InputGroup
                     label="ელ-ფოსტა *"
                     type="text"
@@ -418,7 +418,7 @@ const CreateBlog = () => {
                 </div>
                 <div className="flex justify-end mt-10">
                   <button
-                    className={`bg-[#E4E3EB] rounded-md text-white px-10 py-3 ${
+                    className={`bg-[#E4E3EB] rounded-md text-white px-3 md:px-10 py-3 ${
                       formValid
                         ? "cursor-pointer"
                         : "cursor-not-allowed opacity-50"
