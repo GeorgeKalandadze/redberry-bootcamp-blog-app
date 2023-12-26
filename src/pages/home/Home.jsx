@@ -10,24 +10,14 @@ import HorizontalScroll from '../../components/HorizontalScroll';
 
 
 const Home = () => {
-  
-  const { categories, blogs} =
-    useGlobalContext();
-
-  const isPublished = (publishDate) => {
-    const timestamp1 = new Date().getTime();
-    const timestamp2 = new Date(publishDate).getTime();
-
-    if(timestamp2 > timestamp1){
-      return true
-    }else{
-      return false
-    }
-  }
+  const [filteredBlogs, setFilteredBlogs] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useSessionStorage(
+    "categories",
+    []
+  );
+  const { categories, blogs, isPublished } = useGlobalContext();
 
 
-
-  const [selectedCategories, setSelectedCategories] = useSessionStorage("categories",[]);
 
   const toggleCategorySelection = (categoryId) => {
     const index = selectedCategories.indexOf(categoryId);
@@ -40,7 +30,7 @@ const Home = () => {
     }
   };
 
-  const [filteredBlogs, setFilteredBlogs] = useState([]);
+  
 
   useEffect(() => {
   if (selectedCategories.length === 0) {

@@ -40,20 +40,15 @@ const CreateBlog = () => {
    const handleTextInputChange = (e) => {
      const { value, name } = e.target;
      let formattedValue = value;
-
      const updatedInfo = {
        ...info,
        [name]: formattedValue,
      };
-
     const errors = ValidateBlog(updatedInfo);
-
      setStore((prevInfo) => ({
        ...prevInfo,
        [name]: value,
      }));
-
-     
       setValidationErrors((prevErrors) => ({
         ...prevErrors,
         [name]: errors[name],
@@ -70,15 +65,12 @@ const CreateBlog = () => {
 
     const handleImageUpload = (event) => {
       const { files } = event.target;
-
       if (files && files[0]) {
         const selectedImage = files[0];
         const reader = new FileReader();
-
         reader.onload = () => {
           const dataUrl = reader.result;
           const fileName = selectedImage.name;
-
           setStore((prevInfo) => ({
             ...prevInfo,
             image: {
@@ -86,7 +78,6 @@ const CreateBlog = () => {
               name: fileName, 
             },
           }));
-
           const updatedInfo = {
             ...info,
             image: {
@@ -94,22 +85,15 @@ const CreateBlog = () => {
               name: fileName, 
             },
           };
-
           const imageErrors = ValidateBlog(updatedInfo).image;
-
           setValidationErrors((prevErrors) => ({
             ...prevErrors,
             image: imageErrors,
           }));
         };
-
         reader.readAsDataURL(selectedImage);
       }
     };
-
-    info.categories.map((category) =>
-           console.log(JSON.stringify(category.id))
-         );
 
 
       const handleImageDelete = () => {

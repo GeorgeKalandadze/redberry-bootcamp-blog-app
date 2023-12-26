@@ -19,7 +19,7 @@ const Blog = () => {
     const [swiper, setSwiper] = useState(null);
     const [singleBlog, setSingleBlog] = useState({});
     const { id } = useParams();
-    const { blogs } = useGlobalContext();
+    const { blogs,isPublished } = useGlobalContext();
 
      useEffect(() => {
        const fetchData = async () => {
@@ -74,6 +74,15 @@ const Blog = () => {
       }, [singleBlog.categories, singleBlog.id, blogs]);
 
 
+      blogs
+        .filter((blog) => !isPublished(blog.publish_date))
+        .map((item) => {
+          console.log("itemmmmmmmmmmm", item);
+        });
+
+        console.log(blogs);
+                
+                
   return (
     <GuestLayout>
       <div className="flex px-[14px] md:px-14 py-8 xl:px-24">
@@ -177,22 +186,24 @@ const Blog = () => {
               className="w-full"
               style={{ justifyContent: "space-between" }}
             >
-              {filteredBlogs.map((blog, index) => (
-                <SwiperSlide key={blog.id}>
-                  <div className="flex justify-center">
-                    <BlogCart
-                      key={blog.id}
-                      name={blog.author}
-                      date={blog.publish_date}
-                      img={blog.image}
-                      announcement={blog.title}
-                      description={blog.description}
-                      categories={blog.categories}
-                      id={blog.id}
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
+              {filteredBlogs
+                .filter((blog) => !isPublished(blog.publish_date))
+                .map((blog) => (
+                  <SwiperSlide key={blog.id}>
+                    <div className="flex justify-center">
+                      <BlogCart
+                        key={blog.id}
+                        name={blog.author}
+                        date={blog.publish_date}
+                        img={blog.image}
+                        announcement={blog.title}
+                        description={blog.description}
+                        categories={blog.categories}
+                        id={blog.id}
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))}
             </Swiper>
           </div>
         </div>

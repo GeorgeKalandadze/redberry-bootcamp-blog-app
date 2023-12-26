@@ -80,14 +80,23 @@ export const AppProvider = ({children}) => {
        }
      };
 
+      const animations = {
+        initial: { opacity: 0, x: 100 },
+        animate: { opacity: 1, x: 0 },
+        exit: { opacity: 0, x: -100 },
+      };
 
+      const isPublished = (publishDate) => {
+        const timestamp1 = new Date().getTime();
+        const timestamp2 = new Date(publishDate).getTime();
 
+        if (timestamp2 > timestamp1) {
+          return true;
+        } else {
+          return false;
+        }
+      };
 
-        const animations = {
-          initial: { opacity: 0, x: 100 },
-          animate: { opacity: 1, x: 0 },
-          exit: { opacity: 0, x: -100 },
-        };
 
 
     return (
@@ -109,6 +118,7 @@ export const AppProvider = ({children}) => {
           singleBlog,
           setSingleBlog,
           getBlogs,
+          isPublished,
         }}
       >
         {children}
