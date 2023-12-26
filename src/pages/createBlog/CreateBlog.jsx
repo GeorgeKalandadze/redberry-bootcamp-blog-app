@@ -152,57 +152,6 @@ const CreateBlog = () => {
       }, [validationErrors, info]);
 
 
-
-      // const makeBlog = async (email) => {
-      //   try {
-      //     const formData = new FormData();
-      //     formData.append("title", info.title);
-      //     formData.append("description", info.description);
-      //     formData.append("author", info.author);
-      //     formData.append("publish_date", info.publish_date);
-      //     formData.append("email", info.email);
-      //     const categoryIds = info.categories
-      //       .map((category) => category.id)
-      //       .join(",");
-      //     formData.append("categories", `[${categoryIds}]`);
-
-      //     const response = await fetch(info.image.url);
-      //     const blob = await response.blob();
-      //     formData.append("image", blob, info.image.url);
-
-      //     const blogResponse = await axios.post(
-      //       "https://api.blog.redberryinternship.ge/api/blogs",
-      //       formData,
-      //       {
-      //         headers: {
-      //           Authorization: `Bearer ${"d3a07d694ce4910bcae301535fe885e3088635d1ddaa8d0f589633f70bf0f291"}`,
-      //           "Content-Type": "multipart/form-data",
-      //         },
-      //       }
-      //     );
-      //     if (blogResponse.status === 204) {
-      //       setShowModal(true);
-      //       setStatusCode(blogResponse.status);
-      //        setStore((prevInfo) => ({
-      //          ...prevInfo,
-      //          title: "",
-      //          description: "",
-      //          image: {},
-      //          author: "",
-      //          publish_date: "",
-      //          categories: [],
-      //          email: "",
-      //        }));
-      //        setValidationErrors({})
-      //        getBlogs()
-             
-      //     }
-      //     console.log("Blog created successfully:", blogResponse);
-      //   } catch (error) {
-      //     console.error("Error creating blog:", error);
-      //   }
-      // };
-
       const makeBlog = async () => {
         try {
           const formData = new FormData();

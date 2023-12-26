@@ -18,6 +18,23 @@ const GuestLayout = ({children}) => {
       const closeModal = () => {
         setShowModal(false);
       };
+
+      const handleLogin = () => {
+        if (email.endsWith("@redberry.ge")) {
+          loginUser(email);
+        } else {
+          console.log("Email should end with @redberry.ge");
+        }
+      };
+
+      const isInvalidEmail = !email.endsWith("@redberry.ge");
+
+      const buttonStyles = {
+        backgroundColor: isInvalidEmail ? "#CCCCCC" : "#5D37F3",
+        cursor: isInvalidEmail ? "not-allowed" : "pointer",
+      };
+
+      console.log(email);
   return (
     <>
       <Modal showModal={showModal} setShowModal={closeModal} error={isLogged}>
@@ -56,7 +73,9 @@ const GuestLayout = ({children}) => {
                 <button
                   type="button"
                   className="bg-[#5D37F3] rounded-xl w-full text-white py-[12px]"
-                  onClick={() => loginUser(email)}
+                  style={buttonStyles}
+                  onClick={() => handleLogin()}
+                  disabled={isInvalidEmail}
                 >
                   შესვლა
                 </button>

@@ -31,7 +31,7 @@ const BlogCart = ({
           />
         ))}
       </HorizontalScroll>
-      <p className="text-[#404049] font-[400] text-[16px] leading-[28px] overflow-hidden line-clamp-3 h-[56px]">
+      <p className="text-[#404049] font-[400] text-[16px] leading-[28px] overflow-hidden line-clamp-3 h-auto  lg:h-[56px]">
         {description}
       </p>
       <Link
