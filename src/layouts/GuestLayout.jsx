@@ -10,7 +10,6 @@ const GuestLayout = ({children}) => {
     const { isLogged, animations, setEmail, email, loginUser } =
       useGlobalContext();
      
-
       const openModal = () => {
         setShowModal(true);
       };
