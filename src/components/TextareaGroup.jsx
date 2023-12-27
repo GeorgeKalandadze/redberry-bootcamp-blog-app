@@ -29,9 +29,13 @@ const TextareaGroup = ({
             ? "border-[1px] border-green-500"
             : ""
         }
-        ${validation == "valid" ? "bg-[#F8FFF8]" : ""} ${
-          validation === "invalid" ? "shakeAnimation" : ""
-        }`}
+        ${
+          validation == "valid"
+            ? "bg-[#F8FFF8]"
+            : validation == "invalid"
+            ? "bg-[#FAF2F3]"
+            : ""
+        } ${validation === "invalid" ? "shakeAnimation" : ""}`}
         value={value}
         onChange={(event) => changeHandler(event)}
       ></textarea>

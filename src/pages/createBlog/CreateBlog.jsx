@@ -122,6 +122,9 @@ const CreateBlog = () => {
 
         const isFocused = areAllAuthorFieldValid || isAnyAuthorFieldInvalid;
 
+
+        console.log(validationErrors);
+
   return (
     <>
       {statusCode === 204 && (
@@ -182,7 +185,17 @@ const CreateBlog = () => {
                 {Object.keys(info.image).length == 0 ? (
                   <div className="flex flex-col gap-3">
                     <p className="font-medium leading-[20px]">ატვირთეთ ფოტო</p>
-                    <div className="relative cursor-pointer w-full bg-[#F4F3FF] border-[2px] border-dashed border-[#85858D] rounded-xl justify-center flex flex-col items-center gap-6 h-[180px]">
+                    <div
+                      className={`relative cursor-pointer w-full ${
+                        validationErrors?.image == "invalid"
+                          ? "bg-[#FAF2F3]"
+                          : "bg-[#F4F3FF]"
+                      }  border-[2px] border-dashed border-[#85858D] ${
+                        validationErrors?.image == "invalid"
+                          ? "border-red-500"
+                          : "border-[#85858D]"
+                      } rounded-xl justify-center flex flex-col items-center gap-6 h-[180px]`}
+                    >
                       <input
                         type="file"
                         name="image"
@@ -231,11 +244,17 @@ const CreateBlog = () => {
                           validationErrors?.author && isAnyAuthorFieldInvalid
                             ? "border-red-500"
                             : areAllAuthorFieldValid
-                            ? "border-green-500 bg-[#F8FFF8]"
+                            ? "border-green-500 "
                             : "#c3c2c8"
                         } border-[#c3c2c8] rounded-2xl px-[15px] py-[16px] outline-none
                         ${!isFocused ? "focus:border-[#5D37F3]" : ""} ${
                           isAnyAuthorFieldInvalid ? "shakeAnimation" : ""
+                        } ${
+                          validationErrors?.author && isAnyAuthorFieldInvalid
+                            ? "bg-[#FAF2F3]"
+                            : areAllAuthorFieldValid
+                            ? "bg-[#F8FFF8]"
+                            : ""
                         }`}
                         onChange={handleTextInputChange}
                       />

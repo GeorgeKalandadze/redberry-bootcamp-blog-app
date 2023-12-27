@@ -65,11 +65,23 @@ const MultiSelectDropdown = ({ className = "", isValid }) => {
           : ""
       } ${isValid === "invalid" ? "shakeAnimation" : ""} ${
         info.categories.length > 0 ? "py-[12px]" : "py-[16px]"
+      } ${
+        isValid == "valid"
+          ? "bg-[#F8FFF8]"
+          : isValid == "invalid"
+          ? "bg-[#FAF2F3]"
+          : ""
       }`}
       style={{ boxSizing: "border-box" }}
     >
       <div
-        className={`bg-white flex items-center cursor-pointer justify-between`}
+        className={`bg-white flex items-center cursor-pointer justify-between ${
+          isValid == "valid"
+            ? "bg-[#F8FFF8]"
+            : isValid == "invalid"
+            ? "bg-[#FAF2F3]"
+            : ""
+        }`}
         onClick={handleToggle}
       >
         {info.categories.length > 0 ? (

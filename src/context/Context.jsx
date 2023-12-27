@@ -161,7 +161,7 @@ export const AppProvider = ({children}) => {
         }));
         setValidationErrors((prevErrors) => ({
           ...prevErrors,
-          image: {},
+          image: "invalid",
         }));
       };
 
