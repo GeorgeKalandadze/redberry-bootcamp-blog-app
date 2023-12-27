@@ -2,6 +2,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useSessionStorage } from "../hooks/useSessionStorage";
 import axios from "axios";
 import axiosClient from "../config/axiosClient";
+import { ValidateBlog } from "../validation/validation";
+
+
 const info = {
   title: "",
   description: "",
@@ -86,6 +89,7 @@ export const AppProvider = ({children}) => {
         exit: { opacity: 0, x: -100 },
       };
 
+
       const isPublished = (publishDate) => {
         const timestamp1 = new Date().getTime();
         const timestamp2 = new Date(publishDate).getTime();
@@ -98,6 +102,68 @@ export const AppProvider = ({children}) => {
       };
 
 
+      const handleTextInputChange = (e) => {
+        const { value, name } = e.target;
+        let formattedValue = value;
+        const updatedInfo = {
+          ...info,
+          [name]: formattedValue,
+        };
+        const errors = ValidateBlog(updatedInfo);
+        setStore((prevInfo) => ({
+          ...prevInfo,
+          [name]: value,
+        }));
+        setValidationErrors((prevErrors) => ({
+          ...prevErrors,
+          [name]: errors[name],
+        }));
+      };
+
+
+      const handleImageUpload = (event) => {
+        const { files } = event.target;
+        if (files && files[0]) {
+          const selectedImage = files[0];
+          const reader = new FileReader();
+          reader.onload = () => {
+            const dataUrl = reader.result;
+            const fileName = selectedImage.name;
+            setStore((prevInfo) => ({
+              ...prevInfo,
+              image: {
+                url: dataUrl,
+                name: fileName,
+              },
+            }));
+            const updatedInfo = {
+              ...info,
+              image: {
+                url: dataUrl,
+                name: fileName,
+              },
+            };
+            const imageErrors = ValidateBlog(updatedInfo).image;
+            setValidationErrors((prevErrors) => ({
+              ...prevErrors,
+              image: imageErrors,
+            }));
+          };
+          reader.readAsDataURL(selectedImage);
+        }
+      };
+
+
+      const handleImageDelete = () => {
+        setStore((prevInfo) => ({
+          ...prevInfo,
+          image: {},
+        }));
+        setValidationErrors((prevErrors) => ({
+          ...prevErrors,
+          image: {},
+        }));
+      };
 
     return (
       <AppContext.Provider
@@ -119,6 +185,9 @@ export const AppProvider = ({children}) => {
           setSingleBlog,
           getBlogs,
           isPublished,
+          handleTextInputChange,
+          handleImageUpload,
+          handleImageDelete,
         }}
       >
         {children}

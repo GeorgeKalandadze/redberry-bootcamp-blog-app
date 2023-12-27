@@ -20,6 +20,9 @@ const Blog = () => {
     const [singleBlog, setSingleBlog] = useState({});
     const { id } = useParams();
     const { blogs,isPublished } = useGlobalContext();
+    const [isBeginning, setIsBeginning] = useState(true);
+    const [isEnd, setIsEnd] = useState(false);
+    const [filteredBlogs, setFilteredBlogs] = useState([]);
 
      useEffect(() => {
        const fetchData = async () => {
@@ -46,8 +49,6 @@ const Blog = () => {
       }
     };
 
-    const [isBeginning, setIsBeginning] = useState(true);
-    const [isEnd, setIsEnd] = useState(false);
 
     const handleSlideChange = (swiper) => {
       setIsBeginning(swiper.isBeginning);
@@ -56,22 +57,21 @@ const Blog = () => {
 
 
 
-      const [filteredBlogs, setFilteredBlogs] = useState([]);
 
-      useEffect(() => {
-        if (singleBlog.categories && singleBlog.categories.length > 0) {
-          const filtered = blogs.filter(
-            (item) =>
-              item.id !== singleBlog.id &&
-              item.categories.some((blogCat) =>
-                singleBlog.categories.some(
-                  (selectedCat) => blogCat.id === selectedCat.id
-                )
+    useEffect(() => {
+      if (singleBlog.categories && singleBlog.categories.length > 0) {
+        const filtered = blogs.filter(
+          (item) =>
+            item.id !== singleBlog.id &&
+            item.categories.some((blogCat) =>
+              singleBlog.categories.some(
+                (selectedCat) => blogCat.id === selectedCat.id
               )
-          );
-          setFilteredBlogs(filtered);
-        }
-      }, [singleBlog.categories, singleBlog.id, blogs]);
+            )
+        );
+        setFilteredBlogs(filtered);
+      }
+    }, [singleBlog.categories, singleBlog.id, blogs]);
 
                 
                 
@@ -109,7 +109,7 @@ const Blog = () => {
               {singleBlog && singleBlog.categories
                 ? singleBlog.categories.map((category) => (
                     <CategoryButton
-                      key={category.id} // Remember to provide a unique key when using map in React
+                      key={category.id}
                       text={category.title}
                       bgColor={category.background_color}
                       textColor={category.text_color}

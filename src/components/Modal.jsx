@@ -57,7 +57,7 @@ const Modal = ({ showModal, setShowModal, children }) => {
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex justify-end" onClick={closeModal}>
+            <div className="flex justify-end cursor-pointer" onClick={closeModal}>
               <img src={CloseIcon} />
             </div>
             {children}

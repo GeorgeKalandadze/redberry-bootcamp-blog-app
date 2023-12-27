@@ -26,88 +26,12 @@ const CreateBlog = () => {
       setValidationErrors,
       validationErrors,
       animations,
-      getBlogs
+      getBlogs,
+      handleTextInputChange,
+      handleImageUpload,
+      handleImageDelete,
     } = useGlobalContext();
-
-
-    const handleSelect = (selectedOption, field) => {
-      setStore((formData) => ({
-        ...formData,
-        [field]: selectedOption,
-      }));
-    };
-
-   const handleTextInputChange = (e) => {
-     const { value, name } = e.target;
-     let formattedValue = value;
-     const updatedInfo = {
-       ...info,
-       [name]: formattedValue,
-     };
-    const errors = ValidateBlog(updatedInfo);
-     setStore((prevInfo) => ({
-       ...prevInfo,
-       [name]: value,
-     }));
-      setValidationErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: errors[name],
-      }));
-   };
-
-
-
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      makeBlog();
-    };
-
-
-    const handleImageUpload = (event) => {
-      const { files } = event.target;
-      if (files && files[0]) {
-        const selectedImage = files[0];
-        const reader = new FileReader();
-        reader.onload = () => {
-          const dataUrl = reader.result;
-          const fileName = selectedImage.name;
-          setStore((prevInfo) => ({
-            ...prevInfo,
-            image: {
-              url: dataUrl,
-              name: fileName, 
-            },
-          }));
-          const updatedInfo = {
-            ...info,
-            image: {
-              url: dataUrl,
-              name: fileName, 
-            },
-          };
-          const imageErrors = ValidateBlog(updatedInfo).image;
-          setValidationErrors((prevErrors) => ({
-            ...prevErrors,
-            image: imageErrors,
-          }));
-        };
-        reader.readAsDataURL(selectedImage);
-      }
-    };
-
-
-      const handleImageDelete = () => {
-        setStore((prevInfo) => ({
-          ...prevInfo,
-          image: {},
-        }));
-        setValidationErrors((prevErrors) => ({
-          ...prevErrors,
-          image: {},
-        }));
-      };
-
-     
+    
 
       const checkFormValidity = () => {
         const errors = ValidateBlog(info);
@@ -176,6 +100,12 @@ const CreateBlog = () => {
         } catch (error) {
           console.error("Error creating blog:", error);
         }
+      };
+
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        makeBlog();
       };
 
 
@@ -382,10 +312,6 @@ const CreateBlog = () => {
                     </p>
                     <MultiSelectDropdown
                       label="პოზიცია"
-                      //   value={info?.position?.label}
-                      handleChange={(selectedOption) =>
-                        handleSelect(selectedOption, "position")
-                      }
                       isValid={validationErrors?.categories}
                     />
                   </div>
