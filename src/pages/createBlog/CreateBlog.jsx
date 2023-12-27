@@ -12,7 +12,6 @@ import CloseIcon from '../../assets/close.png'
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Modal from '../../components/Modal';
-import axios from 'axios';
 import SuccessIcon from "../../assets/success.png";
 import axiosClient from '../../config/axiosClient';
 

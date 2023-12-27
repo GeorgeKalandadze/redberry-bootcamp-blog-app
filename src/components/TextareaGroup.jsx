@@ -27,7 +27,7 @@ const TextareaGroup = ({
             ? "border-[1px] border-red-500"
             : validation === "valid"
             ? "border-[1px] border-green-500"
-            : ""
+            : "border-[1px] border-[#c3c2c8] "
         }
         ${
           validation == "valid"

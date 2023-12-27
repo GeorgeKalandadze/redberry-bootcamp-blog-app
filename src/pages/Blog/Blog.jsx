@@ -104,7 +104,7 @@ const Blog = () => {
               )}
             </p>
 
-            <h1 className="font-bold text-[30px] leading-[40px]">
+            <h1 className="font-[700] text-[32px] leading-[40px]">
               {singleBlog.title}
             </h1>
             <HorizontalScroll className="flex gap-3 overflow-hidden">
@@ -119,7 +119,7 @@ const Blog = () => {
                   ))
                 : null}
             </HorizontalScroll>
-            <p className="text-[#404049] text-[16px] leading-[28px] fon-[400] w-full break-words">
+            <p className="text-[#404049] text-[16px] leading-[28px] font-[400] w-full break-words">
               {singleBlog.description}
             </p>
           </div>
