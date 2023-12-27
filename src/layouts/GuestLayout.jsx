@@ -57,7 +57,7 @@ const GuestLayout = ({children}) => {
                     placeholder="Example@redberry.ge"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className={`w-full border-[2px] rounded-xl px-[15px] py-[12px] outline-none ${
+                    className={`text -[14px] font-normal  w-full border-[2px] rounded-xl px-[15px] py-[12px] outline-none ${
                       isLogged === "isNotLogged" || isInvalidEmail
                         ? "border-red-500"
                         : "border-[#5D37F3]"

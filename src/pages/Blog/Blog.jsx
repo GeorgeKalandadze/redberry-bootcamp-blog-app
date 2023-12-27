@@ -73,14 +73,6 @@ const Blog = () => {
         }
       }, [singleBlog.categories, singleBlog.id, blogs]);
 
-
-      blogs
-        .filter((blog) => !isPublished(blog.publish_date))
-        .map((item) => {
-          console.log("itemmmmmmmmmmm", item);
-        });
-
-        console.log(blogs);
                 
                 
   return (
@@ -110,7 +102,7 @@ const Blog = () => {
               )}
             </p>
 
-            <h1 className="font-bold text-[30px] leading-[45px]">
+            <h1 className="font-bold text-[30px] leading-[40px]">
               {singleBlog.title}
             </h1>
             <HorizontalScroll className="flex gap-3 overflow-hidden">
