@@ -73,7 +73,9 @@ const Blog = () => {
       }
     }, [singleBlog.categories, singleBlog.id, blogs]);
 
-                
+    const scrollToTop = () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
                 
   return (
     <GuestLayout>
@@ -181,7 +183,7 @@ const Blog = () => {
               {filteredBlogs
                 .filter((blog) => !isPublished(blog.publish_date))
                 .map((blog) => (
-                  <SwiperSlide key={blog.id}>
+                  <SwiperSlide key={blog.id} onClick={scrollToTop}>
                     <div className="flex justify-center">
                       <BlogCart
                         key={blog.id}
