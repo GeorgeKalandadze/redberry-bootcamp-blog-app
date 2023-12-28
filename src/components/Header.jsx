@@ -7,7 +7,7 @@ const Header = ({ openModal }) => {
   const {isLogged} = useGlobalContext();
   const navigate = useNavigate()
   return (
-    <div className="flex items-center justify-between bg-white px-[30px] md:px-14 py-8 2xl:px-24">
+    <div className="flex sticky top-0 z-40 items-center justify-between bg-white px-[30px] md:px-14 py-8 2xl:px-24">
       <Link to="/">
         <img src={RedberryLogo} className="w-[100px] md:w-auto" />
       </Link>

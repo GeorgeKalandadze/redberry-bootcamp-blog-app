@@ -123,6 +123,7 @@ const MultiSelectDropdown = ({ className = "", isValid }) => {
               : "rotate-0 duration-300 ease-in-out"
           }`}
         />
+
       </div>
       <ul
         style={{
