@@ -11,6 +11,9 @@ const InputGroup = ({
   focusHandler,
 }) => {
   const isFocused = isValid !== "valid" && isValid !== "invalid";
+  const inputStyles = {
+    transition: "border-color 0.5s ease, background-color 0.5s ease",
+  };
   return (
     <div className="flex flex-col gap-3 w-full ">
       <label
@@ -28,15 +31,22 @@ const InputGroup = ({
           value={value}
           onFocus={focusHandler}
           className={`w-full border-[2px] ${
-            isValid == "invalid"
-              ? "border-red-500"
-              : isValid == "valid"
-              ? "border-green-500"
+            isValid === "invalid"
+              ? "border-red-500 transition duration-300"
+              : isValid === "valid"
+              ? "border-green-500 transition duration-300"
               : "#c3c2c8"
           } border-[#c3c2c8] rounded-2xl px-[15px] py-[16px] outline-none
-          ${isValid == "valid" ? "bg-[#F8FFF8]" : isValid == "invalid" ? "bg-[#FAF2F3]":""} ${
-            isFocused ? "focus:border-[#5D37F3]" : ""
-          } ${isValid === "invalid" ? "shakeAnimation" : ""} `}
+          ${
+            isValid === "valid"
+              ? "bg-[#F8FFF8] transition duration-300"
+              : isValid === "invalid"
+              ? "bg-[#FAF2F3] transition duration-300"
+              : ""
+          } ${isFocused ? "focus:border-[#5D37F3] transition duration-300" : ""} 
+          ${
+            isValid === "invalid" ? "shakeAnimation" : ""
+          }`}
           onChange={changeHandler}
         />
       </div>

@@ -16,7 +16,7 @@ const Home = () => {
     []
   );
   const { categories, blogs, isPublished } = useGlobalContext();
-
+  
 
 
   const toggleCategorySelection = (categoryId) => {

@@ -16,7 +16,16 @@ const BlogCart = ({
   return (
     <div className="flex flex-col gap-4 w-full lg:w-[450px] xl:w-[550px] 2xl:w-[500px]">
       <Link to={`/blog/${id}`}>
-        <img src={img} className="w-full h-[328px] rounded-xl" alt={name} />
+        <div className="relative overflow-hidden rounded-xl group">
+          <div className="relative">
+            <img
+              src={img}
+              className="w-full h-[328px] rounded-xl transition duration-500 transform-gpu group-hover:scale-125"
+              alt={name}
+            />
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-50 transition duration-400"></div>
+          </div>
+        </div>
       </Link>
       <p className="text-[16px] leading-[20px]">{name}</p>
       <p className="font-small text-[#85858D]">{date}</p>

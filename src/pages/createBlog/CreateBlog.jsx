@@ -170,7 +170,7 @@ const CreateBlog = () => {
         <div className="px-[10px] py-8 flex md:px-24">
           <Link to="/" className="hidden lg:block">
             <button
-              className={`bg-[#FFFFFF] h-[44px] w-[44px] rounded-full flex items-center justify-center`}
+              className={`bg-[#E4E3EB] h-[44px] w-[44px] rounded-full flex items-center justify-center`}
             >
               <img src={ArrowIcon2} />
             </button>
@@ -254,7 +254,7 @@ const CreateBlog = () => {
                             : areAllAuthorFieldValid
                             ? "bg-[#F8FFF8]"
                             : ""
-                        }`}
+                        } duration-300`}
                         onChange={handleTextInputChange}
                       />
                     </div>
