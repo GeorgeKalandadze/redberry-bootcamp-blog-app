@@ -1,5 +1,5 @@
 # Redberry Bootcamp Blog App
-this is redberry-blog-app, responsive version, which is written on React js and several of its packages are used for Redberry bootcamp
+this is redberry-blog-app, responsive version, which is written on React js and several of its packages are used, this app is for Redberry bootcamp, and this was very big experience for me.
 
 ### Used packages
 
