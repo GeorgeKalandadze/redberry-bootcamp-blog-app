@@ -1,8 +1,23 @@
-# React + Vite
+# Redberry Bootcamp Blog App
+this is redberry-blog-app, responsive version, which is written on React js and several of its packages are used for Redberry bootcamp
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Used packages
 
-Currently, two official plugins are available:
+- **[Tailwind Css](https://tailwindcss.com/)**
+- **[Framer Motion](https://www.framer.com/motion/)**
+- **[Swiper js](https://swiperjs.com/)**
+- **[React Router DOM](https://reactrouter.com/en/main)**
+- **[Axios](https://axios-http.com/)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Installation & Setup
+```bash
+git clone https://github.com/GeorgeKalandadze/redberry-bootcamp-blog-app.git
+
+npm install
+
+npm run dev
+```
+
+## Production site link
+[https://www.example.com](https://redberry-bootcamp-blog-app.vercel.app/)https://redberry-bootcamp-blog-app.vercel.app/
