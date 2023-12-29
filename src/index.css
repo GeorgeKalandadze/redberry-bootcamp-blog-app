@@ -73,7 +73,30 @@ body {
 }
 
 /* Apply the animation to the elements */
-.shakeAnimation {
-  animation: shakeKeyframes 0.4s linear ;
+.blog-cart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
 }
 
+.blog-cart-item {
+  width: 100%; /* Ensures each item takes up the full width of the grid cell */
+}
+
+@media (min-width: 768px) {
+  .blog-cart-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns from 768px */
+  }
+}
+
+@media (min-width: 1280px) {
+  .blog-cart-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns from 1280px */
+  }
+}
+
+@media (max-width: 1024px) {
+  .blog-cart-grid {
+    grid-template-columns: 1fr; /* Single column layout under 768px */
+  }
+}

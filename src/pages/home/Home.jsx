@@ -54,7 +54,7 @@ const Home = () => {
         <h1 className="text-[60px] font-bold 2xl:text-[74px]">ბლოგი</h1>
         <img
           src={HomeImg}
-          className="h-[350px] w-full lg:w-[600px] 2xl:w-[624px]"
+          className="h-[350px] w-full lg:w-[600px] 2xl:w-auto"
         />
       </div>
       <div className=" py-8  flex justify-center px-[30px] md:px-14 2xl:px-24">
@@ -82,20 +82,21 @@ const Home = () => {
         </HorizontalScroll>
       </div>
 
-      <div className="px-[30px] py-8 flex justify-between flex-wrap gap-y-6 md:px-14 2xl:px-24 2xl:gap-y-12">
+      <div className="px-[30px] py-8 md:px-14 2xl:px-24 2xl:gap-y-20 blog-cart-grid">
         {filteredBlogs
           .filter((blog) => !isPublished(blog.publish_date))
           .map((blog) => (
-            <BlogCart
-              key={blog.id}
-              name={blog.author}
-              date={blog.publish_date}
-              img={blog.image}
-              announcement={blog.title}
-              description={blog.description}
-              categories={blog.categories}
-              id={blog.id}
-            />
+            
+              <BlogCart
+                name={blog.author}
+                date={blog.publish_date}
+                img={blog.image}
+                announcement={blog.title}
+                description={blog.description}
+                categories={blog.categories}
+                id={blog.id}
+              />
+           
           ))}
       </div>
     </GuestLayout>
