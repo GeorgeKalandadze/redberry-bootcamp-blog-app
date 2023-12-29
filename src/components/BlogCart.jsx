@@ -14,7 +14,7 @@ const BlogCart = ({
   id,
 }) => {
   return (
-    <div className="flex flex-col gap-4 w-full lg:w-[450px] xl:w-[550px] 2xl:w-[500px]">
+    <div className="flex flex-col gap-4 w-full lg:w-[450px] xl:w-[550px] 2xl:w-[550px]">
       <Link to={`/blog/${id}`}>
         <div className="relative overflow-hidden rounded-xl group">
           <div className="relative">

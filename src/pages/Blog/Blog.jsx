@@ -146,7 +146,7 @@ const Blog = () => {
                       ))
                     : null}
                 </HorizontalScroll>
-                <p className="text-[#404049] text-[16px] leading-[28px] font-[400] w-full break-words">
+                <p className="text-[#404049] text-[16px] leading-[28px] font-[400] w-full break-words mt-4">
                   {singleBlog.description}
                 </p>
               </div>
@@ -184,7 +184,7 @@ const Blog = () => {
             </div>
             <div className="flex items-center justify-center">
               <div
-                className="px-[10px] md:px-14 lg:px-6 border-box w-full mt-8"
+                className="px-[10px] md:px-14 lg:px-20 border-box w-full mt-8"
                 style={{ boxSizing: "border-box" }}
               >
                 <Swiper

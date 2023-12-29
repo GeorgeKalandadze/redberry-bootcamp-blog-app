@@ -54,7 +54,7 @@ const Home = () => {
         <h1 className="text-[60px] font-bold 2xl:text-[74px]">ბლოგი</h1>
         <img
           src={HomeImg}
-          className="h-[350px] w-full lg:w-[600px] 2xl:w-auto"
+          className="h-[350px] w-full lg:w-[600px] 2xl:w-[624px]"
         />
       </div>
       <div className=" py-8  flex justify-center px-[30px] md:px-14 2xl:px-24">
